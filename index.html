@@ -365,30 +365,52 @@ input,textarea,select{font-family:inherit;}
 
 /* ========== AI SUMMARY GENERATOR ========== */
 .summary-container{grid-column:1/-1;}
-.summary-upload{
-  border:2px dashed var(--border);border-radius:var(--radius);
-  padding:32px;text-align:center;transition:border-color .2s;
-  cursor:pointer;
+.summary-upload-zone{
+  border:2px dashed var(--border-hover);border-radius:var(--radius);
+  padding:28px;text-align:center;transition:all .3s var(--ease);
+  cursor:pointer;position:relative;overflow:hidden;
 }
-.summary-upload:hover{border-color:var(--accent-border);}
-.summary-upload .su-icon{font-size:2rem;margin-bottom:8px;}
-.summary-upload .su-text{color:var(--text-secondary);font-size:.9rem;}
-.summary-upload .su-hint{color:var(--text-muted);font-size:.75rem;margin-top:4px;}
+.summary-upload-zone:hover,.summary-upload-zone.dragover{
+  border-color:var(--accent);background:var(--accent-muted);
+}
+.summary-upload-zone .su-icon{font-size:2.2rem;margin-bottom:8px;}
+.summary-upload-zone .su-text{color:var(--text-secondary);font-size:.9rem;}
+.summary-upload-zone .su-hint{color:var(--text-muted);font-size:.75rem;margin-top:6px;}
+.summary-upload-zone input[type="file"]{
+  position:absolute;inset:0;opacity:0;cursor:pointer;
+}
+.summary-file-info{
+  display:none;align-items:center;gap:10px;margin-top:12px;
+  padding:10px 14px;background:var(--accent-muted);border:1px solid var(--accent-border);
+  border-radius:var(--radius-sm);font-size:.85rem;
+}
+.summary-file-info.visible{display:flex;}
+.summary-file-info .sf-name{flex:1;font-weight:600;color:var(--accent);}
+.summary-file-info .sf-size{color:var(--text-muted);font-size:.78rem;}
+.summary-file-info .sf-remove{
+  background:none;border:none;color:var(--red);font-size:1.1rem;cursor:pointer;padding:4px;
+}
+.summary-or{
+  text-align:center;color:var(--text-muted);font-size:.8rem;
+  margin:12px 0;font-weight:500;
+}
 .summary-textarea{
-  width:100%;min-height:120px;margin-top:12px;padding:14px;
+  width:100%;min-height:100px;padding:14px;
   background:var(--bg-input);border:1px solid var(--border);
   border-radius:var(--radius-sm);color:var(--text-primary);
   font-size:.88rem;line-height:1.6;resize:vertical;
 }
 .summary-textarea:focus{outline:none;border-color:var(--accent);}
+.summary-actions{display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap;}
 .summary-gen-btn{
-  margin-top:12px;padding:12px 28px;background:var(--accent);
+  padding:12px 28px;background:var(--accent);
   color:#fff;border:none;border-radius:var(--radius-sm);
   font-weight:600;font-size:.9rem;transition:background .2s;
   display:flex;align-items:center;gap:8px;
 }
 .summary-gen-btn:hover{background:var(--accent-hover);}
 .summary-gen-btn:disabled{opacity:.4;cursor:not-allowed;}
+.summary-status{font-size:.8rem;color:var(--text-muted);}
 .summary-output{
   margin-top:16px;padding:20px;background:var(--bg-surface);
   border:1px solid var(--border);border-radius:var(--radius);
@@ -844,13 +866,29 @@ function renderSubject(el, key, subj) {
 
   // === AI SUMMARY GENERATOR ===
   h += `<div class="panel panel-full summary-container anim-d2">
-    <div class="panel-head"><span>✨ Generator Rezumate AI</span><span style="font-size:.72rem;color:var(--text-muted);">lipește text → rezumat structurat</span></div>
+    <div class="panel-head"><span>✨ Generator Rezumate AI</span><span style="font-size:.72rem;color:var(--text-muted);">upload fișier sau lipește text</span></div>
     <div class="panel-body">
       ${!state.apiKey ? '<div style="text-align:center;padding:20px;color:var(--text-muted);">⚠️ Configurează API key-ul din Dashboard</div>' :
-      `<textarea class="summary-textarea" id="summaryInput" placeholder="Lipește aici textul din curs, PDF, sau notițe... Claude va genera un rezumat structurat cu punctele cheie."></textarea>
-      <button class="summary-gen-btn" id="summaryBtn" onclick="generateSummary('${key}')">
-        <span>✨</span> Generează Rezumat
-      </button>
+      `<div class="summary-upload-zone" id="uploadZone">
+        <input type="file" id="fileUpload" accept=".pdf,.txt,.doc,.docx,.md,.csv,.pptx" onchange="handleFileUpload(event)">
+        <div class="su-icon">📄</div>
+        <div class="su-text">Trage un fișier aici sau click pentru a încărca</div>
+        <div class="su-hint">PDF, TXT, DOCX, PPTX, MD, CSV — max 10MB</div>
+      </div>
+      <div class="summary-file-info" id="fileInfo">
+        <span>📎</span>
+        <span class="sf-name" id="fileName"></span>
+        <span class="sf-size" id="fileSize"></span>
+        <button class="sf-remove" onclick="removeFile()">✕</button>
+      </div>
+      <div class="summary-or">— sau lipește textul manual —</div>
+      <textarea class="summary-textarea" id="summaryInput" placeholder="Lipește aici textul din curs, PDF, sau notițe..."></textarea>
+      <div class="summary-actions">
+        <button class="summary-gen-btn" id="summaryBtn" onclick="generateSummary('${key}')">
+          <span>✨</span> Generează Rezumat
+        </button>
+        <span class="summary-status" id="summaryStatus"></span>
+      </div>
       <div class="summary-output" id="summaryOutput"></div>`}
     </div>
   </div>`;
@@ -905,6 +943,9 @@ function renderSubject(el, key, subj) {
   }
 
   if (key === 'mccp') setupPresNav();
+
+  // Setup file upload drag & drop
+  setupDragDrop();
 
   // Scroll chat to bottom
   const cm = document.getElementById('chatMessages');
@@ -1042,13 +1083,167 @@ function formatAI(text) {
 // ============================
 // AI SUMMARY GENERATOR
 // ============================
+let uploadedFileText = '';
+
+function handleFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  processFile(file);
+}
+
+function processFile(file) {
+  const maxSize = 10 * 1024 * 1024; // 10MB
+  if (file.size > maxSize) {
+    alert('Fișierul e prea mare (max 10MB)');
+    return;
+  }
+
+  const ext = file.name.split('.').pop().toLowerCase();
+  const statusEl = document.getElementById('summaryStatus');
+  if (statusEl) statusEl.textContent = '⏳ Se extrage textul...';
+
+  // Show file info
+  const fi = document.getElementById('fileInfo');
+  const fn = document.getElementById('fileName');
+  const fs = document.getElementById('fileSize');
+  if (fi) fi.classList.add('visible');
+  if (fn) fn.textContent = file.name;
+  if (fs) fs.textContent = formatFileSize(file.size);
+
+  if (ext === 'txt' || ext === 'md' || ext === 'csv') {
+    // Plain text files
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      uploadedFileText = e.target.result;
+      document.getElementById('summaryInput').value = uploadedFileText.substring(0, 500) + (uploadedFileText.length > 500 ? '\n\n... [text complet încărcat — ' + uploadedFileText.length + ' caractere]' : '');
+      if (statusEl) statusEl.textContent = '✅ ' + uploadedFileText.length + ' caractere extrase';
+    };
+    reader.readAsText(file);
+  } else if (ext === 'pdf') {
+    // PDF — use PDF.js
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        if (!window.pdfjsLib) {
+          // Load PDF.js dynamically
+          await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+        const typedArray = new Uint8Array(e.target.result);
+        const pdf = await pdfjsLib.getDocument(typedArray).promise;
+        let text = '';
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          text += content.items.map(item => item.str).join(' ') + '\n\n';
+        }
+        uploadedFileText = text.trim();
+        document.getElementById('summaryInput').value = uploadedFileText.substring(0, 500) + (uploadedFileText.length > 500 ? '\n\n... [PDF complet — ' + pdf.numPages + ' pagini, ' + uploadedFileText.length + ' caractere]' : '');
+        if (statusEl) statusEl.textContent = '✅ PDF: ' + pdf.numPages + ' pagini, ' + uploadedFileText.length + ' caractere';
+      } catch(err) {
+        if (statusEl) statusEl.textContent = '⚠️ Eroare PDF: ' + err.message;
+        uploadedFileText = '';
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  } else if (ext === 'docx' || ext === 'pptx') {
+    // DOCX/PPTX — extract text from XML inside ZIP using JSZip
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        if (!window.JSZip) {
+          await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js');
+        }
+        const zip = await JSZip.loadAsync(e.target.result);
+        let text = '';
+        
+        if (ext === 'docx') {
+          const docXml = await zip.file('word/document.xml')?.async('text');
+          if (docXml) {
+            // Extract text from XML tags
+            text = docXml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+          }
+        } else if (ext === 'pptx') {
+          // Extract from all slides
+          const slideFiles = Object.keys(zip.files).filter(f => f.match(/ppt\/slides\/slide\d+\.xml/)).sort();
+          for (const sf of slideFiles) {
+            const slideXml = await zip.file(sf)?.async('text');
+            if (slideXml) {
+              text += slideXml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() + '\n\n';
+            }
+          }
+        }
+        
+        uploadedFileText = text.trim();
+        document.getElementById('summaryInput').value = uploadedFileText.substring(0, 500) + (uploadedFileText.length > 500 ? '\n\n... [' + ext.toUpperCase() + ' complet — ' + uploadedFileText.length + ' caractere]' : '');
+        if (statusEl) statusEl.textContent = '✅ ' + ext.toUpperCase() + ': ' + uploadedFileText.length + ' caractere extrase';
+      } catch(err) {
+        if (statusEl) statusEl.textContent = '⚠️ Eroare ' + ext + ': ' + err.message;
+        uploadedFileText = '';
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    if (statusEl) statusEl.textContent = '⚠️ Format nesuportat: ' + ext;
+  }
+}
+
+function removeFile() {
+  uploadedFileText = '';
+  const fi = document.getElementById('fileInfo');
+  if (fi) fi.classList.remove('visible');
+  const inp = document.getElementById('fileUpload');
+  if (inp) inp.value = '';
+  document.getElementById('summaryInput').value = '';
+  const statusEl = document.getElementById('summaryStatus');
+  if (statusEl) statusEl.textContent = '';
+}
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/(1024*1024)).toFixed(1) + ' MB';
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+// Setup drag & drop after render
+function setupDragDrop() {
+  const zone = document.getElementById('uploadZone');
+  if (!zone) return;
+  ['dragenter','dragover'].forEach(evt => {
+    zone.addEventListener(evt, (e) => { e.preventDefault(); zone.classList.add('dragover'); });
+  });
+  ['dragleave','drop'].forEach(evt => {
+    zone.addEventListener(evt, (e) => { e.preventDefault(); zone.classList.remove('dragover'); });
+  });
+  zone.addEventListener('drop', (e) => {
+    const file = e.dataTransfer.files[0];
+    if (file) processFile(file);
+  });
+}
+
 async function generateSummary(key) {
   if (!state.apiKey) return;
   const inp = document.getElementById('summaryInput');
   const btn = document.getElementById('summaryBtn');
   const out = document.getElementById('summaryOutput');
-  const text = inp.value.trim();
-  if (!text) return;
+  const statusEl = document.getElementById('summaryStatus');
+  
+  // Use uploaded file text if available, otherwise textarea
+  const text = uploadedFileText || inp.value.trim();
+  if (!text) {
+    if (statusEl) statusEl.textContent = '⚠️ Încarcă un fișier sau lipește text mai întâi';
+    return;
+  }
 
   btn.disabled = true;
   btn.innerHTML = '<span>⏳</span> Se generează...';
