@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASE Study Hub — AI-Powered</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ========== THEME SYSTEM ========== */
+:root {
+  --bg-base: #0b0d11;
+  --bg-raised: #12151c;
+  --bg-surface: #181c26;
+  --bg-overlay: #1e2330;
+  --bg-input: #141720;
+  --text-primary: #e4e6ed;
+  --text-secondary: #8b90a0;
+  --text-muted: #555a6b;
+  --accent: #7b68ee;
+  --accent-hover: #9183f5;
+  --accent-muted: rgba(123,104,238,0.12);
+  --accent-border: rgba(123,104,238,0.25);
+  --green: #3dd68c;
+  --green-muted: rgba(61,214,140,0.12);
+  --amber: #f0b45b;
+  --amber-muted: rgba(240,180,91,0.12);
+  --red: #f06272;
+  --red-muted: rgba(240,98,114,0.12);
+  --blue: #5ba8f0;
+  --blue-muted: rgba(91,168,240,0.12);
+  --border: rgba(255,255,255,0.05);
+  --border-hover: rgba(255,255,255,0.1);
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="light"] {
+  --bg-base: #f4f2ee;
+  --bg-raised: #ffffff;
+  --bg-surface: #f0ede7;
+  --bg-overlay: #e8e4dc;
+  --bg-input: #f7f5f1;
+  --text-primary: #1a1a28;
+  --text-secondary: #5c5c72;
+  --text-muted: #9494a8;
+  --accent: #6554d4;
+  --accent-hover: #7b6aef;
+  --accent-muted: rgba(101,84,212,0.07);
+  --accent-border: rgba(101,84,212,0.2);
+  --green: #1fa86a;
+  --green-muted: rgba(31,168,106,0.08);
+  --amber: #c78d2e;
+  --amber-muted: rgba(199,141,46,0.08);
+  --red: #d4465a;
+  --red-muted: rgba(212,70,90,0.08);
+  --blue: #3b7fd4;
+  --blue-muted: rgba(59,127,212,0.08);
+  --border: rgba(0,0,0,0.06);
+  --border-hover: rgba(0,0,0,0.12);
+  --shadow: 0 8px 32px rgba(0,0,0,0.06);
+}
+
+/* ========== RESET & BASE ========== */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg-base);
+  color:var(--text-primary);
+  min-height:100vh;
+  transition:background .35s var(--ease),color .35s var(--ease);
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--text-muted);border-radius:3px}
+button{cursor:pointer;font-family:inherit;}
+input,textarea,select{font-family:inherit;}
+
+/* ========== LOCK SCREEN ========== */
+.lock-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg-base);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .5s,transform .5s;
+}
+.lock-screen.hidden{opacity:0;pointer-events:none;transform:scale(1.05);}
+.lock-box{
+  text-align:center;width:340px;
+  animation:lockIn .6s var(--ease) both;
+}
+@keyframes lockIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.lock-logo{
+  font-size:3rem;margin-bottom:8px;
+}
+.lock-title{
+  font-family:'Newsreader',serif;font-size:1.8rem;font-weight:800;margin-bottom:4px;
+}
+.lock-sub{color:var(--text-secondary);font-size:.9rem;margin-bottom:28px;}
+.lock-input{
+  width:100%;padding:14px 18px;background:var(--bg-surface);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  color:var(--text-primary);font-size:1rem;text-align:center;
+  letter-spacing:4px;transition:border-color .2s;
+}
+.lock-input:focus{outline:none;border-color:var(--accent);}
+.lock-input::placeholder{letter-spacing:0;color:var(--text-muted);}
+.lock-btn{
+  margin-top:14px;width:100%;padding:13px;background:var(--accent);
+  color:#fff;border:none;border-radius:var(--radius-sm);font-weight:600;
+  font-size:.95rem;transition:background .2s;
+}
+.lock-btn:hover{background:var(--accent-hover);}
+.lock-hint{font-size:.75rem;color:var(--text-muted);margin-top:14px;}
+.lock-error{color:var(--red);font-size:.82rem;margin-top:8px;display:none;}
+
+/* ========== LAYOUT ========== */
+.app{display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;background:var(--bg-raised);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  position:fixed;left:0;top:0;bottom:0;z-index:50;
+  transition:transform .35s var(--ease);
+}
+.sidebar-brand{
+  padding:24px 20px 20px;border-bottom:1px solid var(--border);
+}
+.sidebar-brand h1{
+  font-family:'Newsreader',serif;font-size:1.25rem;font-weight:800;
+  display:flex;align-items:center;gap:10px;
+}
+.sidebar-brand h1 span{
+  background:linear-gradient(135deg,var(--accent),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.sidebar-nav{flex:1;padding:12px 10px;overflow-y:auto;}
+.nav-section{
+  font-size:.7rem;font-weight:700;color:var(--text-muted);
+  text-transform:uppercase;letter-spacing:1.5px;
+  padding:12px 10px 6px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:var(--radius-sm);
+  background:transparent;border:none;width:100%;text-align:left;
+  color:var(--text-secondary);font-size:.88rem;font-weight:500;
+  transition:all .2s;
+}
+.nav-item:hover{background:var(--bg-surface);color:var(--text-primary);}
+.nav-item.active{background:var(--accent-muted);color:var(--accent);}
+.nav-item .ni-icon{font-size:1.15rem;width:24px;text-align:center;}
+.nav-item .ni-badge{
+  margin-left:auto;font-size:.7rem;font-weight:700;
+  padding:2px 7px;border-radius:10px;
+  background:var(--accent-muted);color:var(--accent);
+}
+.sidebar-footer{
+  padding:14px 16px;border-top:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.theme-btn{
+  padding:8px 12px;border-radius:var(--radius-xs);
+  background:var(--bg-surface);border:1px solid var(--border);
+  color:var(--text-secondary);font-size:.82rem;font-weight:500;
+  transition:all .2s;flex:1;
+}
+.theme-btn:hover{border-color:var(--accent-border);color:var(--text-primary);}
+.logout-btn{
+  padding:8px 12px;border-radius:var(--radius-xs);
+  background:var(--red-muted);border:1px solid transparent;
+  color:var(--red);font-size:.82rem;font-weight:500;
+  transition:all .2s;
+}
+.logout-btn:hover{border-color:var(--red);}
+
+/* MAIN CONTENT */
+.content{
+  margin-left:260px;flex:1;min-height:100vh;
+  display:flex;flex-direction:column;
+}
+.topbar{
+  padding:16px 32px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--bg-raised);position:sticky;top:0;z-index:40;
+}
+.topbar-title{font-weight:700;font-size:1.05rem;}
+.topbar-clock{
+  font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--text-muted);
+}
+.page{padding:28px 32px;flex:1;max-width:1100px;width:100%;margin:0 auto;}
+
+/* MOBILE */
+.menu-toggle{
+  display:none;padding:8px;background:none;border:none;
+  color:var(--text-primary);font-size:1.4rem;
+}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .content{margin-left:0;}
+  .menu-toggle{display:block;}
+  .page{padding:20px 16px;}
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.anim{animation:fadeUp .45s var(--ease) both;}
+.anim-d1{animation-delay:.05s}
+.anim-d2{animation-delay:.1s}
+.anim-d3{animation-delay:.15s}
+
+/* ========== DASHBOARD ========== */
+.dash-hero{text-align:center;padding:48px 20px 36px;}
+.dash-hero h2{font-family:'Newsreader',serif;font-size:2.2rem;font-weight:800;}
+.dash-hero p{color:var(--text-secondary);margin-top:6px;font-size:1rem;}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:8px;}
+.dash-card{
+  background:var(--bg-raised);border:1px solid var(--border);
+  border-radius:var(--radius);padding:24px 20px;text-align:center;
+  cursor:pointer;transition:all .3s var(--ease);
+}
+.dash-card:hover{border-color:var(--accent-border);transform:translateY(-3px);box-shadow:var(--shadow);}
+.dash-card .dc-icon{font-size:2.2rem;margin-bottom:10px;}
+.dash-card .dc-name{font-weight:700;font-size:.95rem;}
+.dash-card .dc-sub{font-size:.78rem;color:var(--text-muted);margin-top:4px;}
+.quick-stats{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:12px;margin-bottom:28px;
+}
+.qs-card{
+  background:var(--bg-raised);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px;text-align:center;
+}
+.qs-val{font-family:'Newsreader',serif;font-size:1.9rem;font-weight:800;color:var(--accent);}
+.qs-label{font-size:.75rem;color:var(--text-muted);margin-top:2px;}
+
+/* ========== PANELS ========== */
+.panels-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:768px){.panels-grid{grid-template-columns:1fr;}}
+.panel{
+  background:var(--bg-raised);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+}
+.panel-full{grid-column:1/-1;}
+.panel-head{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  font-weight:600;font-size:.9rem;
+}
+.panel-body{padding:18px;}
+
+/* ========== NOTES ========== */
+.notes-textarea{
+  width:100%;min-height:180px;background:var(--bg-input);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px;color:var(--text-primary);font-family:'JetBrains Mono',monospace;
+  font-size:.83rem;line-height:1.75;resize:vertical;transition:border-color .2s;
+}
+.notes-textarea:focus{outline:none;border-color:var(--accent);}
+.notes-textarea::placeholder{color:var(--text-muted);}
+.save-indicator{font-size:.72rem;color:var(--green);margin-top:6px;opacity:0;transition:opacity .3s;}
+.save-indicator.show{opacity:1;}
+
+/* ========== TODOS ========== */
+.todo-row{display:flex;gap:8px;margin-bottom:14px;}
+.todo-inp{
+  flex:1;padding:10px 14px;background:var(--bg-input);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  color:var(--text-primary);font-size:.88rem;
+}
+.todo-inp:focus{outline:none;border-color:var(--accent);}
+.todo-btn{
+  padding:10px 16px;background:var(--accent);color:#fff;border:none;
+  border-radius:var(--radius-sm);font-weight:700;font-size:1rem;
+}
+.todo-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 0;border-bottom:1px solid var(--border);
+}
+.todo-item:last-child{border:none;}
+.t-check{
+  width:20px;height:20px;border-radius:50%;border:2px solid var(--text-muted);
+  background:none;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.t-check.done{background:var(--green);border-color:var(--green);}
+.t-check.done::after{content:'✓';color:#fff;font-size:.65rem;font-weight:700;}
+.t-text{flex:1;font-size:.88rem;}
+.t-text.done{text-decoration:line-through;color:var(--text-muted);}
+.t-del{background:none;border:none;color:var(--text-muted);font-size:1.1rem;padding:4px;}
+.t-del:hover{color:var(--red);}
+.t-progress{margin-top:10px;}
+.t-bar{height:4px;background:var(--bg-overlay);border-radius:2px;overflow:hidden;}
+.t-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:2px;transition:width .4s;}
+.t-pct{font-size:.72rem;color:var(--text-muted);margin-top:4px;text-align:right;}
+
+/* ========== RESOURCES ========== */
+.res-list{display:flex;flex-direction:column;gap:6px;}
+.res-item{
+  display:flex;align-items:center;gap:10px;padding:10px 14px;
+  background:var(--bg-surface);border-radius:var(--radius-sm);
+  border:1px solid var(--border);font-size:.85rem;transition:border-color .2s;
+}
+.res-item:hover{border-color:var(--accent-border);}
+.res-tag{
+  font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:4px;
+  text-transform:uppercase;letter-spacing:.5px;
+}
+.tag-book{background:var(--accent-muted);color:var(--accent);}
+.tag-slides{background:var(--green-muted);color:var(--green);}
+.tag-lab{background:var(--amber-muted);color:var(--amber);}
+.tag-exam{background:var(--red-muted);color:var(--red);}
+
+/* ========== AI CHAT ========== */
+.chat-container{
+  display:flex;flex-direction:column;height:420px;
+  background:var(--bg-input);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+}
+.chat-messages{
+  flex:1;overflow-y:auto;padding:16px;display:flex;
+  flex-direction:column;gap:10px;
+}
+.chat-msg{
+  max-width:85%;padding:10px 14px;border-radius:var(--radius-sm);
+  font-size:.87rem;line-height:1.6;word-wrap:break-word;
+}
+.chat-msg.user{
+  align-self:flex-end;background:var(--accent);color:#fff;
+  border-bottom-right-radius:2px;
+}
+.chat-msg.ai{
+  align-self:flex-start;background:var(--bg-surface);
+  border:1px solid var(--border);border-bottom-left-radius:2px;
+}
+.chat-msg.ai .typing-dots{display:inline-flex;gap:4px;}
+.chat-msg.ai .typing-dots span{
+  width:6px;height:6px;background:var(--text-muted);border-radius:50%;
+  animation:blink 1.2s infinite;
+}
+.chat-msg.ai .typing-dots span:nth-child(2){animation-delay:.2s;}
+.chat-msg.ai .typing-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.chat-input-row{
+  display:flex;gap:8px;padding:12px;border-top:1px solid var(--border);
+  background:var(--bg-raised);
+}
+.chat-input{
+  flex:1;padding:10px 14px;background:var(--bg-input);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  color:var(--text-primary);font-size:.88rem;
+}
+.chat-input:focus{outline:none;border-color:var(--accent);}
+.chat-send{
+  padding:10px 20px;background:var(--accent);color:#fff;border:none;
+  border-radius:var(--radius-sm);font-weight:600;font-size:.88rem;
+  transition:background .2s;
+}
+.chat-send:hover{background:var(--accent-hover);}
+.chat-send:disabled{opacity:.4;cursor:not-allowed;}
+
+/* ========== AI SUMMARY GENERATOR ========== */
+.summary-container{grid-column:1/-1;}
+.summary-upload{
+  border:2px dashed var(--border);border-radius:var(--radius);
+  padding:32px;text-align:center;transition:border-color .2s;
+  cursor:pointer;
+}
+.summary-upload:hover{border-color:var(--accent-border);}
+.summary-upload .su-icon{font-size:2rem;margin-bottom:8px;}
+.summary-upload .su-text{color:var(--text-secondary);font-size:.9rem;}
+.summary-upload .su-hint{color:var(--text-muted);font-size:.75rem;margin-top:4px;}
+.summary-textarea{
+  width:100%;min-height:120px;margin-top:12px;padding:14px;
+  background:var(--bg-input);border:1px solid var(--border);
+  border-radius:var(--radius-sm);color:var(--text-primary);
+  font-size:.88rem;line-height:1.6;resize:vertical;
+}
+.summary-textarea:focus{outline:none;border-color:var(--accent);}
+.summary-gen-btn{
+  margin-top:12px;padding:12px 28px;background:var(--accent);
+  color:#fff;border:none;border-radius:var(--radius-sm);
+  font-weight:600;font-size:.9rem;transition:background .2s;
+  display:flex;align-items:center;gap:8px;
+}
+.summary-gen-btn:hover{background:var(--accent-hover);}
+.summary-gen-btn:disabled{opacity:.4;cursor:not-allowed;}
+.summary-output{
+  margin-top:16px;padding:20px;background:var(--bg-surface);
+  border:1px solid var(--border);border-radius:var(--radius);
+  font-size:.88rem;line-height:1.7;white-space:pre-wrap;
+  display:none;
+}
+.summary-output.visible{display:block;}
+
+/* ========== PRESENTATION ========== */
+.pres-wrapper{
+  background:var(--bg-raised);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+  grid-column:1/-1;
+}
+.pres-stage{
+  aspect-ratio:16/9;background:var(--bg-base);
+  position:relative;overflow:hidden;
+}
+.slide{
+  width:100%;height:100%;padding:5% 7%;
+  display:flex;flex-direction:column;justify-content:center;
+  position:absolute;inset:0;
+  opacity:0;transform:translateX(40px);
+  transition:all .5s var(--ease);pointer-events:none;
+}
+.slide.active{opacity:1;transform:none;pointer-events:auto;}
+.slide-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:clamp(.55rem,1.2vw,.72rem);
+  color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;
+}
+.slide h2{
+  font-family:'Newsreader',serif;
+  font-size:clamp(1.1rem,3vw,2rem);font-weight:800;line-height:1.2;margin-bottom:14px;
+}
+.slide h3{font-family:'Newsreader',serif;font-size:clamp(.85rem,2vw,1.3rem);font-weight:700;margin-bottom:10px;color:var(--accent);}
+.slide p,.slide li{font-size:clamp(.68rem,1.4vw,.9rem);color:var(--text-secondary);line-height:1.7;}
+.slide ul{list-style:none;padding:0;}
+.slide li{padding:3px 0;}
+.slide li::before{content:'▸';color:var(--accent);margin-right:8px;font-weight:bold;}
+.s-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;}
+@media(max-width:600px){.s-grid{grid-template-columns:1fr;}}
+.s-card{
+  background:var(--bg-surface);padding:14px;border-radius:var(--radius-sm);
+  border-left:3px solid var(--accent);
+}
+.s-card h4{font-size:clamp(.65rem,1.2vw,.85rem);font-weight:700;margin-bottom:4px;}
+.s-card p{font-size:clamp(.58rem,1vw,.76rem)!important;}
+.formula{
+  background:var(--bg-surface);padding:12px 18px;border-radius:var(--radius-sm);
+  font-family:'JetBrains Mono',monospace;
+  font-size:clamp(.62rem,1.2vw,.85rem);
+  color:var(--accent);margin:8px 0;border:1px solid var(--border);text-align:center;
+}
+.s-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:clamp(.58rem,1vw,.78rem);}
+.s-table th,.s-table td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);}
+.s-table th{color:var(--accent);font-weight:600;font-size:clamp(.52rem,.95vw,.7rem);text-transform:uppercase;letter-spacing:.5px;}
+.pres-controls{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;border-top:1px solid var(--border);
+}
+.p-btn{
+  padding:8px 18px;border-radius:var(--radius-xs);
+  border:1px solid var(--border);background:var(--bg-surface);
+  color:var(--text-primary);font-weight:500;font-size:.82rem;transition:all .2s;
+}
+.p-btn:hover{border-color:var(--accent-border);color:var(--accent);}
+.p-btn:disabled{opacity:.25;cursor:default;}
+.p-dots{display:flex;gap:5px;}
+.p-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--text-muted);
+  border:none;cursor:pointer;transition:all .3s;
+}
+.p-dot.active{background:var(--accent);transform:scale(1.4);}
+.p-counter{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text-muted);}
+
+/* ========== API KEY CONFIG ========== */
+.api-config{
+  padding:20px;background:var(--bg-surface);border:1px solid var(--border);
+  border-radius:var(--radius);margin-bottom:20px;
+}
+.api-config summary{
+  cursor:pointer;font-weight:600;font-size:.9rem;
+  color:var(--text-secondary);
+}
+.api-config summary:hover{color:var(--text-primary);}
+.api-row{display:flex;gap:8px;margin-top:12px;}
+.api-inp{
+  flex:1;padding:10px 14px;background:var(--bg-input);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  color:var(--text-primary);font-family:'JetBrains Mono',monospace;font-size:.82rem;
+}
+.api-inp:focus{outline:none;border-color:var(--accent);}
+.api-save{
+  padding:10px 18px;background:var(--green);color:#fff;border:none;
+  border-radius:var(--radius-sm);font-weight:600;font-size:.85rem;
+}
+.api-status{font-size:.75rem;margin-top:6px;}
+.api-status.ok{color:var(--green);}
+.api-status.err{color:var(--red);}
+
+/* ========== SUBJECT HEADER ========== */
+.subj-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+.subj-icon{
+  width:52px;height:52px;border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+}
+.subj-name{font-family:'Newsreader',serif;font-size:1.8rem;font-weight:800;}
+.subj-desc{color:var(--text-secondary);font-size:.88rem;margin-top:2px;}
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- ========== LOCK SCREEN ========== -->
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-logo">🎓</div>
+    <div class="lock-title">Study Hub</div>
+    <div class="lock-sub">Setează un PIN ca să-ți protejezi notițele</div>
+    <input type="password" class="lock-input" id="lockInput" placeholder="PIN (ex: 1234)" maxlength="20" autofocus>
+    <button class="lock-btn" id="lockBtn" onclick="handleLock()">Intră</button>
+    <div class="lock-error" id="lockError">PIN incorect. Încearcă din nou.</div>
+    <div class="lock-hint" id="lockHint">Prima dată? PIN-ul pe care îl introduci acum devine parola ta.</div>
+  </div>
+</div>
+
+<!-- ========== APP ========== -->
+<div class="app" id="app" style="display:none;">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <h1>🎓 <span>Study Hub</span></h1>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+    <div class="sidebar-footer">
+      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
+      <button class="logout-btn" onclick="handleLogout()">🔒 Lock</button>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <span class="topbar-title" id="topbarTitle">Dashboard</span>
+      </div>
+      <span class="topbar-clock" id="clock"></span>
+    </header>
+    <div class="page" id="pageContent"></div>
+  </div>
+</div>
+
+<script>
+// ============================
+// DATA
+// ============================
+const SUBJECTS = {
+  map: { icon:'🧩', name:'MAP', full:'Metode și Abordări în Programare', desc:'Design patterns, OOP avansat, SOLID', color:'var(--accent)',
+    resources:[{tag:'slides',label:'Curs 1-6: Design Patterns'},{tag:'slides',label:'Curs 7-12: Architectural Patterns'},{tag:'lab',label:'Lab: Singleton, Factory, Observer'},{tag:'book',label:'Gang of Four — Design Patterns'},{tag:'exam',label:'Subiecte examen 2023-2024'}],
+    systemPrompt:'Ești un profesor expert în Design Patterns și OOP. Explică conceptele cu analogii din viața reală, cu diagrame ASCII când e util, și cu exemple de cod Java/Python. Materia: MAP (Metode și Abordări în Programare) de la ASE București.'
+  },
+  python: { icon:'🐍', name:'Python & ML', full:'Python și Machine Learning', desc:'Pandas, Scikit-learn, Neural Networks', color:'var(--green)',
+    resources:[{tag:'slides',label:'Curs: Intro Python + NumPy'},{tag:'slides',label:'Curs: Pandas & Data Wrangling'},{tag:'lab',label:'Lab: Regression & Classification'},{tag:'lab',label:'Lab: Neural Networks cu Keras'},{tag:'book',label:'Hands-On ML — Géron'},{tag:'exam',label:'Proiect: Dataset Analysis Pipeline'}],
+    systemPrompt:'Ești un profesor expert în Python și Machine Learning. Explică cu cod Python clar, analogii intuitive și vizualizări ASCII. Include mereu exemple practice cu Pandas, Scikit-learn sau Keras când e relevant.'
+  },
+  banking: { icon:'🏦', name:'Banking', full:'Sisteme și Operațiuni Bancare', desc:'Produse bancare, risk management, Basel III', color:'var(--amber)',
+    resources:[{tag:'slides',label:'Curs 1-4: Sistemul bancar românesc'},{tag:'slides',label:'Curs 5-8: Produse & Servicii'},{tag:'slides',label:'Curs 9-12: Managementul riscului'},{tag:'book',label:'Manual: Bănci și Piețe Financiare'},{tag:'exam',label:'Grile + studii de caz'}],
+    systemPrompt:'Ești un profesor de Banking de la ASE. Explică produse bancare, reglementări, Basel III cu exemple din piața românească. Folosește analogii simple și studii de caz practice.'
+  },
+  econometrie: { icon:'📊', name:'Econometrie', full:'Econometrie', desc:'OLS, heteroscedasticitate, serii de timp, panel', color:'var(--red)',
+    resources:[{tag:'slides',label:'Curs: OLS & Ipoteze clasice'},{tag:'slides',label:'Curs: Multicoliniaritate & Heterosced.'},{tag:'lab',label:'Lab: EViews — Estimare & Testare'},{tag:'lab',label:'Lab: Serii de timp — ARIMA'},{tag:'book',label:'Gujarati — Basic Econometrics'},{tag:'exam',label:'Subiecte tip + rezolvări'}],
+    systemPrompt:'Ești un profesor de Econometrie de la ASE. Explică regresii, teste statistice, ipoteze cu formule clare și interpretări intuitive. Dă exemple cu date concrete și interpretări economice.'
+  },
+  mccp: { icon:'⚙️', name:'MCCP', full:'Modele Cantitative în Controlul Performanței', desc:'Modele de rating, scoring, analiză cantitativă', color:'var(--blue)',
+    resources:[{tag:'slides',label:'📊 Prezentare embed: Modele de Rating'},{tag:'slides',label:'Curs: Modele de Scoring'},{tag:'lab',label:'Lab: Construcția unui model de rating'},{tag:'book',label:'Manual MCCP — ASE'},{tag:'exam',label:'Proiect: Evaluare model propriu'}],
+    systemPrompt:'Ești un profesor de MCCP (Modele Cantitative în Controlul Performanței) de la ASE. Expert în modele de rating, scoring, risc de credit, Basel IRB, Z-Score Altman, regresie logistică aplicată. Explică cu formule, interpretări practice și exemple din banking.'
+  }
+};
+
+const RATING_SLIDES = [
+  { tag:'MCCP — Modele de Rating', title:'Modele de Rating', subtitle:'Concepte, Tipologii și Aplicații',
+    content:`<p style="max-width:560px;margin-top:14px;">Instrumente cantitative pentru evaluarea riscului de credit al debitorilor — persoane fizice, companii sau entități suverane.</p>
+    <div class="s-grid" style="margin-top:20px;"><div class="s-card"><h4>📌 Obiectiv</h4><p>Cuantificarea probabilității de nerambursare (PD)</p></div><div class="s-card"><h4>📌 Utilizare</h4><p>Decizii de creditare, pricing, cerințe de capital</p></div></div>`},
+  { tag:'Slide 2', title:'De ce avem nevoie de Rating?',
+    content:`<ul><li>Asimetria informațională debitor — creditor</li><li>Reglementări prudenţiale (Basel II / III / IV)</li><li>Standardizarea evaluării riscului de credit</li><li>Optimizarea alocării capitalului economic</li><li>Cerințe de transparență și raportare</li></ul><div class="formula" style="margin-top:18px;">Expected Loss = PD × LGD × EAD</div>`},
+  { tag:'Slide 3', title:'Tipuri de Modele de Rating',
+    content:`<div class="s-grid"><div class="s-card"><h4>Expert-Based</h4><p>Judecata analiștilor. Criterii calitative: management, industrie.</p></div><div class="s-card"><h4>Statistical</h4><p>Date istorice. Regresie logistică, analiză discriminantă, ML.</p></div><div class="s-card"><h4>Hybrid</h4><p>Combină expert + statistic. Cele mai utilizate în practică.</p></div><div class="s-card"><h4>Market-Based</h4><p>Prețuri de piață: spread CDS, yield obligațiuni, Merton.</p></div></div>`},
+  { tag:'Slide 4', title:'Scala de Rating — Agenții Majore',
+    content:`<table class="s-table"><thead><tr><th>Risc</th><th>S&P</th><th>Moody's</th><th>Descriere</th></tr></thead><tbody><tr><td>🟢</td><td>AAA</td><td>Aaa</td><td>Cea mai înaltă calitate</td></tr><tr><td>🟢</td><td>AA</td><td>Aa</td><td>Calitate foarte ridicată</td></tr><tr><td>🟢</td><td>A</td><td>A</td><td>Calitate ridicată</td></tr><tr><td>🟡</td><td>BBB</td><td>Baa</td><td>Medie — limita investment grade</td></tr><tr><td>🔴</td><td>BB+↓</td><td>Ba↓</td><td>Speculative / Junk</td></tr><tr><td>⚫</td><td>D</td><td>C</td><td>Default</td></tr></tbody></table>`},
+  { tag:'Slide 5', title:'Modelul Altman Z-Score',
+    content:`<p>Model statistic de predicție a falimentului (Altman, 1968).</p><div class="formula">Z = 1.2·X₁ + 1.4·X₂ + 3.3·X₃ + 0.6·X₄ + 1.0·X₅</div><div class="s-grid" style="margin-top:10px;"><div class="s-card"><h4>Variabile</h4><p>X₁=WC/TA, X₂=RE/TA, X₃=EBIT/TA, X₄=MVE/BVD, X₅=Sales/TA</p></div><div class="s-card"><h4>Zone</h4><p>Z>2.99 → Safe<br>1.81-2.99 → Grey<br>Z<1.81 → Distress</p></div></div>`},
+  { tag:'Slide 6', title:'Regresie Logistică în Rating',
+    content:`<p>Metoda #1 pentru modele interne IRB (Basel II).</p><div class="formula">PD = 1 / (1 + e<sup>−(β₀ + β₁X₁ + ... + βₖXₖ)</sup>)</div><ul style="margin-top:14px;"><li>Variabila dependentă: default (1) vs non-default (0)</li><li>Output: PD între 0 și 1</li><li>Estimare: Maximum Likelihood (MLE)</li></ul>`},
+  { tag:'Slide 7', title:'Variabile Frecvente în Modele',
+    content:`<table class="s-table"><thead><tr><th>Categorie</th><th>Indicatori</th><th>Ce măsoară</th></tr></thead><tbody><tr><td>Profitabilitate</td><td>ROA, ROE, EBITDA margin</td><td>Generare profit</td></tr><tr><td>Lichiditate</td><td>Current Ratio, Quick Ratio</td><td>Plată termen scurt</td></tr><tr><td>Leverage</td><td>Debt/Equity, Debt/EBITDA</td><td>Grad îndatorare</td></tr><tr><td>Acoperire</td><td>Interest Coverage</td><td>Plata dobânzilor</td></tr><tr><td>Dimensiune</td><td>Total Assets, Revenue</td><td>Stabilitate</td></tr></tbody></table>`},
+  { tag:'Slide 8', title:'Validarea Modelelor de Rating',
+    content:`<div class="s-grid"><div class="s-card"><h4>Discriminare</h4><p>ROC / AUC, Gini Coefficient — separare defaulteri vs non-defaulteri.</p></div><div class="s-card"><h4>Calibrare</h4><p>Hosmer-Lemeshow. PD estimat vs default observat.</p></div><div class="s-card"><h4>Stabilitate</h4><p>Population Stability Index (PSI) — distribuția scorurilor în timp.</p></div><div class="s-card"><h4>Backtesting</h4><p>Binomial test, Traffic Light (Basel). PD prognozat vs real.</p></div></div>`},
+  { tag:'Slide 9', title:'Cadrul Basel IRB',
+    content:`<p>Basel II/III — modele interne de rating (IRB) pentru cerințe de capital.</p><ul style="margin-top:10px;"><li><strong>F-IRB:</strong> Banca estimează PD; LGD, EAD prescrise</li><li><strong>A-IRB:</strong> Banca estimează PD, LGD, EAD</li><li>Date: min 5 ani observații, 7 ani pt LGD</li><li>Validare independentă obligatorie</li></ul><div class="formula" style="margin-top:10px;">RWA = K(PD, LGD, M) × 12.5 × EAD</div>`},
+  { tag:'Slide 10', title:'Provocări & Tendințe',
+    content:`<div class="s-grid"><div class="s-card"><h4>🤖 Machine Learning</h4><p>XGBoost, Random Forest — performanță dar „black box".</p></div><div class="s-card"><h4>📐 XAI</h4><p>SHAP, LIME — explicabilitate cerută de reglementări.</p></div><div class="s-card"><h4>🌍 ESG</h4><p>Factori mediu, sociali, guvernanță în modele.</p></div><div class="s-card"><h4>⚡ Real-Time</h4><p>Date alternative (tranzacții, social media) pt evaluare continuă.</p></div></div>`},
+  { tag:'Slide 11', title:'Studiu de Caz — Rating Corporate',
+    content:`<ul><li><strong>1.</strong> Definire default (90+ zile / restructurare)</li><li><strong>2.</strong> Colectare date: bilanț, P&L — min 5 ani</li><li><strong>3.</strong> Analiză univariată: IV, WoE per variabilă</li><li><strong>4.</strong> Selecție: stepwise, LASSO, VIF &lt; 5</li><li><strong>5.</strong> Estimare: logistic regression</li><li><strong>6.</strong> Validare: AUC &gt; 0.70, Gini &gt; 40%</li><li><strong>7.</strong> Mapping PD → clase rating (master scale)</li><li><strong>8.</strong> Monitorizare & recalibrare anuală</li></ul>`},
+  { tag:'Slide 12', title:'Key Takeaways',
+    content:`<ul><li>Modelele de rating = esențiale pt risk management</li><li>Expert + statistic = cele mai robuste rezultate</li><li>Validarea e la fel de importantă ca estimarea</li><li>Basel impune standarde stricte pt IRB</li><li>ML crește performanța, dar trebuie XAI</li><li>ESG și date alternative = viitorul rating-ului</li></ul><div class="formula" style="margin-top:20px;font-size:clamp(.78rem,1.4vw,1rem);color:var(--text-primary);">🎯 Un model bun nu prezice doar — el explică și inspiră încredere.</div>`}
+];
+
+// ============================
+// STATE
+// ============================
+let state = {
+  tab: 'dashboard',
+  pin: null,
+  apiKey: '',
+  notes: {},
+  todos: {},
+  chatHistories: {},
+  slide: 0,
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('ash_state');
+    if (raw) {
+      const s = JSON.parse(raw);
+      Object.assign(state, s);
+    }
+  } catch(e) {}
+}
+function saveState() {
+  localStorage.setItem('ash_state', JSON.stringify(state));
+}
+loadState();
+
+// ============================
+// AUTH
+// ============================
+function handleLock() {
+  const inp = document.getElementById('lockInput');
+  const val = inp.value.trim();
+  if (!val) return;
+  if (!state.pin) {
+    // First time — set PIN
+    state.pin = btoa(val);
+    saveState();
+    unlock();
+  } else {
+    if (btoa(val) === state.pin) {
+      unlock();
+    } else {
+      document.getElementById('lockError').style.display = 'block';
+      inp.value = '';
+      inp.focus();
+    }
+  }
+}
+function unlock() {
+  document.getElementById('lockScreen').classList.add('hidden');
+  document.getElementById('app').style.display = 'flex';
+  updateThemeBtn();
+  renderSidebar();
+  renderPage();
+}
+function handleLogout() {
+  document.getElementById('lockScreen').classList.remove('hidden');
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('lockInput').value = '';
+  document.getElementById('lockError').style.display = 'none';
+  document.getElementById('lockHint').style.display = state.pin ? 'none' : 'block';
+}
+document.getElementById('lockInput').addEventListener('keydown', e => { if(e.key==='Enter') handleLock(); });
+// Check if PIN exists
+if (state.pin) {
+  document.getElementById('lockHint').style.display = 'none';
+} else {
+  document.getElementById('lockHint').style.display = 'block';
+}
+
+// ============================
+// THEME
+// ============================
+const savedTheme = localStorage.getItem('ash_theme') || 'dark';
+document.body.setAttribute('data-theme', savedTheme);
+function toggleTheme() {
+  const t = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', t);
+  localStorage.setItem('ash_theme', t);
+  updateThemeBtn();
+}
+function updateThemeBtn() {
+  const btn = document.getElementById('themeBtn');
+  if(btn) btn.textContent = document.body.getAttribute('data-theme')==='dark' ? '🌙 Dark' : '☀️ Light';
+}
+
+// CLOCK
+function updateClock() {
+  const n = new Date();
+  document.getElementById('clock').textContent =
+    String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+}
+setInterval(updateClock, 15000); updateClock();
+
+// ============================
+// SIDEBAR
+// ============================
+function renderSidebar() {
+  const nav = document.getElementById('sidebarNav');
+  let h = `<div class="nav-section">General</div>
+    <button class="nav-item ${state.tab==='dashboard'?'active':''}" onclick="go('dashboard')">
+      <span class="ni-icon">🏠</span> Dashboard
+    </button>
+    <div class="nav-section">Materii</div>`;
+  for (const [k, s] of Object.entries(SUBJECTS)) {
+    const todoCount = (state.todos[k]||[]).filter(t=>!t.done).length;
+    h += `<button class="nav-item ${state.tab===k?'active':''}" onclick="go('${k}')">
+      <span class="ni-icon">${s.icon}</span> ${s.name}
+      ${todoCount ? `<span class="ni-badge">${todoCount}</span>` : ''}
+    </button>`;
+  }
+  nav.innerHTML = h;
+}
+
+function go(tab) {
+  state.tab = tab;
+  state.slide = 0;
+  renderSidebar();
+  renderPage();
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+// ============================
+// PAGE ROUTER
+// ============================
+function renderPage() {
+  const page = document.getElementById('pageContent');
+  const title = document.getElementById('topbarTitle');
+  if (state.tab === 'dashboard') {
+    title.textContent = 'Dashboard';
+    renderDashboard(page);
+  } else {
+    const s = SUBJECTS[state.tab];
+    title.textContent = s.name + ' — ' + s.full;
+    renderSubject(page, state.tab, s);
+  }
+}
+
+// ============================
+// DASHBOARD
+// ============================
+function renderDashboard(el) {
+  const totalT = Object.values(state.todos).flat().length;
+  const doneT = Object.values(state.todos).flat().filter(t=>t.done).length;
+  const notesCount = Object.values(state.notes).filter(n=>n&&n.trim()).length;
+
+  let h = `<div class="anim">
+    <div class="dash-hero">
+      <h2>Bun venit la Study Hub</h2>
+      <p>Platforma ta AI-powered pentru sesiune</p>
+    </div>
+    <div class="quick-stats anim anim-d1">
+      <div class="qs-card"><div class="qs-val">5</div><div class="qs-label">Materii</div></div>
+      <div class="qs-card"><div class="qs-val">${totalT}</div><div class="qs-label">Tasks</div></div>
+      <div class="qs-card"><div class="qs-val">${totalT?Math.round(doneT/totalT*100):0}%</div><div class="qs-label">Progres</div></div>
+      <div class="qs-card"><div class="qs-val">${notesCount}</div><div class="qs-label">Notițe</div></div>
+    </div>`;
+
+  // API Key config
+  h += `<details class="api-config anim anim-d2" ${!state.apiKey?'open':''}>
+    <summary>🔑 Configurare API Anthropic ${state.apiKey ? '— ✅ Configurat' : '— necesară pentru AI'}</summary>
+    <p style="font-size:.82rem;color:var(--text-secondary);margin-top:10px;">
+      Pentru chat AI și rezumate, ai nevoie de un API key de la
+      <a href="https://console.anthropic.com/" target="_blank" style="color:var(--accent);">console.anthropic.com</a>.
+      Key-ul se salvează doar local pe dispozitivul tău.
+    </p>
+    <div class="api-row">
+      <input type="password" class="api-inp" id="apiKeyInput" placeholder="sk-ant-api03-..." value="${state.apiKey||''}">
+      <button class="api-save" onclick="saveApiKey()">Salvează</button>
+    </div>
+    <div class="api-status" id="apiStatus"></div>
+  </details>`;
+
+  h += `<div class="dash-grid anim anim-d3">`;
+  for (const [k, s] of Object.entries(SUBJECTS)) {
+    const st = state.todos[k]||[];
+    const d = st.filter(t=>t.done).length;
+    h += `<div class="dash-card" onclick="go('${k}')">
+      <div class="dc-icon">${s.icon}</div>
+      <div class="dc-name">${s.name}</div>
+      <div class="dc-sub">${st.length ? d+'/'+st.length+' tasks' : 'Click to start'}</div>
+    </div>`;
+  }
+  h += `</div></div>`;
+  el.innerHTML = h;
+}
+
+function saveApiKey() {
+  const inp = document.getElementById('apiKeyInput');
+  const status = document.getElementById('apiStatus');
+  state.apiKey = inp.value.trim();
+  saveState();
+  if (state.apiKey) {
+    status.className = 'api-status ok';
+    status.textContent = '✅ API key salvat local. Funcțiile AI sunt active.';
+  } else {
+    status.className = 'api-status err';
+    status.textContent = '⚠️ API key șters. Funcțiile AI nu vor funcționa.';
+  }
+}
+
+// ============================
+// SUBJECT PAGE
+// ============================
+function renderSubject(el, key, subj) {
+  const todos = state.todos[key] || [];
+  const done = todos.filter(t=>t.done).length;
+  const total = todos.length;
+
+  let h = `<div class="anim">
+    <div class="subj-header">
+      <div class="subj-icon" style="background:${subj.color.replace('var(','').replace(')','')==='var(--accent)' ? 'var(--accent-muted)' : subj.color.replace(')','-muted)')};border:2px solid ${subj.color}">${subj.icon}</div>
+      <div><div class="subj-name">${subj.name}</div><div class="subj-desc">${subj.full} — ${subj.desc}</div></div>
+    </div>
+
+    <div class="quick-stats anim-d1">
+      <div class="qs-card"><div class="qs-val">${subj.resources.length}</div><div class="qs-label">Resurse</div></div>
+      <div class="qs-card"><div class="qs-val">${total}</div><div class="qs-label">Tasks</div></div>
+      <div class="qs-card"><div class="qs-val">${total?Math.round(done/total*100):0}%</div><div class="qs-label">Completat</div></div>
+    </div>
+
+    <div class="panels-grid">`;
+
+  // === MCCP PRESENTATION ===
+  if (key === 'mccp') {
+    h += renderPresentation();
+  }
+
+  // === AI CHAT ===
+  h += `<div class="panel panel-full anim-d2">
+    <div class="panel-head"><span>🤖 AI Tutor — ${subj.name}</span><span style="font-size:.72rem;color:var(--text-muted);">powered by Claude</span></div>
+    <div class="panel-body">
+      ${!state.apiKey ? '<div style="text-align:center;padding:20px;color:var(--text-muted);">⚠️ Configurează API key-ul din Dashboard pentru a activa AI Tutor</div>' :
+      `<div class="chat-container" id="chatBox">
+        <div class="chat-messages" id="chatMessages">${renderChatHistory(key)}</div>
+        <div class="chat-input-row">
+          <input class="chat-input" id="chatInput" placeholder="Pune o întrebare despre ${subj.name}..." onkeydown="if(event.key==='Enter'&&!event.shiftKey)sendChat('${key}')">
+          <button class="chat-send" id="chatSendBtn" onclick="sendChat('${key}')">Trimite</button>
+        </div>
+      </div>`}
+    </div>
+  </div>`;
+
+  // === AI SUMMARY GENERATOR ===
+  h += `<div class="panel panel-full summary-container anim-d2">
+    <div class="panel-head"><span>✨ Generator Rezumate AI</span><span style="font-size:.72rem;color:var(--text-muted);">lipește text → rezumat structurat</span></div>
+    <div class="panel-body">
+      ${!state.apiKey ? '<div style="text-align:center;padding:20px;color:var(--text-muted);">⚠️ Configurează API key-ul din Dashboard</div>' :
+      `<textarea class="summary-textarea" id="summaryInput" placeholder="Lipește aici textul din curs, PDF, sau notițe... Claude va genera un rezumat structurat cu punctele cheie."></textarea>
+      <button class="summary-gen-btn" id="summaryBtn" onclick="generateSummary('${key}')">
+        <span>✨</span> Generează Rezumat
+      </button>
+      <div class="summary-output" id="summaryOutput"></div>`}
+    </div>
+  </div>`;
+
+  // === NOTES ===
+  h += `<div class="panel">
+    <div class="panel-head"><span>📝 Notițe</span><span style="font-size:.72rem;color:var(--text-muted)">auto-save</span></div>
+    <div class="panel-body">
+      <textarea class="notes-textarea" id="notesArea" placeholder="Scrie notițele tale aici...">${state.notes[key]||''}</textarea>
+      <div class="save-indicator" id="noteSaved">✓ Salvat</div>
+    </div>
+  </div>`;
+
+  // === TODOS ===
+  h += `<div class="panel">
+    <div class="panel-head"><span>✅ To-Do</span></div>
+    <div class="panel-body">
+      <div class="todo-row">
+        <input class="todo-inp" id="todoInp" placeholder="Adaugă task..." onkeydown="if(event.key==='Enter')addTodo('${key}')">
+        <button class="todo-btn" onclick="addTodo('${key}')">+</button>
+      </div>
+      <div id="todoList">${renderTodos(key)}</div>
+    </div>
+  </div>`;
+
+  // === RESOURCES ===
+  h += `<div class="panel panel-full">
+    <div class="panel-head"><span>📚 Resurse</span></div>
+    <div class="panel-body">
+      <div class="res-list">
+        ${subj.resources.map(r=>`<div class="res-item"><span class="res-tag tag-${r.tag}">${r.tag}</span><span>${r.label}</span></div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+
+  h += `</div></div>`;
+  el.innerHTML = h;
+
+  // Setup notes autosave
+  const notesArea = document.getElementById('notesArea');
+  if (notesArea) {
+    let st;
+    notesArea.addEventListener('input', () => {
+      state.notes[key] = notesArea.value;
+      clearTimeout(st);
+      st = setTimeout(() => {
+        saveState();
+        const sv = document.getElementById('noteSaved');
+        if(sv){sv.classList.add('show');setTimeout(()=>sv.classList.remove('show'),1500);}
+      }, 500);
+    });
+  }
+
+  if (key === 'mccp') setupPresNav();
+
+  // Scroll chat to bottom
+  const cm = document.getElementById('chatMessages');
+  if (cm) cm.scrollTop = cm.scrollHeight;
+}
+
+// ============================
+// TODOS
+// ============================
+function renderTodos(key) {
+  const items = state.todos[key] || [];
+  if (!items.length) return '<div style="text-align:center;color:var(--text-muted);padding:16px;font-size:.88rem;">Niciun task</div>';
+  const done = items.filter(i=>i.done).length;
+  const pct = Math.round(done/items.length*100);
+  let h = items.map((item,i)=>`
+    <div class="todo-item">
+      <button class="t-check ${item.done?'done':''}" onclick="toggleTodo('${key}',${i})"></button>
+      <span class="t-text ${item.done?'done':''}">${esc(item.text)}</span>
+      <button class="t-del" onclick="delTodo('${key}',${i})">×</button>
+    </div>`).join('');
+  h += `<div class="t-progress"><div class="t-bar"><div class="t-fill" style="width:${pct}%"></div></div><div class="t-pct">${done}/${items.length}</div></div>`;
+  return h;
+}
+function addTodo(key) {
+  const inp = document.getElementById('todoInp');
+  const t = inp.value.trim(); if(!t) return;
+  if(!state.todos[key]) state.todos[key]=[];
+  state.todos[key].push({text:t,done:false});
+  saveState(); inp.value='';
+  document.getElementById('todoList').innerHTML = renderTodos(key);
+  renderSidebar();
+}
+function toggleTodo(key,i) {
+  if(state.todos[key]&&state.todos[key][i]){
+    state.todos[key][i].done=!state.todos[key][i].done;
+    saveState();
+    document.getElementById('todoList').innerHTML=renderTodos(key);
+    renderSidebar();
+  }
+}
+function delTodo(key,i) {
+  if(state.todos[key]){state.todos[key].splice(i,1);saveState();
+  document.getElementById('todoList').innerHTML=renderTodos(key);renderSidebar();}
+}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+// ============================
+// AI CHAT
+// ============================
+function renderChatHistory(key) {
+  const hist = state.chatHistories[key] || [];
+  if (!hist.length) return `<div class="chat-msg ai">Salut! Sunt tutorul tău AI pentru <strong>${SUBJECTS[key].name}</strong>. Întreabă-mă orice despre materie — voi explica cât mai plastic și clar. 🎓</div>`;
+  return hist.map(m => `<div class="chat-msg ${m.role==='user'?'user':'ai'}">${m.role==='user'?esc(m.content):m.content}</div>`).join('');
+}
+
+async function sendChat(key) {
+  if (!state.apiKey) return;
+  const inp = document.getElementById('chatInput');
+  const btn = document.getElementById('chatSendBtn');
+  const msgs = document.getElementById('chatMessages');
+  const text = inp.value.trim();
+  if (!text) return;
+
+  // Add user msg
+  if (!state.chatHistories[key]) state.chatHistories[key] = [];
+  state.chatHistories[key].push({role:'user',content:text});
+  saveState();
+
+  // Render
+  msgs.innerHTML = renderChatHistory(key);
+  inp.value = '';
+  btn.disabled = true;
+
+  // Typing indicator
+  const typing = document.createElement('div');
+  typing.className = 'chat-msg ai';
+  typing.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  msgs.appendChild(typing);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  try {
+    // Build messages for API
+    const apiMessages = state.chatHistories[key]
+      .filter(m => m.role === 'user' || m.role === 'assistant')
+      .map(m => ({role: m.role === 'user' ? 'user' : 'assistant', content: m.content}));
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': state.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        system: SUBJECTS[key].systemPrompt + '\n\nRăspunde în română. Fii concis dar complet. Folosește analogii din viața reală, emoji-uri pentru claritate, și formatează cu bold/liste când ajută. Dacă e o formulă, explică fiecare termen.',
+        messages: apiMessages
+      })
+    });
+
+    const data = await resp.json();
+    typing.remove();
+
+    if (data.content && data.content[0]) {
+      const aiText = data.content[0].text;
+      // Simple markdown-like formatting
+      const formatted = formatAI(aiText);
+      state.chatHistories[key].push({role:'assistant',content:formatted});
+      saveState();
+    } else if (data.error) {
+      state.chatHistories[key].push({role:'assistant',content:`⚠️ Eroare API: ${data.error.message}`});
+      saveState();
+    }
+  } catch(err) {
+    typing.remove();
+    state.chatHistories[key].push({role:'assistant',content:`⚠️ Eroare de conexiune: ${err.message}`});
+    saveState();
+  }
+
+  msgs.innerHTML = renderChatHistory(key);
+  msgs.scrollTop = msgs.scrollHeight;
+  btn.disabled = false;
+}
+
+function formatAI(text) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code style="background:var(--bg-overlay);padding:2px 6px;border-radius:3px;font-family:JetBrains Mono,monospace;font-size:.82rem;">$1</code>')
+    .replace(/\n/g, '<br>');
+}
+
+// ============================
+// AI SUMMARY GENERATOR
+// ============================
+async function generateSummary(key) {
+  if (!state.apiKey) return;
+  const inp = document.getElementById('summaryInput');
+  const btn = document.getElementById('summaryBtn');
+  const out = document.getElementById('summaryOutput');
+  const text = inp.value.trim();
+  if (!text) return;
+
+  btn.disabled = true;
+  btn.innerHTML = '<span>⏳</span> Se generează...';
+  out.classList.add('visible');
+  out.textContent = 'Se procesează...';
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': state.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2000,
+        system: `Ești un expert în ${SUBJECTS[key].full}. Creează un rezumat structurat al textului primit. 
+Format:
+📋 REZUMAT — [titlu scurt]
+
+🎯 Puncte Cheie:
+• [punct 1]
+• [punct 2]
+...
+
+📐 Formule/Concepte Importante:
+[dacă există]
+
+💡 De Reținut pentru Examen:
+• [ce e important]
+
+🔗 Legături cu alte concepte:
+• [conexiuni]
+
+Răspunde în română. Fii concis dar complet.`,
+        messages: [{role:'user', content: `Rezumă acest text de la cursul de ${SUBJECTS[key].name}:\n\n${text}`}]
+      })
+    });
+
+    const data = await resp.json();
+    if (data.content && data.content[0]) {
+      out.innerHTML = formatAI(data.content[0].text);
+    } else if (data.error) {
+      out.textContent = '⚠️ Eroare: ' + data.error.message;
+    }
+  } catch(err) {
+    out.textContent = '⚠️ Eroare: ' + err.message;
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<span>✨</span> Generează Rezumat';
+}
+
+// ============================
+// PRESENTATION
+// ============================
+function renderPresentation() {
+  const slides = RATING_SLIDES;
+  return `<div class="pres-wrapper anim-d1">
+    <div class="pres-stage" id="presStage">
+      ${slides.map((s,i) => `
+        <div class="slide ${i===0?'active':''}" data-slide="${i}">
+          <div class="slide-tag">${s.tag}</div>
+          <h2>${s.title}</h2>
+          ${s.subtitle?`<p style="color:var(--text-secondary);font-size:clamp(.78rem,1.4vw,1rem);margin-bottom:6px;">${s.subtitle}</p>`:''}
+          ${s.content}
+        </div>`).join('')}
+    </div>
+    <div class="pres-controls">
+      <button class="p-btn" id="prevBtn" onclick="presNav(-1)">← Prev</button>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+        <div class="p-dots" id="presDots">
+          ${slides.map((_,i)=>`<button class="p-dot ${i===0?'active':''}" onclick="goSlide(${i})"></button>`).join('')}
+        </div>
+        <span class="p-counter" id="slideCounter">1 / ${slides.length}</span>
+      </div>
+      <button class="p-btn" id="nextBtn" onclick="presNav(1)">Next →</button>
+    </div>
+  </div>`;
+}
+
+function setupPresNav() {
+  updatePresUI();
+  document.onkeydown = e => {
+    if (state.tab!=='mccp') return;
+    if (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+    if (e.key==='ArrowRight') presNav(1);
+    if (e.key==='ArrowLeft') presNav(-1);
+  };
+}
+function presNav(dir) {
+  const n = state.slide + dir;
+  if (n<0||n>=RATING_SLIDES.length) return;
+  state.slide = n;
+  updatePresUI();
+}
+function goSlide(i) { state.slide=i; updatePresUI(); }
+function updatePresUI() {
+  document.querySelectorAll('.slide').forEach((s,i) => {
+    s.classList.toggle('active', i===state.slide);
+    s.style.transform = i<state.slide?'translateX(-40px)': i>state.slide?'translateX(40px)':'none';
+  });
+  document.querySelectorAll('.p-dot').forEach((d,i)=>d.classList.toggle('active',i===state.slide));
+  const c=document.getElementById('slideCounter');
+  if(c) c.textContent=`${state.slide+1} / ${RATING_SLIDES.length}`;
+  const p=document.getElementById('prevBtn'),n=document.getElementById('nextBtn');
+  if(p) p.disabled=state.slide===0;
+  if(n) n.disabled=state.slide===RATING_SLIDES.length-1;
+}
+
+// ============================
+// INIT
+// ============================
+// Auto-unlock if no PIN set (first time)
+// Actually, always show lock screen
+</script>
+</body>
+</html>
