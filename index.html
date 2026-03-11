@@ -1139,6 +1139,311 @@ input, textarea, select { font-family: inherit; }
   font-size: 0.88rem;
   margin-top: 2px;
 }
+
+/* =============================================
+   LINKS
+   ============================================= */
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  transition: border-color 0.2s;
+}
+
+.link-item:hover { border-color: var(--accent-border); }
+
+.link-item a {
+  flex: 1;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-item a:hover { text-decoration: underline; }
+
+.link-cat {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--blue-muted);
+  color: var(--blue);
+}
+
+.link-del {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1rem;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.link-del:hover { color: var(--red); }
+
+.link-add-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.link-add-row input, .link-add-row select {
+  padding: 8px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+}
+
+.link-add-row input:focus, .link-add-row select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.link-add-row input { flex: 1; min-width: 120px; }
+.link-add-row select { width: 110px; }
+
+.link-add-btn {
+  padding: 8px 14px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* =============================================
+   PROGRESS TRACKER
+   ============================================= */
+.progress-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.progress-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: var(--bg-overlay);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.progress-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--green));
+  border-radius: 4px;
+  transition: width 0.4s var(--ease);
+}
+
+.progress-pct {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  width: 40px;
+  text-align: right;
+}
+
+.progress-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.progress-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.progress-btn:hover {
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+/* =============================================
+   POMODORO TIMER
+   ============================================= */
+.pomodoro-container {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.pomo-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  letter-spacing: 2px;
+}
+
+.pomo-mode {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.pomo-mode.break { color: var(--green); }
+
+.pomo-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.pomo-btn {
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+}
+
+.pomo-btn:hover { border-color: var(--accent-border); color: var(--accent); }
+
+.pomo-btn.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.pomo-btn.primary:hover { background: var(--accent-hover); }
+
+.pomo-presets {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.pomo-preset {
+  padding: 6px 12px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.pomo-preset:hover { border-color: var(--accent-border); color: var(--text-primary); }
+.pomo-preset.active { background: var(--accent-muted); color: var(--accent); border-color: var(--accent-border); }
+
+/* =============================================
+   FILE ORGANIZER
+   ============================================= */
+.file-list { display: flex; flex-direction: column; gap: 6px; }
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.file-icon { font-size: 1.2rem; }
+
+.file-name {
+  flex: 1;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-cat-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.file-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.file-del {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.file-del:hover { color: var(--red); }
+
+.file-add-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.file-add-row input, .file-add-row select {
+  padding: 8px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+}
+
+.file-add-row input:focus, .file-add-row select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.file-add-row input { flex: 1; min-width: 120px; }
+.file-add-row select { width: 110px; }
 </style>
 </head>
 <body data-theme="dark">
@@ -1355,7 +1660,11 @@ let state = {
   todos: {},
   chatHistories: {},
   presentations: {},
-  activePresIndex: {}
+  activePresIndex: {},
+  links: {},
+  progress: {},
+  files: {},
+  pomodoro: { running: false, mode: 'work', timeLeft: 1500 }
 };
 
 let presSlidePositions = {};
@@ -1738,6 +2047,59 @@ function renderSubjectPage(element, key, subject) {
   html += '<div id="todoList">' + renderTodos(key) + '</div>';
   html += '</div></div>';
 
+  // === QUICK LINKS ===
+  html += '<div class="panel">';
+  html += '<div class="panel-head"><span>🔗 Linkuri Rapide</span></div>';
+  html += '<div class="panel-body">';
+  html += '<div class="link-add-row">';
+  html += '<input id="linkName" placeholder="Nume (ex: Colab S4)">';
+  html += '<input id="linkUrl" placeholder="https://...">';
+  html += '<select id="linkCat"><option value="colab">Colab</option><option value="drive">Drive</option><option value="site">Site</option><option value="video">Video</option><option value="other">Altele</option></select>';
+  html += '<button class="link-add-btn" onclick="addLink(\'' + key + '\')">+</button>';
+  html += '</div>';
+  html += '<div id="linkList" style="display:flex;flex-direction:column;gap:6px;">' + renderLinks(key) + '</div>';
+  html += '</div></div>';
+
+  // === POMODORO TIMER ===
+  html += '<div class="panel">';
+  html += '<div class="panel-head"><span>🎯 Pomodoro Timer</span></div>';
+  html += '<div class="panel-body">';
+  html += '<div class="pomodoro-container">';
+  html += '<div class="pomo-time" id="pomoTime">25:00</div>';
+  html += '<div class="pomo-mode" id="pomoMode">Focus</div>';
+  html += '<div class="pomo-controls">';
+  html += '<button class="pomo-btn primary" id="pomoStartBtn" onclick="togglePomodoro()">▶ Start</button>';
+  html += '<button class="pomo-btn" onclick="resetPomodoro()">↻ Reset</button>';
+  html += '</div>';
+  html += '<div class="pomo-presets">';
+  html += '<button class="pomo-preset active" onclick="setPomoPreset(25,this)">25 min</button>';
+  html += '<button class="pomo-preset" onclick="setPomoPreset(45,this)">45 min</button>';
+  html += '<button class="pomo-preset" onclick="setPomoPreset(60,this)">60 min</button>';
+  html += '<button class="pomo-preset" onclick="setPomoPreset(5,this)" style="color:var(--green)">☕ 5 min</button>';
+  html += '</div>';
+  html += '</div></div></div>';
+
+  // === PROGRESS TRACKER ===
+  html += '<div class="panel panel-full">';
+  html += '<div class="panel-head"><span>📈 Progres Cursuri</span>';
+  html += '<span style="font-size:.72rem;color:var(--text-muted)">click + / − pentru a actualiza</span></div>';
+  html += '<div class="panel-body">';
+  html += '<div class="progress-grid" id="progressGrid">' + renderProgress(key, subject) + '</div>';
+  html += '</div></div>';
+
+  // === FILE ORGANIZER ===
+  html += '<div class="panel panel-full">';
+  html += '<div class="panel-head"><span>🗂️ Organizator Fișiere</span>';
+  html += '<span style="font-size:.72rem;color:var(--text-muted)">ține evidența documentelor</span></div>';
+  html += '<div class="panel-body">';
+  html += '<div class="file-add-row">';
+  html += '<input id="fileName_input" placeholder="Numele fișierului (ex: Curs 3 - Regresie.pdf)">';
+  html += '<select id="fileCat"><option value="curs">📘 Curs</option><option value="seminar">📗 Seminar</option><option value="lab">📙 Lab</option><option value="proiect">📕 Proiect</option><option value="examen">📓 Examen</option><option value="altele">📄 Altele</option></select>';
+  html += '<button class="link-add-btn" onclick="addFile(\'' + key + '\')">+</button>';
+  html += '</div>';
+  html += '<div id="fileList">' + renderFileOrganizer(key) + '</div>';
+  html += '</div></div>';
+
   // === RESOURCES ===
   html += '<div class="panel panel-full">';
   html += '<div class="panel-head"><span>📚 Resurse</span></div>';
@@ -1779,6 +2141,9 @@ function renderSubjectPage(element, key, subject) {
   // Scroll chat to bottom
   var chatMessages = document.getElementById('chatMessages');
   if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  // Init pomodoro display
+  updatePomoDisplay();
 }
 
 // =============================================
@@ -2228,6 +2593,64 @@ function setupDragDrop() {
 // =============================================
 // GENERATE PRESENTATION (AI)
 // =============================================
+// Try to repair truncated JSON arrays
+function repairTruncatedJSON(raw) {
+  // Clean markdown fences
+  raw = raw.replace(/^```json?\s*/, '').replace(/\s*```$/, '').trim();
+
+  // Try parsing as-is first
+  try {
+    var parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) return parsed;
+  } catch(e) {}
+
+  // If truncated, try to close open strings and brackets
+  var repaired = raw;
+
+  // Count open quotes — if odd, close the last string
+  var quoteCount = (repaired.match(/(?<!\\)"/g) || []).length;
+  if (quoteCount % 2 !== 0) {
+    repaired += '"';
+  }
+
+  // Try closing any open objects/arrays
+  var attempts = [
+    repaired + '}]',
+    repaired + '"}]',
+    repaired + '</p>"}]',
+    repaired + '</div>"}]',
+    repaired + '</li></ul>"}]',
+    repaired + '</td></tr></tbody></table>"}]',
+  ];
+
+  for (var attempt of attempts) {
+    try {
+      var parsed = JSON.parse(attempt);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        // Remove last slide if it looks incomplete (no title or no content)
+        var lastSlide = parsed[parsed.length - 1];
+        if (!lastSlide.title || !lastSlide.content || lastSlide.content.length < 20) {
+          parsed.pop();
+        }
+        if (parsed.length > 0) return parsed;
+      }
+    } catch(e) {}
+  }
+
+  // Last resort: find the last complete object and close the array
+  var lastCompleteObj = raw.lastIndexOf('},');
+  if (lastCompleteObj === -1) lastCompleteObj = raw.lastIndexOf('}');
+  if (lastCompleteObj > 0) {
+    var trimmed = raw.substring(0, lastCompleteObj + 1) + ']';
+    try {
+      var parsed = JSON.parse(trimmed);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    } catch(e) {}
+  }
+
+  return null;
+}
+
 async function generatePresentation(key) {
   if (!state.apiKey) return;
 
@@ -2247,7 +2670,10 @@ async function generatePresentation(key) {
 
   btnEl.disabled = true;
   btnEl.innerHTML = '<span>⏳</span> Se generează slide-urile...';
-  if (statusEl) statusEl.textContent = 'Durează ~15-30 secunde...';
+  if (statusEl) statusEl.textContent = 'Durează ~20-40 secunde...';
+
+  // Limit input text to avoid token overflow — keep first 8000 chars
+  var inputText = text.substring(0, 8000);
 
   try {
     var response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -2260,11 +2686,11 @@ async function generatePresentation(key) {
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 4000,
-        system: 'Ești expert în ' + SUBJECTS[key].full + '. Creează o prezentare cu slide-uri din textul primit.\n\nIMPORTANT: Răspunde DOAR cu un JSON array valid, fără markdown, fără backticks, fără alt text.\n\nFiecare element din array este un slide cu structura:\n{"tag":"Slide N","title":"Titlul slide-ului","content":"<HTML content>"}\n\nConținutul HTML poate folosi aceste clase CSS:\n- <ul><li>text</li></ul> pentru liste\n- <div class="s-grid"><div class="s-card"><h4>Titlu</h4><p>text</p></div></div> pentru carduri grid 2x2\n- <div class="formula">formula</div> pentru formule\n- <table class="s-table"><thead><tr><th>...</th></tr></thead><tbody>...</tbody></table> pentru tabele\n- <p>paragraf</p> pentru text normal\n- <strong>bold</strong> și <em>italic</em>\n\nReguli:\n- 6-12 slide-uri\n- Slide 1: titlu + overview\n- Ultimul slide: key takeaways\n- Include formule dacă există în text\n- Folosește mix de carduri, liste, tabele\n- Conținut în română\n- DOAR JSON, nimic altceva',
+        max_tokens: 8000,
+        system: 'Ești expert în ' + SUBJECTS[key].full + '. Creează o prezentare CONCISĂ cu slide-uri din textul primit.\n\nIMPORTANT: Răspunde DOAR cu un JSON array valid. Fără markdown, fără backticks, fără text înainte sau după JSON.\n\nStructura fiecărui slide:\n{"tag":"Slide N","title":"Titlu scurt","content":"<HTML scurt>"}\n\nClase CSS disponibile:\n- <ul><li>text</li></ul> liste\n- <div class="s-grid"><div class="s-card"><h4>T</h4><p>text</p></div></div> carduri 2x2\n- <div class="formula">formula</div> formule\n- <table class="s-table"><thead><tr><th>col</th></tr></thead><tbody><tr><td>val</td></tr></tbody></table> tabele\n- <p>text</p> paragrafe\n\nREGULI STRICTE:\n- EXACT 8 slide-uri (nu mai multe!)\n- Fiecare slide: max 150 cuvinte în content\n- Slide 1: titlu + scurt overview\n- Slide 8: key takeaways\n- Conținut CONCIS — doar esențialul\n- În română\n- DOAR JSON valid, nimic altceva\n- NU folosi ghilimele simple în HTML, doar &apos; sau fără',
         messages: [{
           role: 'user',
-          content: 'Creează prezentarea din acest text:\n\n' + text.substring(0, 12000)
+          content: 'Creează prezentare din:\n\n' + inputText
         }]
       })
     });
@@ -2273,42 +2699,49 @@ async function generatePresentation(key) {
 
     if (data.content && data.content[0]) {
       var rawText = data.content[0].text.trim();
-      // Clean potential markdown code fences
-      rawText = rawText.replace(/^```json?\s*/, '').replace(/\s*```$/, '').trim();
+
+      // Try direct parse first, then repair if needed
+      var slides = null;
+
+      // Clean markdown fences
+      var cleanText = rawText.replace(/^```json?\s*/, '').replace(/\s*```$/, '').trim();
 
       try {
-        var slides = JSON.parse(rawText);
-
-        if (Array.isArray(slides) && slides.length > 0) {
-          // Create new presentation object
-          var newPresentation = {
-            id: 'pres_' + Date.now(),
-            title: title,
-            date: new Date().toLocaleDateString('ro'),
-            slides: slides
-          };
-
-          // Save to state
-          if (!state.presentations[key]) state.presentations[key] = [];
-          state.presentations[key].push(newPresentation);
-          state.activePresIndex[key] = getAllPresentations(key).length - 1;
-          saveState();
-
-          // Reset
-          uploadedFileText = '';
-
-          if (statusEl) statusEl.textContent = '✅ Prezentare generată cu succes: ' + slides.length + ' slide-uri!';
-
-          // Re-render page to show new presentation
-          renderPage();
-          renderSidebar();
-          return;
-        } else {
-          if (statusEl) statusEl.textContent = '⚠️ Format invalid returnat de AI';
-        }
+        slides = JSON.parse(cleanText);
+        if (!Array.isArray(slides)) slides = null;
       } catch (parseError) {
-        if (statusEl) statusEl.textContent = '⚠️ Eroare la parsarea JSON: ' + parseError.message;
-        console.log('Raw AI response:', rawText);
+        console.log('Direct parse failed, attempting repair...');
+        console.log('Raw response (first 500 chars):', cleanText.substring(0, 500));
+        slides = repairTruncatedJSON(cleanText);
+      }
+
+      if (slides && slides.length > 0) {
+        // Create new presentation object
+        var newPresentation = {
+          id: 'pres_' + Date.now(),
+          title: title,
+          date: new Date().toLocaleDateString('ro'),
+          slides: slides
+        };
+
+        // Save to state
+        if (!state.presentations[key]) state.presentations[key] = [];
+        state.presentations[key].push(newPresentation);
+        state.activePresIndex[key] = getAllPresentations(key).length - 1;
+        saveState();
+
+        // Reset
+        uploadedFileText = '';
+
+        if (statusEl) statusEl.textContent = '✅ Prezentare generată: ' + slides.length + ' slide-uri!';
+
+        // Re-render page to show new presentation
+        renderPage();
+        renderSidebar();
+        return;
+      } else {
+        if (statusEl) statusEl.textContent = '⚠️ Nu am reușit să parsez răspunsul AI. Încearcă din nou cu un text mai scurt.';
+        console.log('Failed to parse. Raw:', cleanText);
       }
     } else if (data.error) {
       if (statusEl) statusEl.textContent = '⚠️ Eroare API: ' + data.error.message;
@@ -2319,6 +2752,325 @@ async function generatePresentation(key) {
 
   btnEl.disabled = false;
   btnEl.innerHTML = '<span>✨</span> Generează Prezentare';
+}
+
+// =============================================
+// QUICK LINKS
+// =============================================
+function renderLinks(key) {
+  var links = state.links[key] || [];
+  if (!links.length) {
+    return '<div style="text-align:center;color:var(--text-muted);padding:12px;font-size:.85rem;">Niciun link adăugat</div>';
+  }
+
+  var catIcons = { colab: '🔬', drive: '📁', site: '🌐', video: '🎬', other: '🔗' };
+
+  return links.map(function(link, index) {
+    return '<div class="link-item">' +
+      '<span>' + (catIcons[link.cat] || '🔗') + '</span>' +
+      '<span class="link-cat">' + link.cat + '</span>' +
+      '<a href="' + escapeHtml(link.url) + '" target="_blank" title="' + escapeHtml(link.url) + '">' + escapeHtml(link.name) + '</a>' +
+      '<button class="link-del" onclick="deleteLink(\'' + key + '\',' + index + ')">×</button>' +
+      '</div>';
+  }).join('');
+}
+
+function addLink(key) {
+  var nameInput = document.getElementById('linkName');
+  var urlInput = document.getElementById('linkUrl');
+  var catSelect = document.getElementById('linkCat');
+
+  var name = nameInput.value.trim();
+  var url = urlInput.value.trim();
+  var cat = catSelect.value;
+
+  if (!name || !url) return;
+
+  // Auto-add https if missing
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    url = 'https://' + url;
+  }
+
+  if (!state.links[key]) state.links[key] = [];
+  state.links[key].push({ name: name, url: url, cat: cat });
+  saveState();
+
+  nameInput.value = '';
+  urlInput.value = '';
+  document.getElementById('linkList').innerHTML = renderLinks(key);
+}
+
+function deleteLink(key, index) {
+  if (state.links[key]) {
+    state.links[key].splice(index, 1);
+    saveState();
+    document.getElementById('linkList').innerHTML = renderLinks(key);
+  }
+}
+
+// =============================================
+// PROGRESS TRACKER
+// =============================================
+function renderProgress(key, subject) {
+  var progressData = state.progress[key] || {};
+  var items = subject.resources.filter(function(r) {
+    return r.tag === 'slides' || r.tag === 'lab';
+  });
+
+  if (!items.length) {
+    return '<div style="color:var(--text-muted);font-size:.85rem;">Nicio resursă de urmărit</div>';
+  }
+
+  // Add a total courses tracker
+  var totalCourses = items.length;
+  var html = '';
+
+  items.forEach(function(item, index) {
+    var itemKey = item.tag + '_' + index;
+    var value = progressData[itemKey] || 0;
+    var maxVal = 100;
+
+    html += '<div class="progress-row">';
+    html += '<span class="progress-label">' + (item.tag === 'slides' ? '📘' : '🔬') + ' ' + item.label.substring(0, 30) + (item.label.length > 30 ? '...' : '') + '</span>';
+    html += '<div class="progress-bar-wrap" onclick="setProgress(\'' + key + '\',\'' + itemKey + '\', event)">';
+    html += '<div class="progress-bar-inner" style="width:' + value + '%"></div>';
+    html += '</div>';
+    html += '<span class="progress-pct">' + value + '%</span>';
+    html += '<div class="progress-btns">';
+    html += '<button class="progress-btn" onclick="adjustProgress(\'' + key + '\',\'' + itemKey + '\',-10)">−</button>';
+    html += '<button class="progress-btn" onclick="adjustProgress(\'' + key + '\',\'' + itemKey + '\',10)">+</button>';
+    html += '</div>';
+    html += '</div>';
+  });
+
+  return html;
+}
+
+function adjustProgress(key, itemKey, delta) {
+  if (!state.progress[key]) state.progress[key] = {};
+  var current = state.progress[key][itemKey] || 0;
+  var newVal = Math.max(0, Math.min(100, current + delta));
+  state.progress[key][itemKey] = newVal;
+  saveState();
+
+  // Re-render just the progress section
+  var subject = SUBJECTS[key];
+  document.getElementById('progressGrid').innerHTML = renderProgress(key, subject);
+}
+
+function setProgress(key, itemKey, event) {
+  var rect = event.currentTarget.getBoundingClientRect();
+  var clickX = event.clientX - rect.left;
+  var percent = Math.round((clickX / rect.width) * 100);
+  percent = Math.max(0, Math.min(100, Math.round(percent / 5) * 5)); // Snap to 5%
+
+  if (!state.progress[key]) state.progress[key] = {};
+  state.progress[key][itemKey] = percent;
+  saveState();
+
+  var subject = SUBJECTS[key];
+  document.getElementById('progressGrid').innerHTML = renderProgress(key, subject);
+}
+
+// =============================================
+// POMODORO TIMER
+// =============================================
+var pomoInterval = null;
+var pomoTimeLeft = 1500; // 25 minutes in seconds
+var pomoRunning = false;
+var pomoWorkMinutes = 25;
+
+function togglePomodoro() {
+  if (pomoRunning) {
+    // Pause
+    clearInterval(pomoInterval);
+    pomoRunning = false;
+    var btn = document.getElementById('pomoStartBtn');
+    if (btn) btn.innerHTML = '▶ Start';
+  } else {
+    // Start
+    pomoRunning = true;
+    var btn = document.getElementById('pomoStartBtn');
+    if (btn) btn.innerHTML = '⏸ Pauză';
+
+    pomoInterval = setInterval(function() {
+      pomoTimeLeft--;
+
+      if (pomoTimeLeft <= 0) {
+        clearInterval(pomoInterval);
+        pomoRunning = false;
+
+        // Check if was work or break
+        var modeEl = document.getElementById('pomoMode');
+        if (modeEl && modeEl.textContent === 'Focus') {
+          // Switch to break
+          pomoTimeLeft = 5 * 60; // 5 min break
+          modeEl.textContent = 'Pauză ☕';
+          modeEl.className = 'pomo-mode break';
+          // Alert
+          if (Notification.permission === 'granted') {
+            new Notification('🎯 Pomodoro terminat! Ia o pauză de 5 minute.');
+          }
+          alert('🎯 Sesiune de focus terminată! Ia o pauză de 5 minute.');
+        } else {
+          // Switch back to work
+          pomoTimeLeft = pomoWorkMinutes * 60;
+          modeEl.textContent = 'Focus';
+          modeEl.className = 'pomo-mode';
+          alert('☕ Pauza s-a terminat! Gata de o nouă sesiune de focus?');
+        }
+
+        var btn2 = document.getElementById('pomoStartBtn');
+        if (btn2) btn2.innerHTML = '▶ Start';
+        pomoRunning = false;
+      }
+
+      updatePomoDisplay();
+    }, 1000);
+  }
+}
+
+function resetPomodoro() {
+  clearInterval(pomoInterval);
+  pomoRunning = false;
+  pomoTimeLeft = pomoWorkMinutes * 60;
+
+  var btn = document.getElementById('pomoStartBtn');
+  if (btn) btn.innerHTML = '▶ Start';
+
+  var modeEl = document.getElementById('pomoMode');
+  if (modeEl) {
+    modeEl.textContent = 'Focus';
+    modeEl.className = 'pomo-mode';
+  }
+
+  updatePomoDisplay();
+}
+
+function setPomoPreset(minutes, btnEl) {
+  clearInterval(pomoInterval);
+  pomoRunning = false;
+
+  if (minutes <= 5) {
+    // Break mode
+    pomoTimeLeft = minutes * 60;
+    var modeEl = document.getElementById('pomoMode');
+    if (modeEl) {
+      modeEl.textContent = 'Pauză ☕';
+      modeEl.className = 'pomo-mode break';
+    }
+  } else {
+    pomoWorkMinutes = minutes;
+    pomoTimeLeft = minutes * 60;
+    var modeEl = document.getElementById('pomoMode');
+    if (modeEl) {
+      modeEl.textContent = 'Focus';
+      modeEl.className = 'pomo-mode';
+    }
+  }
+
+  var btn = document.getElementById('pomoStartBtn');
+  if (btn) btn.innerHTML = '▶ Start';
+
+  // Update preset buttons
+  document.querySelectorAll('.pomo-preset').forEach(function(b) { b.classList.remove('active'); });
+  if (btnEl) btnEl.classList.add('active');
+
+  updatePomoDisplay();
+}
+
+function updatePomoDisplay() {
+  var minutes = Math.floor(pomoTimeLeft / 60);
+  var seconds = pomoTimeLeft % 60;
+  var display = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+
+  var timeEl = document.getElementById('pomoTime');
+  if (timeEl) timeEl.textContent = display;
+}
+
+// Request notification permission for pomodoro
+if ('Notification' in window && Notification.permission === 'default') {
+  Notification.requestPermission();
+}
+
+// =============================================
+// FILE ORGANIZER
+// =============================================
+function renderFileOrganizer(key) {
+  var files = state.files[key] || [];
+  if (!files.length) {
+    return '<div style="text-align:center;color:var(--text-muted);padding:12px;font-size:.85rem;">Niciun fișier adăugat</div>';
+  }
+
+  var catColors = {
+    curs: { bg: 'var(--accent-muted)', color: 'var(--accent)', icon: '📘' },
+    seminar: { bg: 'var(--green-muted)', color: 'var(--green)', icon: '📗' },
+    lab: { bg: 'var(--amber-muted)', color: 'var(--amber)', icon: '📙' },
+    proiect: { bg: 'var(--red-muted)', color: 'var(--red)', icon: '📕' },
+    examen: { bg: 'var(--blue-muted)', color: 'var(--blue)', icon: '📓' },
+    altele: { bg: 'var(--accent-muted)', color: 'var(--text-muted)', icon: '📄' }
+  };
+
+  // Sort by category
+  var sorted = files.slice().sort(function(a, b) {
+    var catOrder = ['curs', 'seminar', 'lab', 'proiect', 'examen', 'altele'];
+    return catOrder.indexOf(a.cat) - catOrder.indexOf(b.cat);
+  });
+
+  var html = '<div class="file-list">';
+  var currentCat = '';
+
+  sorted.forEach(function(file) {
+    var cat = catColors[file.cat] || catColors.altele;
+
+    if (file.cat !== currentCat) {
+      currentCat = file.cat;
+      html += '<div style="font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;padding:8px 0 4px;margin-top:8px;">' + cat.icon + ' ' + file.cat + '</div>';
+    }
+
+    // Find original index for deletion
+    var origIndex = files.indexOf(file);
+
+    html += '<div class="file-item">';
+    html += '<span class="file-icon">' + cat.icon + '</span>';
+    html += '<span class="file-name">' + escapeHtml(file.name) + '</span>';
+    html += '<span class="file-cat-badge" style="background:' + cat.bg + ';color:' + cat.color + '">' + file.cat + '</span>';
+    html += '<span class="file-date">' + file.date + '</span>';
+    html += '<button class="file-del" onclick="deleteFile(\'' + key + '\',' + origIndex + ')">×</button>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  return html;
+}
+
+function addFile(key) {
+  var nameInput = document.getElementById('fileName_input');
+  var catSelect = document.getElementById('fileCat');
+
+  var name = nameInput.value.trim();
+  var cat = catSelect.value;
+
+  if (!name) return;
+
+  if (!state.files[key]) state.files[key] = [];
+  state.files[key].push({
+    name: name,
+    cat: cat,
+    date: new Date().toLocaleDateString('ro')
+  });
+  saveState();
+
+  nameInput.value = '';
+  document.getElementById('fileList').innerHTML = renderFileOrganizer(key);
+}
+
+function deleteFile(key, index) {
+  if (state.files[key]) {
+    state.files[key].splice(index, 1);
+    saveState();
+    document.getElementById('fileList').innerHTML = renderFileOrganizer(key);
+  }
 }
 
 // =============================================
