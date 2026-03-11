@@ -1014,9 +1014,149 @@ input, textarea, select { font-family: inherit; }
 @media (max-width: 768px) {
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
+  .sidebar.open + .sidebar-backdrop { display: block; }
   .content { margin-left: 0; }
   .menu-toggle { display: block; }
-  .page { padding: 20px 16px; }
+  .page { padding: 16px 14px 80px; } /* padding bottom for bottom nav */
+  .topbar { padding: 12px 16px; }
+  .topbar-clock { display: none; }
+  .panels-grid { grid-template-columns: 1fr !important; }
+  .panel-full { grid-column: 1 !important; }
+  .quick-stats { grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; }
+  .qs-card { padding: 12px 8px !important; }
+  .qs-val { font-size: 1.2rem !important; }
+  .dash-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+  .dash-card { padding: 16px 12px !important; }
+  .dc-icon { font-size: 1.8rem !important; }
+  .dc-name { font-size: 0.85rem !important; }
+  .dash-hero h2 { font-size: 1.6rem !important; }
+  .stats-two-col { grid-template-columns: 1fr !important; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+  .mentor-layout { grid-template-columns: 1fr !important; }
+  .mentor-chat { height: 450px !important; }
+  .calendar-layout { grid-template-columns: 1fr !important; }
+  .exam-countdown-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .flashcard-stats { flex-wrap: wrap !important; }
+  .fc-stat { min-width: 80px !important; }
+  .flashcard-scene { height: 220px !important; }
+  .quiz-container { padding: 0 !important; }
+  .exam-sim-header { flex-wrap: wrap !important; gap: 10px !important; padding: 14px !important; }
+  .exam-sim-timer { font-size: 1.5rem !important; }
+  .modal-box { padding: 20px 16px !important; }
+  .chat-input-row { flex-wrap: nowrap !important; }
+  .link-add-row { gap: 6px !important; }
+  .link-add-row input, .link-add-row select { min-width: 0 !important; }
+  .summary-actions { flex-wrap: wrap !important; }
+  .subj-header { flex-direction: column !important; gap: 8px !important; }
+  .theme-swatches { gap: 10px !important; }
+  .theme-swatch { width: 34px !important; height: 34px !important; }
+  .heatmap-30 { grid-template-columns: repeat(10, 1fr) !important; }
+  .activity-heatmap { grid-template-columns: repeat(7, 1fr) !important; }
+  .pres-stage { min-height: 260px !important; }
+  .slide h2 { font-size: 1.1rem !important; }
+  .sidebar-footer { gap: 6px !important; padding: 10px 12px !important; }
+  .quiz-options-row { gap: 6px !important; }
+  .quiz-chip { font-size: .78rem !important; padding: 5px 10px !important; }
+  .flashcard-answer-btns { gap: 8px !important; }
+  .fc-btn { padding: 10px 6px !important; font-size: .82rem !important; }
+}
+
+@media (max-width: 480px) {
+  .page { padding: 12px 12px 80px; }
+  .quick-stats { grid-template-columns: repeat(2, 1fr) !important; }
+  .dash-grid { grid-template-columns: 1fr !important; }
+  .exam-countdown-grid { grid-template-columns: 1fr !important; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .quiz-nav-btns { gap: 8px !important; }
+  .quiz-nav-btn { padding: 9px 12px !important; font-size: .82rem !important; }
+  .exam-form-row { grid-template-columns: 1fr !important; }
+  .pres-controls { flex-wrap: wrap !important; gap: 8px !important; }
+  .mentor-quick-prompt { font-size: .78rem !important; padding: 8px 10px !important; }
+}
+
+/* =============================================
+   MOBILE BOTTOM NAV BAR
+   ============================================= */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  background: var(--bg-raised);
+  border-top: 1px solid var(--border);
+  padding: 6px 0 max(6px, env(safe-area-inset-bottom));
+  backdrop-filter: blur(10px);
+}
+
+.bottom-nav-items {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.bn-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+  min-width: 54px;
+  position: relative;
+}
+
+.bn-item:active { transform: scale(0.92); }
+
+.bn-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.bn-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.bn-item.active .bn-label { color: var(--accent); }
+.bn-item.active .bn-icon { filter: drop-shadow(0 0 4px var(--accent)); }
+
+.bn-badge {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 6px;
+  min-width: 14px;
+  text-align: center;
+}
+
+/* Sidebar backdrop on mobile */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 49;
+  backdrop-filter: blur(2px);
+}
+
+@media (max-width: 768px) {
+  .bottom-nav { display: block; }
+  .sidebar-backdrop { display: none; } /* shown via JS class */
 }
 
 /* =============================================
@@ -2538,6 +2678,349 @@ input, textarea, select { font-family: inherit; }
   --accent-muted: var(--subject-muted, rgba(123,104,238,0.12));
   --accent-border: var(--subject-border, rgba(123,104,238,0.25));
 }
+
+/* =============================================
+   V8 — STATISTICI AVANSATE
+   ============================================= */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.stat-hero-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+
+.stat-hero-card:hover { border-color: var(--accent-border); }
+
+.shc-val {
+  font-family: 'Newsreader', serif;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.shc-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.shc-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.stats-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 700px) {
+  .stats-two-col { grid-template-columns: 1fr; }
+}
+
+.stats-chart-panel {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.scp-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Heatmap 30 zile */
+.heatmap-30 {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 4px;
+}
+
+.heatmap-30 .heat-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+}
+
+/* Subject time bars */
+.subject-time-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.str-icon { font-size: 1.1rem; width: 26px; text-align: center; flex-shrink: 0; }
+.str-name { font-size: 0.82rem; font-weight: 500; width: 90px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.str-bar-wrap { flex: 1; height: 8px; background: var(--bg-overlay); border-radius: 4px; overflow: hidden; }
+.str-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s var(--ease); }
+.str-val { font-size: 0.75rem; color: var(--text-muted); width: 50px; text-align: right; flex-shrink: 0; font-family: 'JetBrains Mono', monospace; }
+
+/* Activity type donut - simulated cu div-uri */
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.dl-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.82rem;
+}
+
+.dl-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dl-label { flex: 1; color: var(--text-secondary); }
+.dl-val { font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
+
+/* Quiz performance table */
+.perf-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.perf-table th {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.perf-table td {
+  padding: 8px;
+  font-size: 0.82rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.perf-table tr:last-child td { border-bottom: none; }
+
+.score-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* =============================================
+   V8 — AI MENTOR
+   ============================================= */
+.mentor-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .mentor-layout { grid-template-columns: 1fr; }
+}
+
+.mentor-chat {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  height: 580px;
+}
+
+.mentor-chat-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mentor-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.mentor-status {
+  font-size: 0.72rem;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mentor-status::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.mentor-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mentor-msg {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  animation: fadeUp 0.3s ease both;
+}
+
+.mentor-msg.ai {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.mentor-msg.user {
+  background: var(--accent-muted);
+  border: 1px solid var(--accent-border);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  color: var(--text-primary);
+}
+
+.mentor-msg.ai .msg-sender {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.mentor-input-area {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+}
+
+.mentor-input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  font-family: inherit;
+  resize: none;
+}
+
+.mentor-input:focus { outline: none; border-color: var(--accent); }
+
+.mentor-send-btn {
+  padding: 10px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.mentor-send-btn:hover { background: var(--accent-hover); }
+.mentor-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Panel lateral Mentor — quick prompts + context */
+.mentor-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mentor-context-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.mcc-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.mentor-quick-prompt {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 6px;
+  font-family: inherit;
+}
+
+.mentor-quick-prompt:hover {
+  border-color: var(--accent-border);
+  color: var(--accent);
+  background: var(--accent-muted);
+}
+
+.mentor-quick-prompt:last-child { margin-bottom: 0; }
 </style>
 
 </head>
@@ -2563,6 +3046,9 @@ input, textarea, select { font-family: inherit; }
      ============================================= -->
 <div class="app" id="app" style="display:none;">
 
+  <!-- SIDEBAR BACKDROP (mobile) -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
@@ -2580,7 +3066,7 @@ input, textarea, select { font-family: inherit; }
   <div class="content">
     <header class="topbar">
       <div style="display:flex;align-items:center;gap:12px;">
-        <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <button class="menu-toggle" onclick="openSidebarMobile()">☰</button>
         <span class="topbar-title" id="topbarTitle">Dashboard</span>
       </div>
       <span class="topbar-clock" id="clock"></span>
@@ -2589,6 +3075,11 @@ input, textarea, select { font-family: inherit; }
   </div>
 
 </div><!-- end app -->
+
+<!-- BOTTOM NAV (mobile only) -->
+<nav class="bottom-nav" id="bottomNav">
+  <div class="bottom-nav-items" id="bottomNavItems"></div>
+</nav>
 
 <!-- MODAL CONTAINER (Subject Manager, etc.) -->
 <div id="modalContainer"></div>
@@ -2685,12 +3176,17 @@ const DEFAULT_SUBJECTS = {
   }
 };
 
-// Returneaza SUBJECTS din state (custom) sau default-urile
+// Returneaza SUBJECTS — NUMAI ce a definit userul
+// Platforma porneste GOALA — userul isi adauga materiile lui
 function getSubjects() {
-  if (state.customSubjects && Object.keys(state.customSubjects).length > 0) {
-    return state.customSubjects;
-  }
-  return DEFAULT_SUBJECTS;
+  return state.customSubjects && Object.keys(state.customSubjects).length > 0
+    ? state.customSubjects
+    : {};
+}
+
+// Verifica daca platforma e la primul start (nicio materie adaugata)
+function isFirstRun() {
+  return Object.keys(state.customSubjects || {}).length === 0;
 }
 
 // Compatibilitate cu codul vechi care folosea SUBJECTS direct
@@ -2801,6 +3297,9 @@ let state = {
   lastStudyDate: null,    // data ultimei sesiuni
   achievements: [],       // achievements deblocate
   activityLog: [],        // log [{date, type, subject, xp}]
+  // === v8 features ===
+  studyTime: {},          // timp studiu per materie {key: minutes}
+  mentorHistory: [],      // istoricul conversatiilor cu AI Mentor
 };
 
 let presSlidePositions = {};
@@ -2822,6 +3321,8 @@ function loadState() {
     if (!state.examSessions) state.examSessions = {};
     if (!state.achievements) state.achievements = [];
     if (!state.activityLog) state.activityLog = [];
+    if (!state.studyTime) state.studyTime = {};
+    if (!state.mentorHistory) state.mentorHistory = [];
     if (state.xp === undefined) state.xp = 0;
     if (state.level === undefined) state.level = 1;
     if (state.streak === undefined) state.streak = 0;
@@ -2883,7 +3384,7 @@ function unlock() {
   updateThemeButton();
   renderSidebar();
   renderPage();
-  // Acorda XP la primul login al zilei + verifica achievements
+  renderBottomNav();
   setTimeout(() => {
     try {
       if (!state.lastStudyDate || state.lastStudyDate !== new Date().toISOString().split('T')[0]) {
@@ -2994,16 +3495,22 @@ function renderSidebar() {
 
   html += '<div class="nav-section">Materii</div>';
 
-  for (const [key, subject] of Object.entries(subjects)) {
-    const todoCount = (state.todos[key] || []).filter(t => !t.done).length;
-    const presCount = getAllPresentations(key).length;
-    const theme = getSubjectTheme(subject);
-
-    html += '<button class="nav-item ' + (state.tab === key ? 'active' : '') + '" onclick="navigateTo(\'' + key + '\')" style="' + (state.tab === key ? '--accent:' + theme.accent + ';--accent-muted:' + theme.muted + ';--accent-border:' + theme.border : '') + '">';
-    html += '<span class="ni-icon">' + subject.icon + '</span> ' + subject.name;
-    if (todoCount) html += '<span class="ni-badge">' + todoCount + '</span>';
-    if (presCount) html += '<span class="ni-badge" style="background:var(--green-muted);color:var(--green)">' + presCount + '📊</span>';
-    html += '</button>';
+  if (Object.keys(subjects).length === 0) {
+    html += '<button class="nav-item" onclick="openSubjectManager()" style="border:1px dashed var(--border);margin:4px 10px;width:calc(100% - 20px);justify-content:center;color:var(--text-muted);">';
+    html += '<span class="ni-icon">➕</span> Adaugă prima materie</button>';
+  } else {
+    for (const [key, subject] of Object.entries(subjects)) {
+      const todoCount = (state.todos[key] || []).filter(t => !t.done).length;
+      const presCount = getAllPresentations(key).length;
+      const theme = getSubjectTheme(subject);
+      html += '<button class="nav-item ' + (state.tab === key ? 'active' : '') + '" onclick="navigateTo(\'' + key + '\')" style="' + (state.tab === key ? '--accent:' + theme.accent + ';--accent-muted:' + theme.muted + ';--accent-border:' + theme.border : '') + '">';
+      html += '<span class="ni-icon">' + subject.icon + '</span> ' + subject.name;
+      if (todoCount) html += '<span class="ni-badge">' + todoCount + '</span>';
+      if (presCount) html += '<span class="ni-badge" style="background:var(--green-muted);color:var(--green)">' + presCount + '📊</span>';
+      html += '</button>';
+    }
+    html += '<button class="nav-item" onclick="openSubjectManager()" style="color:var(--text-muted);font-size:.8rem;">';
+    html += '<span class="ni-icon">⚙️</span> Gestionează materii</button>';
   }
 
   html += '<div class="nav-section">Tools AI</div>';
@@ -3011,6 +3518,9 @@ function renderSidebar() {
   html += navBtn('flashcards', '🃏', 'Flashcards', getFlashcardDueBadge());
   html += navBtn('mindmap', '🗺️', 'Mind Map AI');
   html += navBtn('examsim', '🎓', 'Exam Simulator');
+  html += '<div class="nav-section">Analiză</div>';
+  html += navBtn('stats', '📊', 'Statistici Avansate');
+  html += navBtn('mentor', '🤖', 'AI Mentor');
   html += '<div class="nav-section">Cont</div>';
   html += navBtn('settings', '📦', 'Import / Export');
 
@@ -3044,9 +3554,64 @@ function getFlashcardDueBadge() {
 function navigateTo(tab) {
   state.tab = tab;
   presSlidePositions = {};
+  closeSidebar();
   renderSidebar();
   renderPage();
+  renderBottomNav();
+}
+
+function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  if (backdrop) backdrop.style.display = 'none';
+}
+
+function openSidebarMobile() {
+  document.getElementById('sidebar').classList.toggle('open');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  if (backdrop) {
+    backdrop.style.display = document.getElementById('sidebar').classList.contains('open') ? 'block' : 'none';
+  }
+}
+
+// Randeaza bara de navigare de jos (mobile)
+function renderBottomNav() {
+  const el = document.getElementById('bottomNavItems');
+  if (!el) return;
+  const subjects = getSubjects();
+  const hasSubjects = Object.keys(subjects).length > 0;
+
+  // Tabs-uri principale in bottom nav
+  const tabs = [
+    { tab: 'dashboard', icon: '🏠', label: 'Acasă' },
+    { tab: 'subjects', icon: '📚', label: 'Materii', special: true }, // opens subject manager or first subject
+    { tab: 'quiz', icon: '🧠', label: 'Quiz', hidden: !hasSubjects },
+    { tab: 'flashcards', icon: '🃏', label: 'Cards', hidden: !hasSubjects, badge: getFlashcardsDueCount() },
+    { tab: 'mentor', icon: '🤖', label: 'Mentor' },
+  ];
+
+  let html = '';
+  tabs.filter(t => !t.hidden).forEach(t => {
+    if (t.special) {
+      // Buton special — deschide subject manager sau navigheaza la prima materie
+      const firstSubjectKey = Object.keys(subjects)[0];
+      const onclick = hasSubjects ? 'openSubjectManager()' : 'openSubjectManager()';
+      html += '<button class="bn-item" onclick="' + onclick + '">';
+      html += '<span class="bn-icon">' + t.icon + '</span>';
+      html += '<span class="bn-label">' + t.label + '</span>';
+      if (!hasSubjects) html += '<span class="bn-badge">+</span>';
+      html += '</button>';
+    } else {
+      const isActive = state.tab === t.tab;
+      html += '<button class="bn-item ' + (isActive ? 'active' : '') + '" onclick="navigateTo(\'' + t.tab + '\')">';
+      html += '<span class="bn-icon">' + t.icon + '</span>';
+      html += '<span class="bn-label">' + t.label + '</span>';
+      if (t.badge) html += '<span class="bn-badge">' + t.badge + '</span>';
+      html += '</button>';
+    }
+  });
+
+  el.innerHTML = html;
 }
 
 // =============================================
@@ -3080,6 +3645,12 @@ function renderPage() {
   } else if (state.tab === 'achievements') {
     title.textContent = '🏆 Realizări & XP';
     renderAchievementsPage(page);
+  } else if (state.tab === 'stats') {
+    title.textContent = '📊 Statistici Avansate';
+    renderStatsPage(page);
+  } else if (state.tab === 'mentor') {
+    title.textContent = '🤖 AI Mentor';
+    renderMentorPage(page);
   } else if (state.tab === 'settings') {
     title.textContent = '⚙️ Setări & Date';
     renderSettingsPage(page);
@@ -3095,15 +3666,101 @@ function renderPage() {
 }
 
 // =============================================
-// DASHBOARD
+// ONBOARDING — prima utilizare, nicio materie
 // =============================================
+function renderOnboarding() {
+  let html = '';
+
+  // Hero onboarding
+  html += '<div style="text-align:center;padding:48px 20px 32px;">';
+  html += '<div style="font-size:4rem;margin-bottom:16px;">🎓</div>';
+  html += '<div style="font-family:Newsreader,serif;font-size:2rem;font-weight:800;margin-bottom:8px;">Bun venit la Study Hub!</div>';
+  html += '<div style="color:var(--text-secondary);font-size:1rem;max-width:480px;margin:0 auto;">Platforma ta AI-powered pentru studiu. Începe prin a-ți adăuga materiile.</div>';
+  html += '</div>';
+
+  // API Config first — important
+  html += '<details class="api-config anim anim-d1" ' + (state.apiKey ? '' : 'open') + ' style="margin-bottom:24px;">';
+  html += '<summary>🔑 ' + (state.apiKey ? '✅ API Anthropic configurat' : 'Pasul 1 — Configurează API Anthropic (pentru AI)') + '</summary>';
+  html += '<p style="font-size:.82rem;color:var(--text-secondary);margin-top:10px;">API key-ul e necesar pentru AI Tutor, Quiz, Flashcards și prezentări. Obțin gratuit de la <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--accent);">console.anthropic.com</a>.</p>';
+  html += '<div class="api-row"><input type="password" class="api-inp" id="apiKeyInput" placeholder="sk-ant-api03-..." value="' + (state.apiKey || '') + '">';
+  html += '<button class="api-save" onclick="saveApiKey()">Salvează</button></div>';
+  html += '<div class="api-status" id="apiStatus"></div></details>';
+
+  // Optiuni onboarding
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:32px;" class="anim anim-d2">';
+
+  // Optiunea 1: Adauga manual
+  html += '<div style="background:var(--bg-raised);border:2px solid var(--accent-border);border-radius:var(--radius);padding:28px 24px;text-align:center;cursor:pointer;transition:all .2s;" onclick="openSubjectManager()" onmouseover="this.style.borderColor=\'var(--accent)\'" onmouseout="this.style.borderColor=\'var(--accent-border)\'">';
+  html += '<div style="font-size:2.5rem;margin-bottom:12px;">➕</div>';
+  html += '<div style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">Adaugă materiile tale</div>';
+  html += '<div style="font-size:.82rem;color:var(--text-secondary);">Creează materii personalizate cu icon, culoare și descriere proprie. Recomandat dacă nu ești la ASE.</div>';
+  html += '<div style="margin-top:16px;padding:10px 20px;background:var(--accent);color:#fff;border-radius:var(--radius-sm);font-weight:600;font-size:.88rem;display:inline-block;">Adaugă materie →</div>';
+  html += '</div>';
+
+  // Optiunea 2: Import ASE template
+  html += '<div style="background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;text-align:center;cursor:pointer;transition:all .2s;" onclick="importASETemplate()" onmouseover="this.style.borderColor=\'var(--border-hover)\'" onmouseout="this.style.borderColor=\'var(--border)\'">';
+  html += '<div style="font-size:2.5rem;margin-bottom:12px;">🏛️</div>';
+  html += '<div style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">Importă template ASE</div>';
+  html += '<div style="font-size:.82rem;color:var(--text-secondary);">Pornește cu materiile ASE pre-configurate (MAP, Python & ML, Banking, Econometrie, MCCP). Le poți edita sau șterge după.</div>';
+  html += '<div style="margin-top:16px;padding:10px 20px;background:var(--bg-overlay);color:var(--text-secondary);border-radius:var(--radius-sm);font-weight:600;font-size:.88rem;border:1px solid var(--border);display:inline-block;">Import template →</div>';
+  html += '</div>';
+
+  html += '</div>';
+
+  // Features preview
+  html += '<div class="anim anim-d3" style="background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">';
+  html += '<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:16px;">Ce poți face cu Study Hub</div>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">';
+  const features = [
+    ['🤖', 'AI Tutor', 'Chat cu Claude per materie'],
+    ['📊', 'Prezentări AI', 'Din PDF/DOCX/TXT'],
+    ['🧠', 'Quiz Mode', 'Grile generate AI'],
+    ['🃏', 'Flashcards', 'Spaced repetition'],
+    ['🗺️', 'Mind Map AI', 'Hărți conceptuale'],
+    ['🎓', 'Exam Sim', 'Sesiune cronometrată'],
+    ['📅', 'Calendar', 'Countdown examene'],
+    ['🏆', 'XP & Streak', 'Gamification'],
+  ];
+  features.forEach(([icon, name, desc]) => {
+    html += '<div style="padding:12px;background:var(--bg-surface);border-radius:var(--radius-sm);text-align:center;">';
+    html += '<div style="font-size:1.5rem;margin-bottom:4px;">' + icon + '</div>';
+    html += '<div style="font-weight:600;font-size:.82rem;">' + name + '</div>';
+    html += '<div style="font-size:.7rem;color:var(--text-muted);margin-top:2px;">' + desc + '</div>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+
+  return html;
+}
+
+// Import template ASE (cele 5 materii default)
+function importASETemplate() {
+  if (!confirm('Importezi materiile ASE (MAP, Python & ML, Banking, Econometrie, MCCP)? Le poți edita sau șterge după.')) return;
+  state.customSubjects = JSON.parse(JSON.stringify(DEFAULT_SUBJECTS));
+  SUBJECTS = getSubjects();
+  saveState();
+  renderSidebar();
+  renderPage();
+  showToast('✅ 5 materii ASE importate! Le poți edita din ⚙️');
+}
 function renderDashboard(element) {
   const subjects = getSubjects();
+  const hasSubjects = Object.keys(subjects).length > 0;
+
+  let html = '<div class="anim">';
+
+  // ── ONBOARDING — nicio materie adaugata ──
+  if (!hasSubjects) {
+    html += renderOnboarding();
+    html += '</div>';
+    element.innerHTML = html;
+    return;
+  }
+
+  // ── DASHBOARD NORMAL ──
   const totalTodos = Object.values(state.todos).flat().length;
   const doneTodos = Object.values(state.todos).flat().filter(t => t.done).length;
   const totalPres = Object.keys(subjects).reduce((acc, key) => acc + getAllPresentations(key).length, 0);
-
-  let html = '<div class="anim">';
 
   // Hero
   html += '<div class="dash-hero">';
@@ -3123,25 +3780,30 @@ function renderDashboard(element) {
   // API Config
   html += '<details class="api-config anim anim-d2" ' + (state.apiKey ? '' : 'open') + '>';
   html += '<summary>🔑 Configurare API Anthropic ' + (state.apiKey ? '— ✅ Configurat' : '— necesară pentru AI') + '</summary>';
-  html += '<p style="font-size:.82rem;color:var(--text-secondary);margin-top:10px;">Pentru AI Tutor și generarea de prezentări ai nevoie de un API key de la <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--accent);">console.anthropic.com</a>. Key-ul se salvează doar local pe dispozitivul tău.</p>';
+  html += '<p style="font-size:.82rem;color:var(--text-secondary);margin-top:10px;">Pentru AI Tutor și generarea de prezentări ai nevoie de un API key de la <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--accent);">console.anthropic.com</a>. Key-ul se salvează doar local.</p>';
   html += '<div class="api-row"><input type="password" class="api-inp" id="apiKeyInput" placeholder="sk-ant-api03-..." value="' + (state.apiKey || '') + '">';
   html += '<button class="api-save" onclick="saveApiKey()">Salvează</button></div>';
   html += '<div class="api-status" id="apiStatus"></div></details>';
 
-  // Subject Cards — dinamic din getSubjects()
+  // Subject Cards
   html += '<div class="dash-grid anim anim-d3">';
   for (const [key, subject] of Object.entries(subjects)) {
     const todos = state.todos[key] || [];
     const done = todos.filter(t => t.done).length;
     const presCount = getAllPresentations(key).length;
     const theme = getSubjectTheme(subject);
-
     html += '<div class="dash-card" onclick="navigateTo(\'' + key + '\')" style="border-color:' + theme.border + '">';
     html += '<div class="dc-icon" style="background:' + theme.muted + '">' + subject.icon + '</div>';
     html += '<div class="dc-name">' + subject.name + '</div>';
-    html += '<div class="dc-sub">' + presCount + ' prezentări · ' + (todos.length ? done + '/' + todos.length + ' tasks' : '0 tasks') + '</div>';
+    html += '<div class="dc-sub">' + presCount + ' prez · ' + (todos.length ? done + '/' + todos.length + ' tasks' : '0 tasks') + '</div>';
     html += '</div>';
   }
+  // Card + adaugare rapida materie
+  html += '<div class="dash-card" onclick="openSubjectManager()" style="border-style:dashed;opacity:.7;">';
+  html += '<div class="dc-icon">➕</div>';
+  html += '<div class="dc-name">Materie Nouă</div>';
+  html += '<div class="dc-sub">Click pentru a adăuga</div>';
+  html += '</div>';
   html += '</div>';
 
   // Tool-uri AI shortcuts
@@ -3162,6 +3824,10 @@ function renderDashboard(element) {
   html += '<div class="dash-card" onclick="navigateTo(\'calendar\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;"><span style="font-size:2rem;">📅</span><div><div style="font-weight:700;">Calendar Sesiune</div><div style="font-size:.78rem;color:' + (nextExam?'var(--red)':'var(--text-secondary)') + '">' + (nextExam?'⏰ '+Math.round((new Date(nextExam.date)-new Date())/(1000*60*60*24))+' zile':'Countdown examene') + '</div></div></div>';
 
   html += '<div class="dash-card" onclick="navigateTo(\'achievements\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;"><span style="font-size:2rem;">🏆</span><div><div style="font-weight:700;">Realizări & XP</div><div style="font-size:.78rem;color:var(--amber)">⭐ Nivel '+(state.level||1)+' · '+(state.xp||0)+' XP</div></div></div>';
+
+  html += '<div class="dash-card" onclick="navigateTo(\'stats\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;"><span style="font-size:2rem;">📊</span><div><div style="font-weight:700;">Statistici Avansate</div><div style="font-size:.78rem;color:var(--text-secondary)">Timp studiu, XP, grafice</div></div></div>';
+
+  html += '<div class="dash-card" onclick="navigateTo(\'mentor\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;"><span style="font-size:2rem;">🤖</span><div><div style="font-weight:700;">AI Mentor</div><div style="font-size:.78rem;color:var(--text-secondary)">' + generateAutoInsightShort() + '</div></div></div>';
 
   html += '</div></div>';
 
@@ -5747,6 +6413,12 @@ function awardXP(amount, reason, subject) {
   state.activityLog.push({ date: today, type: reason, subject: subject || '', xp: amount });
   if (state.activityLog.length > 500) state.activityLog = state.activityLog.slice(-500);
 
+  // Tracks estimated study time per subject (1 XP ≈ 0.5 min)
+  if (subject && subject !== '') {
+    if (!state.studyTime) state.studyTime = {};
+    state.studyTime[subject] = (state.studyTime[subject] || 0) + Math.round(amount * 0.5);
+  }
+
   // Recalculeaza nivelul
   let xpAcc = 0, newLevel = 1;
   while (true) {
@@ -5912,7 +6584,9 @@ function openSubjectManager() {
   html += '<div class="modal-box"><div class="modal-header"><div class="modal-title">⚙️ Gestionare Materii</div><button class="modal-close" onclick="closeModal()">✕</button></div>';
 
   if (isCustom) {
-    html += '<button onclick="resetToDefaultSubjects()" style="width:100%;padding:9px;border-radius:var(--radius-sm);border:1px solid var(--red);background:var(--red-muted);color:var(--red);font-size:.82rem;font-weight:600;cursor:pointer;margin-bottom:16px;">↩ Resetează la materiile ASE default</button>';
+    html += '<button onclick="importASETemplate();closeModal();" style="width:100%;padding:9px;border-radius:var(--radius-sm);border:1px solid var(--accent-border);background:var(--accent-muted);color:var(--accent);font-size:.82rem;font-weight:600;cursor:pointer;margin-bottom:16px;">🏛️ Importă/Adaugă materiile ASE ca template</button>';
+  } else {
+    html += '<button onclick="importASETemplate();closeModal();" style="width:100%;padding:9px;border-radius:var(--radius-sm);border:1px solid var(--accent-border);background:var(--accent-muted);color:var(--accent);font-size:.82rem;font-weight:600;cursor:pointer;margin-bottom:16px;">🏛️ Pornește cu materiile ASE (MAP, Python, Banking, Eco, MCCP)</button>';
   }
 
   html += '<div style="margin-bottom:20px;">';
@@ -5960,14 +6634,15 @@ function addNewSubject() {
   const prompt = document.getElementById('newSubjPrompt').value.trim() || 'Ești un profesor expert în ' + full + '. Răspunde în română.';
   if (!name) { alert('Introdu un nume pentru materie!'); return; }
   const key = 'subj_' + name.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0,15) + '_' + Date.now();
-  if (!state.customSubjects || Object.keys(state.customSubjects).length === 0) {
-    state.customSubjects = JSON.parse(JSON.stringify(DEFAULT_SUBJECTS));
-  }
+  if (!state.customSubjects) state.customSubjects = {};
+  // NU copiem DEFAULT_SUBJECTS — incepem fresh cu materia userului
   state.customSubjects[key] = { icon, name, full, desc, themeId: _newSubjThemeId, resources: [], systemPrompt: prompt };
   SUBJECTS = getSubjects();
   saveState();
   closeModal();
   renderSidebar();
+  renderBottomNav();
+  renderPage();
   showToast('✅ Materie adăugată: ' + name);
   awardXP(20, 'Materie nouă adăugată');
 }
@@ -5975,7 +6650,7 @@ function addNewSubject() {
 function deleteSubject(key) {
   const subj = getSubjects()[key];
   if (!confirm('Ștergi materia "' + subj.name + '"? Datele asociate rămân în state dar materia dispare.')) return;
-  if (!state.customSubjects || Object.keys(state.customSubjects).length === 0) state.customSubjects = JSON.parse(JSON.stringify(DEFAULT_SUBJECTS));
+  if (!state.customSubjects) state.customSubjects = {};
   delete state.customSubjects[key];
   SUBJECTS = getSubjects();
   saveState();
@@ -6012,8 +6687,8 @@ function selectEditSubjTheme(id) {
 function saveEditSubject(key) {
   const name = document.getElementById('editSubjName').value.trim();
   if (!name) { alert('Numele nu poate fi gol!'); return; }
-  if (!state.customSubjects || Object.keys(state.customSubjects).length===0) state.customSubjects = JSON.parse(JSON.stringify(DEFAULT_SUBJECTS));
-  const existing = state.customSubjects[key] || DEFAULT_getSubjects()[key] || {};
+  if (!state.customSubjects) state.customSubjects = {};
+  const existing = state.customSubjects[key] || {};
   state.customSubjects[key] = { ...existing, name, icon: document.getElementById('editSubjIcon').value.trim()||existing.icon, full: document.getElementById('editSubjFull').value.trim()||name, desc: document.getElementById('editSubjDesc').value.trim(), systemPrompt: document.getElementById('editSubjPrompt').value.trim(), themeId: _editSubjThemeId };
   SUBJECTS = getSubjects();
   saveState();
@@ -6493,6 +7168,611 @@ function clearAllData() {
   if (!confirm('ATENȚIE! Pierzi TOATE datele. Continui?')) return;
   if (!confirm('Ești absolut sigur? Ireversibil!')) return;
   localStorage.clear(); location.reload();
+}
+
+// =============================================
+// V8 — STATISTICI AVANSATE
+// =============================================
+function renderStatsPage(element) {
+  const subjects = getSubjects();
+  const log = state.activityLog || [];
+  const today = new Date();
+
+  // ── Calcule generale ──────────────────────
+  const totalXP = state.xp || 0;
+  const totalQuizzes = Object.values(state.quizHistory || {}).flat().length;
+  const avgQuizScore = (() => {
+    const all = Object.values(state.quizHistory || {}).flat();
+    if (!all.length) return 0;
+    return Math.round(all.reduce((a, r) => a + (r.score / r.total) * 100, 0) / all.length);
+  })();
+  const totalFC = Object.values(state.flashcardDecks || {}).flat().length;
+  const totalFCReviews = Object.values(state.flashcardDecks || {}).flat().reduce((a, c) => a + (c.reviews || 0), 0);
+  const totalPres = Object.values(state.presentations || {}).flat().length;
+  const totalExamSessions = Object.values(state.examSessions || {}).flat().length;
+
+  // Timp total estimat (din studyTime)
+  const totalMinutes = Object.values(state.studyTime || {}).reduce((a, b) => a + b, 0);
+  const totalHours = (totalMinutes / 60).toFixed(1);
+
+  // XP per zi (ultimele 30 zile)
+  const xpPerDay = {};
+  log.forEach(e => { xpPerDay[e.date] = (xpPerDay[e.date] || 0) + (e.xp || 0); });
+
+  // XP per materie
+  const xpPerSubject = {};
+  log.forEach(e => {
+    if (e.subject) xpPerSubject[e.subject] = (xpPerSubject[e.subject] || 0) + (e.xp || 0);
+  });
+
+  // Tipuri de activitate
+  const actTypes = {};
+  log.forEach(e => {
+    const cat = categorizeActivity(e.type);
+    actTypes[cat] = (actTypes[cat] || 0) + (e.xp || 0);
+  });
+
+  // ── HTML ──────────────────────────────────
+  let html = '<div class="anim">';
+  html += '<div class="dash-hero" style="padding:28px 20px 20px"><h2>📊 Statistici Avansate</h2><p>Vizualizează progresul tău în detaliu</p></div>';
+
+  // Hero stats cards
+  html += '<div class="stats-grid">';
+  const heroStats = [
+    { val: totalXP, label: 'XP Total', sub: 'Nivel ' + (state.level || 1), color: 'var(--accent)' },
+    { val: (state.streak || 0), label: 'Streak Actual', sub: 'zile consecutive 🔥', color: 'var(--amber)' },
+    { val: totalHours + 'h', label: 'Timp Studiu', sub: 'estimat total', color: 'var(--blue)' },
+    { val: totalQuizzes, label: 'Quiz-uri', sub: avgQuizScore + '% medie', color: 'var(--green)' },
+    { val: totalFC, label: 'Flashcards', sub: totalFCReviews + ' reviews', color: 'var(--teal, #2ec4b6)' },
+    { val: totalPres, label: 'Prezentări', sub: 'generate AI', color: 'var(--red)' },
+    { val: totalExamSessions, label: 'Exam Sims', sub: 'sesiuni complete', color: 'var(--pink, #e879a0)' },
+    { val: (state.achievements || []).length, label: 'Achievements', sub: 'din ' + 16, color: 'var(--amber)' },
+  ];
+  heroStats.forEach(s => {
+    html += '<div class="stat-hero-card">';
+    html += '<div class="shc-val" style="color:' + s.color + '">' + s.val + '</div>';
+    html += '<div class="shc-label">' + s.label + '</div>';
+    html += '<div class="shc-sub">' + s.sub + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // Heatmap 30 zile + Distribuție activitate
+  html += '<div class="stats-two-col">';
+
+  // Heatmap
+  html += '<div class="stats-chart-panel">';
+  html += '<div class="scp-title">🔥 Activitate — 30 Zile</div>';
+  html += '<div class="heatmap-30">';
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(today); d.setDate(d.getDate() - i);
+    const dStr = d.toISOString().split('T')[0];
+    const dayXP = xpPerDay[dStr] || 0;
+    const lvl = dayXP > 200 ? 4 : dayXP > 100 ? 3 : dayXP > 50 ? 2 : dayXP > 0 ? 1 : 0;
+    const dayLabel = d.toLocaleDateString('ro', { weekday: 'short', day: 'numeric', month: 'short' });
+    html += '<div class="heat-cell l' + lvl + '" title="' + dayLabel + ': ' + dayXP + ' XP" style="cursor:default;"></div>';
+  }
+  html += '</div>';
+  html += '<div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--text-muted);margin-top:8px;">';
+  html += '<span>acum 30 zile</span><span>azi</span></div>';
+  html += '<div style="display:flex;gap:8px;align-items:center;margin-top:10px;font-size:.7rem;color:var(--text-muted);">';
+  html += '<span>Mai puțin</span>';
+  [0,1,2,3,4].forEach(l => html += '<div class="heat-cell l' + l + '" style="width:14px;height:14px;border-radius:2px;flex-shrink:0;cursor:default;"></div>');
+  html += '<span>Mai mult</span></div>';
+  html += '</div>';
+
+  // Distribuție activitate
+  html += '<div class="stats-chart-panel">';
+  html += '<div class="scp-title">🎯 Distribuție Activitate (XP)</div>';
+  const actColors = {
+    'Quiz': 'var(--accent)', 'Flashcards': 'var(--green)', 'Prezentări': 'var(--blue)',
+    'Exam Sim': 'var(--red)', 'Mind Map': 'var(--amber)', 'Altele': 'var(--text-muted)'
+  };
+  const totalActXP = Object.values(actTypes).reduce((a, b) => a + b, 1);
+
+  // Visual bar chart pentru activitati
+  html += '<div style="display:flex;flex-direction:column;gap:8px;">';
+  Object.entries(actTypes).sort((a, b) => b[1] - a[1]).forEach(([type, xp]) => {
+    const pct = Math.round((xp / totalActXP) * 100);
+    const color = actColors[type] || 'var(--text-muted)';
+    html += '<div>';
+    html += '<div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:3px;">';
+    html += '<span style="color:var(--text-secondary)">' + type + '</span>';
+    html += '<span style="color:var(--text-muted);font-family:JetBrains Mono,monospace">' + xp + ' XP (' + pct + '%)</span>';
+    html += '</div>';
+    html += '<div style="height:6px;background:var(--bg-overlay);border-radius:3px;overflow:hidden;">';
+    html += '<div style="width:' + pct + '%;height:100%;background:' + color + ';border-radius:3px;transition:width .6s"></div>';
+    html += '</div></div>';
+  });
+  if (!Object.keys(actTypes).length) {
+    html += '<div style="text-align:center;color:var(--text-muted);padding:20px;font-size:.85rem;">Nicio activitate înregistrată încă</div>';
+  }
+  html += '</div></div>';
+
+  html += '</div>'; // end stats-two-col
+
+  // Timp per materie + Performance quiz
+  html += '<div class="stats-two-col">';
+
+  // Timp per materie
+  html += '<div class="stats-chart-panel">';
+  html += '<div class="scp-title">⏱ Timp Studiu per Materie</div>';
+  const studyEntries = Object.entries(state.studyTime || {})
+    .filter(([k]) => subjects[k])
+    .sort((a, b) => b[1] - a[1]);
+  const maxTime = Math.max(...studyEntries.map(([, v]) => v), 1);
+
+  if (studyEntries.length) {
+    studyEntries.forEach(([key, minutes]) => {
+      const subj = subjects[key];
+      if (!subj) return;
+      const theme = getSubjectTheme(subj);
+      const pct = Math.round((minutes / maxTime) * 100);
+      const hrs = minutes >= 60 ? (minutes / 60).toFixed(1) + 'h' : minutes + 'm';
+      html += '<div class="subject-time-row">';
+      html += '<span class="str-icon">' + subj.icon + '</span>';
+      html += '<span class="str-name" title="' + subj.name + '">' + subj.name + '</span>';
+      html += '<div class="str-bar-wrap"><div class="str-bar-fill" style="width:' + pct + '%;background:' + theme.accent + '"></div></div>';
+      html += '<span class="str-val">' + hrs + '</span>';
+      html += '</div>';
+    });
+  } else {
+    html += '<div style="text-align:center;color:var(--text-muted);padding:20px;font-size:.85rem;">Completează quiz-uri și flashcard-uri pentru a acumula timp de studiu</div>';
+  }
+  html += '</div>';
+
+  // Performance quiz per materie
+  html += '<div class="stats-chart-panel">';
+  html += '<div class="scp-title">🧠 Performance Quiz per Materie</div>';
+  const quizH = state.quizHistory || {};
+  const quizSubjects = Object.keys(quizH).filter(k => quizH[k].length > 0);
+
+  if (quizSubjects.length) {
+    html += '<table class="perf-table"><thead><tr>';
+    html += '<th>Materie</th><th>Quiz-uri</th><th>Medie</th><th>Best</th>';
+    html += '</tr></thead><tbody>';
+    quizSubjects.forEach(key => {
+      const subj = subjects[key];
+      const results = quizH[key] || [];
+      const avg = Math.round(results.reduce((a, r) => a + (r.score / r.total) * 100, 0) / results.length);
+      const best = Math.round(Math.max(...results.map(r => (r.score / r.total) * 100)));
+      const avgColor = avg >= 80 ? 'var(--green)' : avg >= 60 ? 'var(--amber)' : 'var(--red)';
+      html += '<tr>';
+      html += '<td>' + (subj ? subj.icon + ' ' + subj.name : key) + '</td>';
+      html += '<td style="text-align:center;color:var(--text-muted)">' + results.length + '</td>';
+      html += '<td><span class="score-pill" style="background:' + avgColor + '22;color:' + avgColor + '">' + avg + '%</span></td>';
+      html += '<td><span class="score-pill" style="background:var(--green-muted);color:var(--green)">' + best + '%</span></td>';
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+  } else {
+    html += '<div style="text-align:center;color:var(--text-muted);padding:20px;font-size:.85rem;">Niciun quiz completat încă</div>';
+  }
+  html += '</div>';
+
+  html += '</div>'; // end stats-two-col
+
+  // XP per materie — bar orizontal
+  html += '<div class="stats-chart-panel" style="margin-bottom:24px;">';
+  html += '<div class="scp-title">⭐ XP per Materie</div>';
+  const xpSubjEntries = Object.entries(xpPerSubject).filter(([k]) => subjects[k]).sort((a, b) => b[1] - a[1]);
+  const maxXPSubj = Math.max(...xpSubjEntries.map(([, v]) => v), 1);
+
+  if (xpSubjEntries.length) {
+    xpSubjEntries.forEach(([key, xp]) => {
+      const subj = subjects[key];
+      if (!subj) return;
+      const theme = getSubjectTheme(subj);
+      const pct = Math.round((xp / maxXPSubj) * 100);
+      html += '<div class="subject-time-row">';
+      html += '<span class="str-icon">' + subj.icon + '</span>';
+      html += '<span class="str-name" title="' + subj.name + '">' + subj.name + '</span>';
+      html += '<div class="str-bar-wrap"><div class="str-bar-fill" style="width:' + pct + '%;background:' + theme.accent + '"></div></div>';
+      html += '<span class="str-val">' + xp + ' XP</span>';
+      html += '</div>';
+    });
+  } else {
+    html += '<div style="text-align:center;color:var(--text-muted);padding:16px;font-size:.85rem;">Niciun XP acumulat per materie încă</div>';
+  }
+  html += '</div>';
+
+  html += '</div>'; // end anim
+  element.innerHTML = html;
+}
+
+// Versiune scurta a insight-ului pentru dashboard card
+function generateAutoInsightShort() {
+  const dueFC = getFlashcardsDueCount();
+  if (dueFC > 0) return dueFC + ' flashcards scadente azi';
+  const streak = state.streak || 0;
+  if (streak >= 7) return '🔥 Streak ' + streak + ' zile!';
+  const nextExam = (state.exams || []).filter(e => new Date(e.date) >= new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date))[0];
+  if (nextExam) { const d=Math.round((new Date(nextExam.date)-new Date())/(1000*60*60*24)); return '⏰ Examen în ' + d + ' zile'; }
+  return 'Analiză personalizată AI';
+}
+
+// Categorizeaza tipul de activitate pentru statistici
+function categorizeActivity(type) {
+  if (!type) return 'Altele';
+  const t = type.toLowerCase();
+  if (t.includes('quiz')) return 'Quiz';
+  if (t.includes('flash') || t.includes('card')) return 'Flashcards';
+  if (t.includes('prezent') || t.includes('generat')) return 'Prezentări';
+  if (t.includes('exam')) return 'Exam Sim';
+  if (t.includes('mind') || t.includes('map')) return 'Mind Map';
+  return 'Altele';
+}
+
+// =============================================
+// V8 — AI MENTOR
+// =============================================
+function renderMentorPage(element) {
+  let html = '<div class="anim">';
+  html += '<div class="mentor-layout">';
+
+  // ── Panoul principal de chat ──
+  html += '<div class="mentor-chat">';
+  html += '<div class="mentor-chat-header">';
+  html += '<div class="mentor-avatar">🤖</div>';
+  html += '<div><div style="font-weight:700;font-size:.95rem;">AI Mentor</div>';
+  html += '<div class="mentor-status">Online — analizează progresul tău</div></div>';
+  if ((state.mentorHistory || []).length > 0) {
+    html += '<button onclick="clearMentorHistory()" style="margin-left:auto;padding:5px 10px;border-radius:var(--radius-xs);border:1px solid var(--border);background:var(--bg-surface);color:var(--text-muted);font-size:.72rem;cursor:pointer;">🗑️ Șterge</button>';
+  }
+  html += '</div>';
+
+  // Mesaje
+  html += '<div class="mentor-messages" id="mentorMessages">';
+  if ((state.mentorHistory || []).length === 0) {
+    html += renderMentorWelcome();
+  } else {
+    (state.mentorHistory || []).forEach(msg => {
+      if (msg.role === 'assistant') {
+        html += '<div class="mentor-msg ai"><div class="msg-sender">🤖 AI Mentor</div>' + msg.content + '</div>';
+      } else {
+        html += '<div class="mentor-msg user">' + escapeHtml(msg.content) + '</div>';
+      }
+    });
+  }
+  html += '</div>';
+
+  // Input
+  html += '<div class="mentor-input-area">';
+  if (!state.apiKey) {
+    html += '<div style="width:100%;text-align:center;color:var(--text-muted);font-size:.82rem;">⚠️ Configurează API key-ul din Dashboard pentru AI Mentor</div>';
+  } else {
+    html += '<textarea class="mentor-input" id="mentorInput" rows="1" placeholder="Pune o întrebare sau cere o analiză..." onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();sendMentorMessage()}"></textarea>';
+    html += '<button class="mentor-send-btn" id="mentorSendBtn" onclick="sendMentorMessage()">Trimite</button>';
+  }
+  html += '</div>';
+  html += '</div>'; // end mentor-chat
+
+  // ── Panoul lateral ──
+  html += '<div class="mentor-side-panel">';
+
+  // Snapshot progres
+  html += '<div class="mentor-context-card">';
+  html += '<div class="mcc-title">📈 Snapshot Progres</div>';
+  html += renderMentorSnapshot();
+  html += '</div>';
+
+  // Quick prompts
+  html += '<div class="mentor-context-card">';
+  html += '<div class="mcc-title">⚡ Întrebări Rapide</div>';
+  const quickPrompts = [
+    { icon: '📊', text: 'Analizează-mi progresul complet' },
+    { icon: '⚠️', text: 'Unde sunt cel mai slab?' },
+    { icon: '📅', text: 'Cum să mă pregătesc pentru examene?' },
+    { icon: '🎯', text: 'Ce să studiez azi?' },
+    { icon: '🔥', text: 'Cum îmi mențin streak-ul?' },
+    { icon: '🧠', text: 'Strategii pentru quiz-uri mai bune' },
+  ];
+  quickPrompts.forEach(p => {
+    html += '<button class="mentor-quick-prompt" onclick="sendMentorQuickPrompt(\'' + p.text.replace(/'/g, "\\'") + '\')">' + p.icon + ' ' + p.text + '</button>';
+  });
+  html += '</div>';
+
+  // Insight automat
+  html += '<div class="mentor-context-card">';
+  html += '<div class="mcc-title">💡 Insight Automat</div>';
+  html += '<div style="font-size:.82rem;color:var(--text-secondary);line-height:1.6;">' + generateAutoInsight() + '</div>';
+  html += '</div>';
+
+  html += '</div>'; // end mentor-side-panel
+  html += '</div>'; // end mentor-layout
+  html += '</div>'; // end anim
+
+  element.innerHTML = html;
+
+  // Scroll la bottom
+  setTimeout(() => {
+    const msgs = document.getElementById('mentorMessages');
+    if (msgs) msgs.scrollTop = msgs.scrollHeight;
+  }, 50);
+}
+
+// Mesajul de bun venit al mentorului
+function renderMentorWelcome() {
+  const subjects = getSubjects();
+  const subjCount = Object.keys(subjects).length;
+  const totalXP = state.xp || 0;
+  const streak = state.streak || 0;
+
+  let html = '<div class="mentor-msg ai">';
+  html += '<div class="msg-sender">🤖 AI Mentor</div>';
+  html += '<strong>Bună! Sunt AI Mentor-ul tău de studiu. 👋</strong><br><br>';
+  html += 'Am acces la întreaga ta activitate: <strong>' + subjCount + ' materii</strong>, ';
+  html += '<strong>' + totalXP + ' XP</strong> acumulat, streak de <strong>' + streak + ' zile</strong>.<br><br>';
+  html += 'Pot să-ți analizez progresul, să-ți recomand ce să studiezi azi, sau să te ajut cu strategii pentru examene.<br><br>';
+  html += '<em>Apasă un prompt rapid din dreapta sau scrie ce vrei să știi! 🎓</em>';
+  html += '</div>';
+  return html;
+}
+
+// Snapshot compact al progresului
+function renderMentorSnapshot() {
+  const subjects = getSubjects();
+  const quizH = state.quizHistory || {};
+  const fcDecks = state.flashcardDecks || {};
+  let html = '';
+
+  // Examen urmator
+  const nextExam = (state.exams || [])
+    .filter(e => new Date(e.date) >= new Date())
+    .sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+
+  if (nextExam) {
+    const days = Math.round((new Date(nextExam.date) - new Date()) / (1000*60*60*24));
+    const subj = subjects[nextExam.subject];
+    html += '<div style="background:var(--red-muted);border:1px solid var(--red);border-radius:var(--radius-xs);padding:8px 10px;margin-bottom:10px;font-size:.78rem;">';
+    html += '⏰ <strong>' + (subj ? subj.name : nextExam.subject) + '</strong> în ' + days + ' zile';
+    html += '</div>';
+  }
+
+  // Stats compacte
+  const items = [
+    { label: 'Nivel', val: '⭐ ' + (state.level || 1), color: 'var(--accent)' },
+    { label: 'Streak', val: '🔥 ' + (state.streak || 0) + 'z', color: 'var(--amber)' },
+    { label: 'Quiz avg', val: (() => { const all = Object.values(quizH).flat(); return all.length ? Math.round(all.reduce((a,r) => a + (r.score/r.total)*100, 0)/all.length) + '%' : '-'; })(), color: 'var(--green)' },
+    { label: 'FC due', val: getFlashcardsDueCount(), color: 'var(--blue)' },
+  ];
+
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  items.forEach(item => {
+    html += '<div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-xs);padding:8px;text-align:center;">';
+    html += '<div style="font-size:.78rem;font-weight:700;color:' + item.color + '">' + item.val + '</div>';
+    html += '<div style="font-size:.65rem;color:var(--text-muted)">' + item.label + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+// Insight automat bazat pe date
+function generateAutoInsight() {
+  const subjects = getSubjects();
+  const quizH = state.quizHistory || {};
+  const fcDecks = state.flashcardDecks || {};
+  const insights = [];
+
+  // Insight streak
+  const streak = state.streak || 0;
+  if (streak === 0) insights.push('💤 Nu ai studiat ieri. Începe azi pentru a-ți reporni streak-ul!');
+  else if (streak >= 7) insights.push('🔥 ' + streak + ' zile consecutive! Ești pe un drum excelent.');
+  else insights.push('📈 Streak de ' + streak + ' zile. Mai ai ' + (7 - streak) + ' zile până la achievement-ul "Săptămâna Studiu"!');
+
+  // Insight flashcards
+  const dueFC = getFlashcardsDueCount();
+  if (dueFC > 0) insights.push('🃏 Ai ' + dueFC + ' flashcard-uri de revizuit azi. Nu le amâna!');
+
+  // Insight quiz
+  const allQuizzes = Object.values(quizH).flat();
+  if (allQuizzes.length) {
+    const avg = Math.round(allQuizzes.reduce((a, r) => a + (r.score / r.total) * 100, 0) / allQuizzes.length);
+    if (avg < 60) insights.push('⚠️ Media quiz-urilor tale e ' + avg + '%. Revizuiește materialul și încearcă din nou.');
+    else if (avg >= 80) insights.push('🏆 Media quiz-urilor: ' + avg + '%. Performanță excelentă!');
+  }
+
+  // Insight examen apropiat
+  const nextExam = (state.exams || [])
+    .filter(e => new Date(e.date) >= new Date())
+    .sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+  if (nextExam) {
+    const days = Math.round((new Date(nextExam.date) - new Date()) / (1000*60*60*24));
+    const subj = subjects[nextExam.subject];
+    if (days <= 3) insights.push('🚨 ' + (subj ? subj.name : 'Examen') + ' este în ' + days + ' zile! Concentrează-te pe recapitulare!');
+    else if (days <= 7) insights.push('⏰ ' + (subj ? subj.name : 'Examen') + ' în ' + days + ' zile. Intensifică studiul!');
+  }
+
+  return insights.length ? insights[0] : '✅ Totul e în ordine. Continuă să studiezi constant!';
+}
+
+// Construieste contextul complet pentru AI Mentor
+function buildMentorContext() {
+  const subjects = getSubjects();
+  const quizH = state.quizHistory || {};
+  const fcDecks = state.flashcardDecks || {};
+  const log = state.activityLog || [];
+  const today = new Date().toISOString().split('T')[0];
+
+  let ctx = '=== PROFILUL STUDENTULUI ===\n';
+  ctx += 'Nivel: ' + (state.level || 1) + ' | XP Total: ' + (state.xp || 0) + ' | Streak: ' + (state.streak || 0) + ' zile\n\n';
+
+  ctx += '=== MATERII ===\n';
+  Object.entries(subjects).forEach(([key, subj]) => {
+    const todos = state.todos[key] || [];
+    const done = todos.filter(t => t.done).length;
+    const pres = getAllPresentations(key).length;
+    const qResults = quizH[key] || [];
+    const avgQ = qResults.length ? Math.round(qResults.reduce((a,r) => a + (r.score/r.total)*100,0)/qResults.length) : null;
+    const fcCount = (fcDecks[key] || []).length;
+    const studyMin = (state.studyTime || {})[key] || 0;
+    ctx += '- ' + subj.name + ': ' + pres + ' prezentări, ' + todos.length + ' tasks (' + done + ' done)';
+    if (avgQ !== null) ctx += ', quiz avg ' + avgQ + '%';
+    if (fcCount) ctx += ', ' + fcCount + ' flashcards';
+    if (studyMin) ctx += ', ~' + Math.round(studyMin/60*10)/10 + 'h studiu';
+    ctx += '\n';
+  });
+
+  ctx += '\n=== EXAMENE VIITOARE ===\n';
+  const upcoming = (state.exams || []).filter(e => new Date(e.date) >= new Date()).sort((a,b) => new Date(a.date)-new Date(b.date));
+  if (upcoming.length) {
+    upcoming.forEach(e => {
+      const days = Math.round((new Date(e.date) - new Date()) / (1000*60*60*24));
+      const subj = subjects[e.subject];
+      ctx += '- ' + e.name + ' (' + (subj ? subj.name : e.subject) + '): ' + days + ' zile\n';
+    });
+  } else ctx += '- Niciun examen adăugat\n';
+
+  ctx += '\n=== ACTIVITATE RECENTA (7 zile) ===\n';
+  const recentLog = log.filter(e => {
+    const d = new Date(today); d.setDate(d.getDate() - 7);
+    return e.date >= d.toISOString().split('T')[0];
+  });
+  const recentXP = recentLog.reduce((a, e) => a + (e.xp||0), 0);
+  ctx += 'XP săptămâna: ' + recentXP + ' | Activități: ' + recentLog.length + '\n';
+
+  ctx += '\n=== FLASHCARDS ===\n';
+  const dueFC = getFlashcardsDueCount();
+  const totalFC = Object.values(fcDecks).flat().length;
+  ctx += 'Total: ' + totalFC + ' | Scadente azi: ' + dueFC + '\n';
+
+  ctx += '\n=== QUIZ PERFORMANCE ===\n';
+  Object.entries(quizH).forEach(([key, results]) => {
+    if (!results.length) return;
+    const subj = subjects[key];
+    const avg = Math.round(results.reduce((a,r) => a + (r.score/r.total)*100,0)/results.length);
+    const best = Math.round(Math.max(...results.map(r => (r.score/r.total)*100)));
+    ctx += '- ' + (subj ? subj.name : key) + ': ' + results.length + ' quiz-uri, avg ' + avg + '%, best ' + best + '%\n';
+  });
+
+  return ctx;
+}
+
+// Trimite mesaj catre AI Mentor
+async function sendMentorMessage() {
+  if (!state.apiKey) return;
+
+  const input = document.getElementById('mentorInput');
+  const sendBtn = document.getElementById('mentorSendBtn');
+  const messagesEl = document.getElementById('mentorMessages');
+  const text = (input ? input.value : '').trim();
+  if (!text) return;
+
+  // Adauga mesajul userului
+  if (!state.mentorHistory) state.mentorHistory = [];
+  state.mentorHistory.push({ role: 'user', content: text });
+  saveState();
+
+  // Update UI
+  if (messagesEl) {
+    messagesEl.innerHTML += '<div class="mentor-msg user">' + escapeHtml(text) + '</div>';
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+  if (input) input.value = '';
+  if (sendBtn) sendBtn.disabled = true;
+
+  // Typing indicator
+  const typingId = 'mentor-typing-' + Date.now();
+  if (messagesEl) {
+    messagesEl.innerHTML += '<div class="mentor-msg ai" id="' + typingId + '"><div class="msg-sender">🤖 AI Mentor</div><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  try {
+    const context = buildMentorContext();
+    const systemPrompt = `Ești AI Mentor-ul personal al unui student. Ai acces la profilul complet al studentului și îi oferi sfaturi personalizate, motivante și concrete.
+
+PROFILUL STUDENTULUI:
+${context}
+
+INSTRUCȚIUNI:
+- Răspunde în română, cald și motivant
+- Fii specific — referă-te la datele reale ale studentului
+- Dă recomandări concrete și acționabile
+- Structurează răspunsurile cu emoji-uri pentru lizibilitate
+- Max 300 cuvinte per răspuns
+- Dacă studentul e pe cale bună, felicită-l specific
+- Dacă are probleme, oferă soluții clare
+- Folosește bold (**text**) pentru punctele cheie`;
+
+    // Construim istoricul conversatiei pentru API
+    const apiMessages = (state.mentorHistory || []).map(m => ({
+      role: m.role === 'user' ? 'user' : 'assistant',
+      content: m.role === 'assistant' ? m.content.replace(/<[^>]+>/g, '') : m.content
+    }));
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': state.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: apiMessages
+      })
+    });
+
+    const data = await response.json();
+
+    // Remove typing indicator
+    const typingEl = document.getElementById(typingId);
+    if (typingEl) typingEl.remove();
+
+    if (data.content && data.content[0]) {
+      const aiText = formatAIText(data.content[0].text);
+      state.mentorHistory.push({ role: 'assistant', content: aiText });
+      saveState();
+
+      if (messagesEl) {
+        messagesEl.innerHTML += '<div class="mentor-msg ai"><div class="msg-sender">🤖 AI Mentor</div>' + aiText + '</div>';
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      // Mici XP pentru interactiunea cu mentorul
+      awardXP(5, 'Sesiune AI Mentor');
+    } else if (data.error) {
+      if (typingEl) typingEl.remove();
+      if (messagesEl) messagesEl.innerHTML += '<div class="mentor-msg ai" style="color:var(--red);">⚠️ Eroare API: ' + data.error.message + '</div>';
+    }
+  } catch (err) {
+    const typingEl = document.getElementById(typingId);
+    if (typingEl) typingEl.remove();
+    if (messagesEl) messagesEl.innerHTML += '<div class="mentor-msg ai" style="color:var(--red);">⚠️ Eroare conexiune: ' + err.message + '</div>';
+  }
+
+  if (sendBtn) sendBtn.disabled = false;
+}
+
+// Trimite un prompt rapid
+function sendMentorQuickPrompt(text) {
+  const input = document.getElementById('mentorInput');
+  if (input) {
+    input.value = text;
+    sendMentorMessage();
+  } else {
+    // Daca nu exista input-ul (nu apiKey), simulam direct
+    if (!state.apiKey) return;
+    if (!state.mentorHistory) state.mentorHistory = [];
+    const input2 = document.createElement('input');
+    input2.id = 'mentorInput';
+    input2.value = text;
+    document.body.appendChild(input2);
+    sendMentorMessage();
+    input2.remove();
+  }
+}
+
+function clearMentorHistory() {
+  if (!confirm('Ștergi istoricul conversației cu AI Mentor?')) return;
+  state.mentorHistory = [];
+  saveState();
+  renderMentorPage(document.getElementById('pageContent'));
 }
 
 // =============================================
