@@ -2117,7 +2117,429 @@ input, textarea, select { font-family: inherit; }
 
 .file-add-row input { flex: 1; min-width: 120px; }
 .file-add-row select { width: 110px; }
+
+/* =============================================
+   V7 — SUBJECT MANAGER (modal)
+   ============================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+
+.modal-box {
+  background: var(--bg-raised);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius);
+  width: min(600px, 95vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  animation: slideUp 0.3s var(--ease);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: none; }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.modal-title {
+  font-family: 'Newsreader', serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-close:hover { background: var(--red-muted); color: var(--red); }
+
+.subject-card-mini {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  margin-bottom: 8px;
+  transition: all 0.2s;
+}
+
+.subject-card-mini:hover { border-color: var(--border-hover); }
+
+.scm-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--bg-overlay);
+  flex-shrink: 0;
+}
+
+.scm-info { flex: 1; min-width: 0; }
+.scm-name { font-weight: 700; font-size: 0.92rem; }
+.scm-full { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.scm-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.scm-btn {
+  padding: 5px 10px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: var(--bg-overlay);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.scm-btn:hover { border-color: var(--accent-border); color: var(--accent); }
+.scm-btn.danger:hover { border-color: var(--red); color: var(--red); }
+
+/* Theme color picker */
+.theme-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.theme-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.theme-swatch.active {
+  border-color: var(--text-primary);
+  transform: scale(1.15);
+}
+
+.theme-swatch:hover { transform: scale(1.1); }
+
+/* =============================================
+   V7 — GAMIFICATION (XP, Streak, Achievements)
+   ============================================= */
+.xp-bar-wrap {
+  background: var(--bg-overlay);
+  border-radius: 3px;
+  height: 6px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--blue));
+  transition: width 0.6s var(--ease);
+}
+
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: linear-gradient(135deg, var(--accent-muted), var(--blue-muted));
+  border: 1px solid var(--accent-border);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.streak-flame {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.streak-flame.hot { color: var(--amber); }
+.streak-flame.cold { color: var(--text-muted); }
+
+.achievement-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  transition: all 0.2s;
+}
+
+.achievement-card.unlocked {
+  border-color: var(--accent-border);
+  background: var(--accent-muted);
+}
+
+.achievement-card.locked { opacity: 0.45; filter: grayscale(0.6); }
+
+.ach-icon { font-size: 1.8rem; }
+.ach-name { font-weight: 700; font-size: 0.88rem; }
+.ach-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+.ach-xp { margin-left: auto; font-size: 0.72rem; font-weight: 700; color: var(--amber); }
+
+/* Toast notification pentru XP/achievements */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 300;
+  background: var(--bg-raised);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  animation: toastIn 0.35s var(--ease);
+  max-width: 320px;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: none; }
+}
+
+.toast.fade-out {
+  animation: toastOut 0.3s ease forwards;
+}
+
+@keyframes toastOut {
+  to { opacity: 0; transform: translateY(10px); }
+}
+
+/* =============================================
+   V7 — MIND MAP
+   ============================================= */
+.mindmap-container {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+
+.mindmap-svg {
+  width: 100%;
+  min-height: 500px;
+  display: block;
+}
+
+.mindmap-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 6px;
+}
+
+.mm-ctrl-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.mm-ctrl-btn:hover { background: var(--accent-muted); color: var(--accent); }
+
+/* =============================================
+   V7 — EXAM SIMULATOR
+   ============================================= */
+.exam-sim-header {
+  background: linear-gradient(135deg, var(--bg-raised), var(--bg-surface));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.exam-sim-timer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  transition: color 0.3s;
+}
+
+.exam-sim-timer.warning { color: var(--amber); }
+.exam-sim-timer.danger { color: var(--red); animation: timerPulse 1s infinite; }
+
+@keyframes timerPulse {
+  50% { opacity: 0.5; }
+}
+
+.exam-sim-meta {
+  text-align: center;
+}
+
+.exam-sim-meta .esm-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.exam-q-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.eq-nav-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eq-nav-dot.answered { background: var(--accent-muted); border-color: var(--accent-border); color: var(--accent); }
+.eq-nav-dot.current { background: var(--accent); border-color: var(--accent); color: #fff; }
+.eq-nav-dot.flagged { background: var(--amber-muted); border-color: var(--amber); color: var(--amber); }
+
+/* =============================================
+   V7 — DASHBOARD CHARTS
+   ============================================= */
+.chart-panel {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.chart-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.activity-heatmap {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  gap: 3px;
+}
+
+.heat-cell {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--bg-overlay);
+  transition: transform 0.15s;
+  cursor: pointer;
+  position: relative;
+}
+
+.heat-cell:hover { transform: scale(1.3); z-index: 1; }
+.heat-cell.l1 { background: var(--accent-muted); }
+.heat-cell.l2 { background: color-mix(in srgb, var(--accent) 40%, transparent); }
+.heat-cell.l3 { background: color-mix(in srgb, var(--accent) 70%, transparent); }
+.heat-cell.l4 { background: var(--accent); }
+
+/* =============================================
+   V7 — IMPORT/EXPORT
+   ============================================= */
+.import-export-zone {
+  border: 2px dashed var(--border-hover);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.import-export-zone:hover { border-color: var(--accent); background: var(--accent-muted); }
+.import-export-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+/* =============================================
+   V7 — COLLAB MODE
+   ============================================= */
+.collab-code-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: var(--accent);
+  text-align: center;
+  padding: 20px;
+  background: var(--bg-overlay);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--accent-border);
+  margin: 14px 0;
+}
+
+/* subject accent override per-materie */
+.using-subject-theme {
+  --accent: var(--subject-accent, #7b68ee);
+  --accent-hover: var(--subject-accent, #9183f5);
+  --accent-muted: var(--subject-muted, rgba(123,104,238,0.12));
+  --accent-border: var(--subject-border, rgba(123,104,238,0.25));
+}
 </style>
+
 </head>
 <body data-theme="dark">
 
@@ -2149,7 +2571,8 @@ input, textarea, select { font-family: inherit; }
     <nav class="sidebar-nav" id="sidebarNav"></nav>
     <div class="sidebar-footer">
       <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
-      <button class="logout-btn" onclick="handleLogout()">🔒 Lock</button>
+      <button class="theme-btn" onclick="openSubjectManager()" title="Gestionează materiile" style="padding:8px 10px;">⚙️</button>
+      <button class="logout-btn" onclick="handleLogout()">🔒</button>
     </div>
   </aside>
 
@@ -2165,89 +2588,114 @@ input, textarea, select { font-family: inherit; }
     <div class="page" id="pageContent"></div>
   </div>
 
-</div>
+</div><!-- end app -->
 
-<!-- =============================================
-     JAVASCRIPT
-     ============================================= -->
+<!-- MODAL CONTAINER (Subject Manager, etc.) -->
+<div id="modalContainer"></div>
 <script>
 
 // =============================================
-// SUBJECTS DATA
+// SUBJECT THEMES — 12 palete de culori
 // =============================================
-const SUBJECTS = {
+const SUBJECT_THEMES = [
+  { id: 'violet',  label: 'Violet',   accent: '#7b68ee', muted: 'rgba(123,104,238,0.12)', border: 'rgba(123,104,238,0.25)' },
+  { id: 'blue',    label: 'Albastru', accent: '#4f8ef7', muted: 'rgba(79,142,247,0.12)',  border: 'rgba(79,142,247,0.25)' },
+  { id: 'teal',    label: 'Teal',     accent: '#2ec4b6', muted: 'rgba(46,196,182,0.12)',  border: 'rgba(46,196,182,0.25)' },
+  { id: 'green',   label: 'Verde',    accent: '#3dd68c', muted: 'rgba(61,214,140,0.12)',  border: 'rgba(61,214,140,0.25)' },
+  { id: 'lime',    label: 'Lime',     accent: '#95d840', muted: 'rgba(149,216,64,0.12)',  border: 'rgba(149,216,64,0.25)' },
+  { id: 'amber',   label: 'Chihlimb', accent: '#f0b45b', muted: 'rgba(240,180,91,0.12)', border: 'rgba(240,180,91,0.25)' },
+  { id: 'orange',  label: 'Portocal', accent: '#f4845f', muted: 'rgba(244,132,95,0.12)', border: 'rgba(244,132,95,0.25)' },
+  { id: 'red',     label: 'Roșu',     accent: '#f06272', muted: 'rgba(240,98,114,0.12)', border: 'rgba(240,98,114,0.25)' },
+  { id: 'pink',    label: 'Roz',      accent: '#e879a0', muted: 'rgba(232,121,160,0.12)',border: 'rgba(232,121,160,0.25)' },
+  { id: 'rose',    label: 'Rose',     accent: '#fb7185', muted: 'rgba(251,113,133,0.12)',border: 'rgba(251,113,133,0.25)' },
+  { id: 'indigo',  label: 'Indigo',   accent: '#6366f1', muted: 'rgba(99,102,241,0.12)', border: 'rgba(99,102,241,0.25)' },
+  { id: 'cyan',    label: 'Cyan',     accent: '#22d3ee', muted: 'rgba(34,211,238,0.12)', border: 'rgba(34,211,238,0.25)' },
+];
+
+// Returneaza tema pentru o materie (sau default violet)
+function getSubjectTheme(subject) {
+  return SUBJECT_THEMES.find(t => t.id === (subject.themeId || 'violet')) || SUBJECT_THEMES[0];
+}
+
+// Aplica CSS variables pentru culoarea materiei active
+function applySubjectTheme(subject) {
+  if (!subject) return;
+  const theme = getSubjectTheme(subject);
+  document.documentElement.style.setProperty('--subject-accent', theme.accent);
+  document.documentElement.style.setProperty('--subject-muted', theme.muted);
+  document.documentElement.style.setProperty('--subject-border', theme.border);
+}
+
+function resetSubjectTheme() {
+  document.documentElement.style.removeProperty('--subject-accent');
+  document.documentElement.style.removeProperty('--subject-muted');
+  document.documentElement.style.removeProperty('--subject-border');
+}
+
+// =============================================
+// SUBJECTS — DYNAMIC (nu mai sunt hardcodate!)
+// =============================================
+// Materiile default sunt ASE — dar pot fi complet șterse/înlocuite
+const DEFAULT_SUBJECTS = {
   map: {
-    icon: '🧩',
-    name: 'MAP',
-    full: 'Metode și Abordări în Programare',
-    desc: 'Design patterns, OOP avansat, principii SOLID',
+    icon: '🧩', name: 'MAP', full: 'Metode și Abordări în Programare',
+    desc: 'Design patterns, OOP avansat, principii SOLID', themeId: 'violet',
     resources: [
       { tag: 'slides', label: 'Curs 1-6: Design Patterns' },
       { tag: 'slides', label: 'Curs 7-12: Architectural Patterns' },
-      { tag: 'lab', label: 'Lab: Singleton, Factory, Observer' },
-      { tag: 'book', label: 'Gang of Four — Design Patterns' },
-      { tag: 'exam', label: 'Subiecte examen 2023-2024' }
+      { tag: 'lab', label: 'Lab: Singleton, Factory, Observer' }
     ],
-    systemPrompt: 'Ești un profesor expert în Design Patterns și OOP. Explică conceptele cu analogii din viața reală, cu diagrame ASCII când e util, și cu exemple de cod Java/Python. Materia: MAP (Metode și Abordări în Programare) de la ASE București. Răspunde în română. Fii concis dar complet.'
+    systemPrompt: 'Ești un profesor expert în Design Patterns și OOP. Explică cu analogii din viața reală și exemple Java/Python. Răspunde în română.'
   },
   python: {
-    icon: '🐍',
-    name: 'Python & ML',
-    full: 'Python și Machine Learning',
-    desc: 'Pandas, Scikit-learn, Neural Networks, Data Preprocessing',
+    icon: '🐍', name: 'Python & ML', full: 'Python și Machine Learning',
+    desc: 'Pandas, Scikit-learn, Neural Networks', themeId: 'green',
     resources: [
       { tag: 'slides', label: 'Curs: Intro Python + NumPy' },
-      { tag: 'slides', label: 'Curs: Pandas & Data Wrangling' },
-      { tag: 'lab', label: 'Lab: Regression & Classification' },
-      { tag: 'lab', label: 'Lab: Neural Networks cu Keras' },
-      { tag: 'book', label: 'Hands-On ML — Géron' },
-      { tag: 'exam', label: 'Proiect: Dataset Analysis Pipeline' }
+      { tag: 'lab', label: 'Lab: Regression & Classification' }
     ],
-    systemPrompt: 'Ești un profesor expert în Python și Machine Learning. Explică cu cod Python clar, analogii intuitive și vizualizări ASCII. Include mereu exemple practice cu Pandas, Scikit-learn sau Keras când e relevant. Răspunde în română.'
+    systemPrompt: 'Ești un profesor expert în Python și Machine Learning. Explică cu cod Python clar. Răspunde în română.'
   },
   banking: {
-    icon: '🏦',
-    name: 'Banking',
-    full: 'Sisteme și Operațiuni Bancare',
-    desc: 'Produse bancare, risk management, reglementări, Basel III',
+    icon: '🏦', name: 'Banking', full: 'Sisteme și Operațiuni Bancare',
+    desc: 'Produse bancare, risk management, Basel III', themeId: 'blue',
     resources: [
-      { tag: 'slides', label: 'Curs 1-4: Sistemul bancar românesc' },
-      { tag: 'slides', label: 'Curs 5-8: Produse & Servicii bancare' },
-      { tag: 'slides', label: 'Curs 9-12: Managementul riscului' },
-      { tag: 'book', label: 'Manual: Bănci și Piețe Financiare' },
-      { tag: 'exam', label: 'Grile examen + studii de caz' }
+      { tag: 'slides', label: 'Curs 1-8: Produse & Servicii bancare' },
+      { tag: 'slides', label: 'Curs 9-12: Managementul riscului' }
     ],
-    systemPrompt: 'Ești un profesor de Banking de la ASE. Explică produse bancare, reglementări, Basel III cu exemple din piața românească. Folosește analogii simple și studii de caz practice. Răspunde în română.'
+    systemPrompt: 'Ești un profesor de Banking de la ASE. Explică cu exemple din piața românească. Răspunde în română.'
   },
   econometrie: {
-    icon: '📊',
-    name: 'Econometrie',
-    full: 'Econometrie',
-    desc: 'Regresie liniară, heteroscedasticitate, serii de timp, modele panel',
+    icon: '📊', name: 'Econometrie', full: 'Econometrie',
+    desc: 'Regresie liniară, serii de timp, modele panel', themeId: 'amber',
     resources: [
       { tag: 'slides', label: 'Curs: OLS & Ipoteze clasice' },
-      { tag: 'slides', label: 'Curs: Multicoliniaritate & Heterosced.' },
-      { tag: 'lab', label: 'Lab: EViews — Estimare & Testare' },
-      { tag: 'lab', label: 'Lab: Serii de timp — ARIMA' },
-      { tag: 'book', label: 'Gujarati — Basic Econometrics' },
-      { tag: 'exam', label: 'Subiecte tip + rezolvări' }
+      { tag: 'lab', label: 'Lab: EViews — Estimare & Testare' }
     ],
-    systemPrompt: 'Ești un profesor de Econometrie de la ASE. Explică regresii, teste statistice, ipoteze cu formule clare și interpretări intuitive. Dă exemple cu date concrete și interpretări economice. Răspunde în română.'
+    systemPrompt: 'Ești un profesor de Econometrie de la ASE. Explică cu formule clare și interpretări economice. Răspunde în română.'
   },
   mccp: {
-    icon: '⚙️',
-    name: 'MCCP',
-    full: 'Modele Cantitative în Controlul Performanței',
-    desc: 'Modele de rating, scoring, analiză cantitativă a performanței',
+    icon: '⚙️', name: 'MCCP', full: 'Modele Cantitative în Controlul Performanței',
+    desc: 'Modele de rating, scoring, analiză cantitativă', themeId: 'teal',
     resources: [
-      { tag: 'slides', label: 'Curs: Modele de Scoring' },
-      { tag: 'lab', label: 'Lab: Construcția unui model de rating' },
-      { tag: 'book', label: 'Manual MCCP — ASE' },
-      { tag: 'exam', label: 'Proiect: Evaluare model propriu' }
+      { tag: 'slides', label: 'Curs: Modele de Scoring & Rating' },
+      { tag: 'lab', label: 'Lab: Construcția unui model de rating' }
     ],
-    systemPrompt: 'Ești un profesor de MCCP (Modele Cantitative în Controlul Performanței) de la ASE. Expert în modele de rating, scoring, risc de credit, Basel IRB, Z-Score Altman, regresie logistică aplicată. Explică cu formule, interpretări practice și exemple din banking. Răspunde în română.'
+    systemPrompt: 'Ești expert în MCCP, modele de rating, Basel IRB, Z-Score Altman, regresie logistică. Răspunde în română.'
   }
 };
+
+// Returneaza SUBJECTS din state (custom) sau default-urile
+function getSubjects() {
+  if (state.customSubjects && Object.keys(state.customSubjects).length > 0) {
+    return state.customSubjects;
+  }
+  return DEFAULT_SUBJECTS;
+}
+
+// Compatibilitate cu codul vechi care folosea SUBJECTS direct
+// SUBJECTS se initializeaza dupa loadState() — vezi mai jos
+let SUBJECTS = DEFAULT_SUBJECTS;
 
 // =============================================
 // BUILT-IN PRESENTATIONS
@@ -2323,7 +2771,7 @@ const BUILTIN_PRESENTATIONS = {
 };
 
 // =============================================
-// STATE MANAGEMENT
+// STATE MANAGEMENT — v7
 // =============================================
 let state = {
   tab: 'dashboard',
@@ -2338,11 +2786,21 @@ let state = {
   progress: {},
   files: {},
   pomodoro: { running: false, mode: 'work', timeLeft: 1500 },
-  // === NOU v6: Quiz, Flashcards, Calendar, Export ===
-  quizHistory: {},        // quiz scores per materie
-  flashcardDecks: {},     // flashcard decks per materie (cu spaced repetition)
-  exams: [],              // lista examene cu date
-  studyPlan: {}           // plan zilnic de studiu
+  // v6 features
+  quizHistory: {},
+  flashcardDecks: {},
+  exams: [],
+  studyPlan: {},
+  // === v7 features ===
+  customSubjects: {},      // materiile user-defined
+  mindMaps: {},            // mind maps per materie
+  examSessions: {},        // sesiuni exam simulator
+  xp: 0,                  // XP total
+  level: 1,               // nivel
+  streak: 0,              // streak zile
+  lastStudyDate: null,    // data ultimei sesiuni
+  achievements: [],       // achievements deblocate
+  activityLog: [],        // log [{date, type, subject, xp}]
 };
 
 let presSlidePositions = {};
@@ -2354,11 +2812,25 @@ function loadState() {
       const saved = JSON.parse(raw);
       Object.assign(state, saved);
     }
-    // Asigura ca campurile noi exista (compatibilitate cu versiuni vechi)
+    // Compatibilitate cu versiuni mai vechi
     if (!state.exams) state.exams = [];
     if (!state.quizHistory) state.quizHistory = {};
     if (!state.flashcardDecks) state.flashcardDecks = {};
     if (!state.studyPlan) state.studyPlan = {};
+    if (!state.customSubjects) state.customSubjects = {};
+    if (!state.mindMaps) state.mindMaps = {};
+    if (!state.examSessions) state.examSessions = {};
+    if (!state.achievements) state.achievements = [];
+    if (!state.activityLog) state.activityLog = [];
+    if (state.xp === undefined) state.xp = 0;
+    if (state.level === undefined) state.level = 1;
+    if (state.streak === undefined) state.streak = 0;
+
+    // Reincarca SUBJECTS dupa loadState
+    SUBJECTS = getSubjects();
+
+    // Calculeaza streak-ul la fiecare login
+    checkAndUpdateStreak();
   } catch (e) {
     console.error('Failed to load state:', e);
   }
@@ -2369,6 +2841,9 @@ function saveState() {
 }
 
 loadState();
+
+// Refresh SUBJECTS reference dupa load (customSubjects pot fi acum populate)
+SUBJECTS = getSubjects();
 
 // Get all presentations for a subject (built-in + user-generated)
 function getAllPresentations(subjectKey) {
@@ -2408,6 +2883,15 @@ function unlock() {
   updateThemeButton();
   renderSidebar();
   renderPage();
+  // Acorda XP la primul login al zilei + verifica achievements
+  setTimeout(() => {
+    try {
+      if (!state.lastStudyDate || state.lastStudyDate !== new Date().toISOString().split('T')[0]) {
+        awardXP(10, 'Zi de studiu');
+      }
+      checkAchievements();
+    } catch(e) {}
+  }, 1200);
 }
 
 function handleLogout() {
@@ -2477,65 +2961,84 @@ function formatAIText(text) {
 }
 
 // =============================================
-// SIDEBAR
+// SIDEBAR — v7
 // =============================================
 function renderSidebar() {
   const nav = document.getElementById('sidebarNav');
+  const subjects = getSubjects();
   let html = '';
 
-  html += '<div class="nav-section">General</div>';
-  html += '<button class="nav-item ' + (state.tab === 'dashboard' ? 'active' : '') + '" onclick="navigateTo(\'dashboard\')">';
-  html += '<span class="ni-icon">🏠</span> Dashboard</button>';
+  // XP & Streak indicator
+  const currentLevel = state.level || 1;
+  const currentXP = state.xp || 0;
+  const currentStreak = state.streak || 0;
+  const xpForLevel = getLevelXP(currentLevel) || 100;
+  const xpPrev = currentLevel > 1 ? getLevelXP(currentLevel - 1) : 0;
+  const xpProgress = Math.max(0, currentXP - xpPrev);
+  const xpNeeded = Math.max(1, xpForLevel - xpPrev);
+  const xpPct = Math.min(100, Math.round((xpProgress / xpNeeded) * 100));
 
-  // === NOI: Calendar sesiune ===
-  html += '<button class="nav-item ' + (state.tab === 'calendar' ? 'active' : '') + '" onclick="navigateTo(\'calendar\')">';
-  html += '<span class="ni-icon">📅</span> Calendar Sesiune';
-  const totalExams = (state.exams || []).length;
-  if (totalExams) html += '<span class="ni-badge" style="background:var(--red-muted);color:var(--red)">' + totalExams + '</span>';
-  html += '</button>';
+  html += '<div style="padding:10px 14px;border-bottom:1px solid var(--border);margin-bottom:4px;">';
+  html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">';
+  html += '<span class="level-badge">⭐ Nivel ' + currentLevel + '</span>';
+  html += '<span class="streak-flame ' + (currentStreak >= 3 ? 'hot' : 'cold') + '">🔥 ' + currentStreak + ' zile</span>';
+  html += '</div>';
+  html += '<div class="xp-bar-wrap"><div class="xp-bar-fill" style="width:' + xpPct + '%"></div></div>';
+  html += '<div style="font-size:.65rem;color:var(--text-muted);margin-top:3px;text-align:right;">' + xpProgress + '/' + xpNeeded + ' XP</div>';
+  html += '</div>';
+
+  html += '<div class="nav-section">General</div>';
+  html += navBtn('dashboard', '🏠', 'Dashboard');
+  html += navBtn('calendar', '📅', 'Calendar', getUpcomingExamBadge());
+  html += navBtn('achievements', '🏆', 'Realizări & XP', getAchievementBadge());
 
   html += '<div class="nav-section">Materii</div>';
 
-  for (const [key, subject] of Object.entries(SUBJECTS)) {
+  for (const [key, subject] of Object.entries(subjects)) {
     const todoCount = (state.todos[key] || []).filter(t => !t.done).length;
     const presCount = getAllPresentations(key).length;
+    const theme = getSubjectTheme(subject);
 
-    html += '<button class="nav-item ' + (state.tab === key ? 'active' : '') + '" onclick="navigateTo(\'' + key + '\')">';
+    html += '<button class="nav-item ' + (state.tab === key ? 'active' : '') + '" onclick="navigateTo(\'' + key + '\')" style="' + (state.tab === key ? '--accent:' + theme.accent + ';--accent-muted:' + theme.muted + ';--accent-border:' + theme.border : '') + '">';
     html += '<span class="ni-icon">' + subject.icon + '</span> ' + subject.name;
-    if (todoCount) {
-      html += '<span class="ni-badge">' + todoCount + '</span>';
-    }
-    if (presCount) {
-      html += '<span class="ni-badge" style="background:var(--green-muted);color:var(--green)">' + presCount + '📊</span>';
-    }
+    if (todoCount) html += '<span class="ni-badge">' + todoCount + '</span>';
+    if (presCount) html += '<span class="ni-badge" style="background:var(--green-muted);color:var(--green)">' + presCount + '📊</span>';
     html += '</button>';
   }
 
-  // === NOI: Sectiune Tools AI ===
   html += '<div class="nav-section">Tools AI</div>';
-  html += '<button class="nav-item ' + (state.tab === 'quiz' ? 'active' : '') + '" onclick="navigateTo(\'quiz\')">';
-  html += '<span class="ni-icon">🧠</span> Quiz Mode</button>';
-  html += '<button class="nav-item ' + (state.tab === 'flashcards' ? 'active' : '') + '" onclick="navigateTo(\'flashcards\')">';
-  const dueCount = getFlashcardsDueCount();
-  html += '<span class="ni-icon">🃏</span> Flashcards';
-  if (dueCount > 0) html += '<span class="ni-badge" style="background:var(--amber-muted);color:var(--amber)">' + dueCount + '</span>';
-  html += '</button>';
+  html += navBtn('quiz', '🧠', 'Quiz Mode');
+  html += navBtn('flashcards', '🃏', 'Flashcards', getFlashcardDueBadge());
+  html += navBtn('mindmap', '🗺️', 'Mind Map AI');
+  html += navBtn('examsim', '🎓', 'Exam Simulator');
+  html += '<div class="nav-section">Cont</div>';
+  html += navBtn('settings', '📦', 'Import / Export');
 
   nav.innerHTML = html;
 }
 
-// Număr de flashcards scadente (de revizuit azi)
-function getFlashcardsDueCount() {
-  const decks = state.flashcardDecks || {};
-  let count = 0;
-  const now = Date.now();
-  for (const key of Object.keys(decks)) {
-    const cards = decks[key] || [];
-    cards.forEach(card => {
-      if (!card.nextReview || card.nextReview <= now) count++;
-    });
-  }
-  return count;
+// Helper pentru nav button
+function navBtn(tab, icon, label, badge) {
+  let html = '<button class="nav-item ' + (state.tab === tab ? 'active' : '') + '" onclick="navigateTo(\'' + tab + '\')">';
+  html += '<span class="ni-icon">' + icon + '</span> ' + label;
+  if (badge) html += badge;
+  html += '</button>';
+  return html;
+}
+
+function getUpcomingExamBadge() {
+  const n = (state.exams || []).filter(e => new Date(e.date) >= new Date()).length;
+  return n ? '<span class="ni-badge" style="background:var(--red-muted);color:var(--red)">' + n + '</span>' : '';
+}
+
+function getAchievementBadge() {
+  const unlocked = (state.achievements || []).length;
+  return unlocked ? '<span class="ni-badge" style="background:var(--amber-muted);color:var(--amber)">' + unlocked + '</span>' : '';
+}
+
+function getFlashcardDueBadge() {
+  const n = getFlashcardsDueCount();
+  return n ? '<span class="ni-badge" style="background:var(--amber-muted);color:var(--amber)">' + n + '</span>' : '';
 }
 
 function navigateTo(tab) {
@@ -2547,29 +3050,45 @@ function navigateTo(tab) {
 }
 
 // =============================================
-// PAGE ROUTER
+// PAGE ROUTER — v7
 // =============================================
 function renderPage() {
   const page = document.getElementById('pageContent');
   const title = document.getElementById('topbarTitle');
 
+  // Reset subject theme
+  resetSubjectTheme();
+
   if (state.tab === 'dashboard') {
     title.textContent = 'Dashboard';
     renderDashboard(page);
   } else if (state.tab === 'calendar') {
-    // === NOU: Calendar Sesiune ===
     title.textContent = '📅 Calendar Sesiune';
     renderCalendarPage(page);
   } else if (state.tab === 'quiz') {
-    // === NOU: Quiz Mode ===
     title.textContent = '🧠 Quiz Mode — Grile AI';
     renderQuizPage(page);
   } else if (state.tab === 'flashcards') {
-    // === NOU: Flashcards ===
     title.textContent = '🃏 Flashcards cu Spaced Repetition';
     renderFlashcardsPage(page);
+  } else if (state.tab === 'mindmap') {
+    title.textContent = '🗺️ Mind Map AI';
+    renderMindMapPage(page);
+  } else if (state.tab === 'examsim') {
+    title.textContent = '🎓 Exam Simulator';
+    renderExamSimPage(page);
+  } else if (state.tab === 'achievements') {
+    title.textContent = '🏆 Realizări & XP';
+    renderAchievementsPage(page);
+  } else if (state.tab === 'settings') {
+    title.textContent = '⚙️ Setări & Date';
+    renderSettingsPage(page);
   } else {
-    const subject = SUBJECTS[state.tab];
+    // Subject page
+    const subject = getSubjects()[state.tab];
+    if (!subject) { navigateTo('dashboard'); return; }
+    // Aplica tema materiei
+    applySubjectTheme(subject);
     title.textContent = subject.name + ' — ' + subject.full;
     renderSubjectPage(page, state.tab, subject);
   }
@@ -2579,9 +3098,10 @@ function renderPage() {
 // DASHBOARD
 // =============================================
 function renderDashboard(element) {
+  const subjects = getSubjects();
   const totalTodos = Object.values(state.todos).flat().length;
   const doneTodos = Object.values(state.todos).flat().filter(t => t.done).length;
-  const totalPres = Object.keys(SUBJECTS).reduce((acc, key) => acc + getAllPresentations(key).length, 0);
+  const totalPres = Object.keys(subjects).reduce((acc, key) => acc + getAllPresentations(key).length, 0);
 
   let html = '<div class="anim">';
 
@@ -2593,29 +3113,11 @@ function renderDashboard(element) {
 
   // Stats
   html += '<div class="quick-stats anim anim-d1">';
-  html += '<div class="qs-card"><div class="qs-val">5</div><div class="qs-label">Materii</div></div>';
+  html += '<div class="qs-card"><div class="qs-val">' + Object.keys(subjects).length + '</div><div class="qs-label">Materii</div></div>';
   html += '<div class="qs-card"><div class="qs-val">' + totalTodos + '</div><div class="qs-label">Tasks</div></div>';
   html += '<div class="qs-card"><div class="qs-val">' + (totalTodos ? Math.round(doneTodos / totalTodos * 100) : 0) + '%</div><div class="qs-label">Progres</div></div>';
   html += '<div class="qs-card"><div class="qs-val">' + totalPres + '</div><div class="qs-label">Prezentări</div></div>';
-
-  // === NOU v6: Stats noi ===
-  const totalExams = (state.exams || []).length;
-  const upcomingExams = (state.exams || []).filter(function(e) {
-    return new Date(e.date) >= new Date();
-  }).length;
-  const totalFCCards = Object.values(state.flashcardDecks || {}).reduce(function(acc, cards) { return acc + cards.length; }, 0);
-  const dueFC = getFlashcardsDueCount();
-
-  if (totalExams) {
-    html += '<div class="qs-card" onclick="navigateTo(\'calendar\')" style="cursor:pointer;">';
-    html += '<div class="qs-val" style="color:var(--red)">' + upcomingExams + '</div>';
-    html += '<div class="qs-label">Examene Viitoare</div></div>';
-  }
-  if (totalFCCards) {
-    html += '<div class="qs-card" onclick="navigateTo(\'flashcards\')" style="cursor:pointer;">';
-    html += '<div class="qs-val" style="color:var(--amber)">' + dueFC + '</div>';
-    html += '<div class="qs-label">Flashcards Due</div></div>';
-  }
+  html += '<div class="qs-card" onclick="navigateTo(\'achievements\')" style="cursor:pointer;"><div class="qs-val" style="color:var(--amber)">⭐ ' + (state.level||1) + '</div><div class="qs-label">Nivel XP</div></div>';
   html += '</div>';
 
   // API Config
@@ -2626,64 +3128,52 @@ function renderDashboard(element) {
   html += '<button class="api-save" onclick="saveApiKey()">Salvează</button></div>';
   html += '<div class="api-status" id="apiStatus"></div></details>';
 
-  // Subject Cards
+  // Subject Cards — dinamic din getSubjects()
   html += '<div class="dash-grid anim anim-d3">';
-  for (const [key, subject] of Object.entries(SUBJECTS)) {
+  for (const [key, subject] of Object.entries(subjects)) {
     const todos = state.todos[key] || [];
     const done = todos.filter(t => t.done).length;
     const presCount = getAllPresentations(key).length;
+    const theme = getSubjectTheme(subject);
 
-    html += '<div class="dash-card" onclick="navigateTo(\'' + key + '\')">';
-    html += '<div class="dc-icon">' + subject.icon + '</div>';
+    html += '<div class="dash-card" onclick="navigateTo(\'' + key + '\')" style="border-color:' + theme.border + '">';
+    html += '<div class="dc-icon" style="background:' + theme.muted + '">' + subject.icon + '</div>';
     html += '<div class="dc-name">' + subject.name + '</div>';
     html += '<div class="dc-sub">' + presCount + ' prezentări · ' + (todos.length ? done + '/' + todos.length + ' tasks' : '0 tasks') + '</div>';
     html += '</div>';
   }
   html += '</div>';
 
-  // === NOU v6: Tool-uri AI shortcuts ===
+  // Tool-uri AI shortcuts
   html += '<div style="margin-top:24px;" class="anim anim-d3">';
   html += '<div class="nav-section" style="padding:0 0 10px;font-size:.7rem;">🚀 Tool-uri AI</div>';
   html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">';
 
-  // Quiz card
-  html += '<div class="dash-card" onclick="navigateTo(\'quiz\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">';
-  html += '<span style="font-size:2rem;">🧠</span>';
-  html += '<div><div style="font-weight:700;">Quiz Mode</div>';
-  html += '<div style="font-size:.78rem;color:var(--text-secondary)">Grile AI din prezentări</div></div>';
-  html += '</div>';
+  html += '<div class="dash-card" onclick="navigateTo(\'quiz\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;"><span style="font-size:2rem;">🧠</span><div><div style="font-weight:700;">Quiz Mode</div><div style="font-size:.78rem;color:var(--text-secondary)">Grile AI din prezentări</div></div></div>';
 
-  // Flashcards card
   const dueCount2 = getFlashcardsDueCount();
-  html += '<div class="dash-card" onclick="navigateTo(\'flashcards\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">';
-  html += '<span style="font-size:2rem;">🃏</span>';
-  html += '<div><div style="font-weight:700;">Flashcards</div>';
-  html += '<div style="font-size:.78rem;color:var(--text-secondary)">' + (dueCount2 > 0 ? '<span style="color:var(--amber)">⚡ ' + dueCount2 + ' scadente azi</span>' : 'Spaced repetition') + '</div></div>';
+  html += '<div class="dash-card" onclick="navigateTo(\'flashcards\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;"><span style="font-size:2rem;">🃏</span><div><div style="font-weight:700;">Flashcards</div><div style="font-size:.78rem;color:var(--text-secondary)">' + (dueCount2>0?'<span style="color:var(--amber)">⚡ '+dueCount2+' scadente</span>':'Spaced repetition') + '</div></div></div>';
+
+  html += '<div class="dash-card" onclick="navigateTo(\'mindmap\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;"><span style="font-size:2rem;">🗺️</span><div><div style="font-weight:700;">Mind Map AI</div><div style="font-size:.78rem;color:var(--text-secondary)">Hărți conceptuale</div></div></div>';
+
+  html += '<div class="dash-card" onclick="navigateTo(\'examsim\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;"><span style="font-size:2rem;">🎓</span><div><div style="font-weight:700;">Exam Simulator</div><div style="font-size:.78rem;color:var(--text-secondary)">Sesiune cronometrată</div></div></div>';
+
+  const nextExam = (state.exams||[]).filter(e=>new Date(e.date)>=new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date))[0];
+  html += '<div class="dash-card" onclick="navigateTo(\'calendar\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;"><span style="font-size:2rem;">📅</span><div><div style="font-weight:700;">Calendar Sesiune</div><div style="font-size:.78rem;color:' + (nextExam?'var(--red)':'var(--text-secondary)') + '">' + (nextExam?'⏰ '+Math.round((new Date(nextExam.date)-new Date())/(1000*60*60*24))+' zile':'Countdown examene') + '</div></div></div>';
+
+  html += '<div class="dash-card" onclick="navigateTo(\'achievements\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;"><span style="font-size:2rem;">🏆</span><div><div style="font-weight:700;">Realizări & XP</div><div style="font-size:.78rem;color:var(--amber)">⭐ Nivel '+(state.level||1)+' · '+(state.xp||0)+' XP</div></div></div>';
+
+  html += '</div></div>';
+
+  // Chart.js progres
+  html += '<div class="chart-panel anim anim-d3" style="margin-top:20px;">';
+  html += '<div class="chart-title">📊 Progres Tasks per Materie</div>';
+  html += '<div style="height:180px;"><canvas id="progressChart"></canvas></div>';
   html += '</div>';
-
-  // Calendar card
-  const examCount2 = (state.exams || []).filter(function(e) { return new Date(e.date) >= new Date(); }).length;
-  const nextExam = (state.exams || [])
-    .filter(function(e) { return new Date(e.date) >= new Date(); })
-    .sort(function(a, b) { return new Date(a.date) - new Date(b.date); })[0];
-
-  html += '<div class="dash-card" onclick="navigateTo(\'calendar\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">';
-  html += '<span style="font-size:2rem;">📅</span>';
-  html += '<div><div style="font-weight:700;">Calendar Sesiune</div>';
-  if (nextExam) {
-    const daysLeft = Math.round((new Date(nextExam.date) - new Date()) / (1000 * 60 * 60 * 24));
-    const subj = SUBJECTS[nextExam.subject];
-    html += '<div style="font-size:.78rem;color:var(--red)">⏰ ' + (subj ? subj.name : '') + ' — ' + daysLeft + ' zile</div>';
-  } else {
-    html += '<div style="font-size:.78rem;color:var(--text-secondary)">Countdown examene</div>';
-  }
-  html += '</div></div>';
-
-  html += '</div></div>';
 
   html += '</div>';  // end anim
-
   element.innerHTML = html;
+  setTimeout(renderDashboardCharts, 100);
 }
 
 function saveApiKey() {
@@ -3134,7 +3624,7 @@ function deleteTodo(key, index) {
 function renderChatHistory(key) {
   var history = state.chatHistories[key] || [];
   if (!history.length) {
-    return '<div class="chat-msg ai">Salut! Sunt tutorul tău AI pentru <strong>' + SUBJECTS[key].name + '</strong>. Întreabă-mă orice despre materie — voi explica cât mai plastic și clar. 🎓</div>';
+    return '<div class="chat-msg ai">Salut! Sunt tutorul tău AI pentru <strong>' + getSubjects()[key].name + '</strong>. Întreabă-mă orice despre materie — voi explica cât mai plastic și clar. 🎓</div>';
   }
 
   return history.map(function(msg) {
@@ -3191,7 +3681,7 @@ async function sendChatMessage(key) {
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 1500,
-        system: SUBJECTS[key].systemPrompt,
+        system: getSubjects()[key].systemPrompt,
         messages: apiMessages
       })
     });
@@ -3482,7 +3972,7 @@ async function generatePresentation(key) {
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 8000,
-        system: 'Ești expert în ' + SUBJECTS[key].full + '. Creează o prezentare CONCISĂ cu slide-uri din textul primit.\n\nIMPORTANT: Răspunde DOAR cu un JSON array valid. Fără markdown, fără backticks, fără text înainte sau după JSON.\n\nStructura fiecărui slide:\n{"tag":"Slide N","title":"Titlu scurt","content":"<HTML scurt>"}\n\nClase CSS disponibile:\n- <ul><li>text</li></ul> liste\n- <div class="s-grid"><div class="s-card"><h4>T</h4><p>text</p></div></div> carduri 2x2\n- <div class="formula">formula</div> formule\n- <table class="s-table"><thead><tr><th>col</th></tr></thead><tbody><tr><td>val</td></tr></tbody></table> tabele\n- <p>text</p> paragrafe\n\nREGULI STRICTE:\n- EXACT 8 slide-uri (nu mai multe!)\n- Fiecare slide: max 150 cuvinte în content\n- Slide 1: titlu + scurt overview\n- Slide 8: key takeaways\n- Conținut CONCIS — doar esențialul\n- În română\n- DOAR JSON valid, nimic altceva\n- NU folosi ghilimele simple în HTML, doar &apos; sau fără',
+        system: 'Ești expert în ' + getSubjects()[key].full + '. Creează o prezentare CONCISĂ cu slide-uri din textul primit.\n\nIMPORTANT: Răspunde DOAR cu un JSON array valid. Fără markdown, fără backticks, fără text înainte sau după JSON.\n\nStructura fiecărui slide:\n{"tag":"Slide N","title":"Titlu scurt","content":"<HTML scurt>"}\n\nClase CSS disponibile:\n- <ul><li>text</li></ul> liste\n- <div class="s-grid"><div class="s-card"><h4>T</h4><p>text</p></div></div> carduri 2x2\n- <div class="formula">formula</div> formule\n- <table class="s-table"><thead><tr><th>col</th></tr></thead><tbody><tr><td>val</td></tr></tbody></table> tabele\n- <p>text</p> paragrafe\n\nREGULI STRICTE:\n- EXACT 8 slide-uri (nu mai multe!)\n- Fiecare slide: max 150 cuvinte în content\n- Slide 1: titlu + scurt overview\n- Slide 8: key takeaways\n- Conținut CONCIS — doar esențialul\n- În română\n- DOAR JSON valid, nimic altceva\n- NU folosi ghilimele simple în HTML, doar &apos; sau fără',
         messages: [{
           role: 'user',
           content: 'Creează prezentare din:\n\n' + inputText
@@ -3649,7 +4139,7 @@ function adjustProgress(key, itemKey, delta) {
   saveState();
 
   // Re-render just the progress section
-  var subject = SUBJECTS[key];
+  var subject = getSubjects()[key];
   document.getElementById('progressGrid').innerHTML = renderProgress(key, subject);
 }
 
@@ -3663,7 +4153,7 @@ function setProgress(key, itemKey, event) {
   state.progress[key][itemKey] = percent;
   saveState();
 
-  var subject = SUBJECTS[key];
+  var subject = getSubjects()[key];
   document.getElementById('progressGrid').innerHTML = renderProgress(key, subject);
 }
 
@@ -3882,7 +4372,7 @@ function clearChatHistory(key) {
 
 // Exporta conversatia cu AI ca PDF (folosind print dialog)
 async function exportChatAsPDF(key) {
-  const subject = SUBJECTS[key];
+  const subject = getSubjects()[key];
   const history = state.chatHistories[key] || [];
   if (!history.length) {
     alert('Nu există conversații de exportat.');
@@ -4040,7 +4530,7 @@ function renderQuizPage(element) {
   html += '<div style="margin-bottom:14px;">';
   html += '<label style="font-size:.82rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Materie</label>';
   html += '<div class="quiz-options-row" id="quizSubjectChips">';
-  for (const [key, subject] of Object.entries(SUBJECTS)) {
+  for (const [key, subject] of Object.entries(getSubjects())) {
     const isActive = (state.quizConfig && state.quizConfig.subject === key) || false;
     html += '<button class="quiz-chip ' + (isActive ? 'active' : '') + '" onclick="selectQuizSubject(\'' + key + '\')">';
     html += subject.icon + ' ' + subject.name;
@@ -4145,7 +4635,7 @@ function renderQuizHistory() {
   html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">';
 
   allResults.slice(0, 12).forEach(function(result) {
-    const subj = SUBJECTS[result.subject];
+    const subj = getSubjects()[result.subject];
     const pct = Math.round((result.score / result.total) * 100);
     const color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--amber)' : 'var(--red)';
     const date = new Date(result.timestamp).toLocaleDateString('ro');
@@ -4173,7 +4663,7 @@ async function generateQuiz() {
     return;
   }
 
-  const subject = SUBJECTS[subjectKey];
+  const subject = getSubjects()[subjectKey];
   const allPres = getAllPresentations(subjectKey);
 
   // Construim contextul din prezentari disponibile
@@ -4369,7 +4859,7 @@ function renderActiveQuiz() {
   html += '<div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:' + progress + '%"></div></div>';
 
   html += '<div class="quiz-question-card">';
-  html += '<div class="quiz-q-num">' + SUBJECTS[quiz.subjectKey].icon + ' ' + SUBJECTS[quiz.subjectKey].name + '</div>';
+  html += '<div class="quiz-q-num">' + getSubjects()[quiz.subjectKey].icon + ' ' + getSubjects()[quiz.subjectKey].name + '</div>';
   html += '<div class="quiz-q-text">' + escapeHtml(q.q) + '</div>';
 
   html += '<div class="quiz-options">';
@@ -4503,7 +4993,7 @@ function renderFlashcardsPage(element) {
   html += '<div style="margin-bottom:14px;">';
   html += '<label style="font-size:.82rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Selectează materia</label>';
   html += '<div class="quiz-options-row" id="fcSubjectChips">';
-  for (const [key, subject] of Object.entries(SUBJECTS)) {
+  for (const [key, subject] of Object.entries(getSubjects())) {
     const isActive = state.fcActiveSubject === key;
     const cardCount = (state.flashcardDecks && state.flashcardDecks[key] || []).length;
     html += '<button class="quiz-chip ' + (isActive ? 'active' : '') + '" onclick="selectFCSubject(\'' + key + '\')">';
@@ -4587,7 +5077,7 @@ function selectFCSubject(key) {
 function renderFlashcardStudy(key) {
   const decks = state.flashcardDecks || {};
   const allCards = decks[key] || [];
-  const subject = SUBJECTS[key];
+  const subject = getSubjects()[key];
   const now = Date.now();
 
   // Filtram cardurile scadente (due)
@@ -4751,7 +5241,7 @@ function studyAllCardsNow(key) {
 
 // Sterge deck-ul unei materii
 function clearFlashcardDeck(key) {
-  if (!confirm('Sigur vrei să ștergi toate flashcard-urile pentru ' + SUBJECTS[key].name + '?')) return;
+  if (!confirm('Sigur vrei să ștergi toate flashcard-urile pentru ' + getSubjects()[key].name + '?')) return;
   if (!state.flashcardDecks) state.flashcardDecks = {};
   state.flashcardDecks[key] = [];
   state.fcCurrentCard = 0;
@@ -4770,7 +5260,7 @@ async function generateFlashcards() {
     return;
   }
 
-  const subject = SUBJECTS[key];
+  const subject = getSubjects()[key];
   const allPres = getAllPresentations(key);
 
   if (!allPres.length) {
@@ -4928,7 +5418,7 @@ function renderCalendarPage(element) {
       else if (diffDays <= 3) urgency = 'urgent';
       else if (diffDays <= 7) urgency = 'soon';
 
-      const subject = SUBJECTS[exam.subject];
+      const subject = getSubjects()[exam.subject];
 
       html += '<div class="exam-countdown-card ' + urgency + '">';
       html += '<button class="ecc-del" onclick="deleteExam(' + index + ')">✕</button>';
@@ -4969,7 +5459,7 @@ function renderCalendarPage(element) {
   html += '<input class="todo-inp" id="examName" placeholder="Ex: Examen parțial MAP" style="width:100%;">';
   html += '<select class="todo-inp" id="examSubject" style="width:100%;">';
   html += '<option value="">— Materie —</option>';
-  for (const [key, subject] of Object.entries(SUBJECTS)) {
+  for (const [key, subject] of Object.entries(getSubjects())) {
     html += '<option value="' + key + '">' + subject.icon + ' ' + subject.name + '</option>';
   }
   html += '</select>';
@@ -5003,7 +5493,7 @@ function renderCalendarPage(element) {
         html += '</div>';
         html += '<div class="sdr-subject">';
         html += day.tasks.map(function(task) {
-          const subj = SUBJECTS[task.subject];
+          const subj = getSubjects()[task.subject];
           return (subj ? subj.icon + ' ' + subj.name : task.subject) + ' — ' + task.activity;
         }).join(' · ');
         html += '</div>';
@@ -5222,9 +5712,796 @@ function deleteExam(index) {
 }
 
 // =============================================
+// V7 — FLASHCARDS DUE COUNT (standalone)
+// =============================================
+function getFlashcardsDueCount() {
+  const decks = state.flashcardDecks || {};
+  let count = 0;
+  const now = Date.now();
+  for (const key of Object.keys(decks)) {
+    (decks[key] || []).forEach(card => {
+      if (!card.nextReview || card.nextReview <= now) count++;
+    });
+  }
+  return count;
+}
+
+// =============================================
+// V7 — GAMIFICATION SYSTEM
+// =============================================
+function getLevelXP(level) {
+  if (level <= 0) return 0;
+  return Math.round(100 * Math.pow(1.5, level - 1));
+}
+
+function getTotalXPForLevelAcc(level) {
+  let total = 0;
+  for (let i = 1; i <= level; i++) total += getLevelXP(i);
+  return total;
+}
+
+function awardXP(amount, reason, subject) {
+  state.xp = (state.xp || 0) + amount;
+  const today = new Date().toISOString().split('T')[0];
+  state.activityLog = state.activityLog || [];
+  state.activityLog.push({ date: today, type: reason, subject: subject || '', xp: amount });
+  if (state.activityLog.length > 500) state.activityLog = state.activityLog.slice(-500);
+
+  // Recalculeaza nivelul
+  let xpAcc = 0, newLevel = 1;
+  while (true) {
+    const needed = getLevelXP(newLevel);
+    if (xpAcc + needed > state.xp) break;
+    xpAcc += needed;
+    newLevel++;
+  }
+  const leveledUp = newLevel > (state.level || 1);
+  state.level = newLevel;
+
+  updateStreak();
+  saveState();
+  showToast('⭐ +' + amount + ' XP — ' + reason, leveledUp ? '🎉 Nivel ' + newLevel + ' deblocat!' : null);
+  checkAchievements();
+  renderSidebar();
+}
+
+function updateStreak() {
+  const today = new Date().toISOString().split('T')[0];
+  if (state.lastStudyDate === today) return;
+  const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+  const yStr = yesterday.toISOString().split('T')[0];
+  if (state.lastStudyDate === yStr) state.streak = (state.streak || 0) + 1;
+  else state.streak = 1;
+  state.lastStudyDate = today;
+}
+
+function checkAndUpdateStreak() {
+  if (!state.lastStudyDate) return;
+  const today = new Date().toISOString().split('T')[0];
+  const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+  const yStr = yesterday.toISOString().split('T')[0];
+  if (state.lastStudyDate !== today && state.lastStudyDate !== yStr) state.streak = 0;
+}
+
+function showToast(message, subtitle) {
+  const existing = document.getElementById('xpToast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.id = 'xpToast';
+  toast.innerHTML = '<span style="font-size:1.3rem;">⭐</span><div><div>' + message + '</div>' +
+    (subtitle ? '<div style="font-size:.78rem;color:var(--accent);margin-top:2px;">' + subtitle + '</div>' : '') + '</div>';
+  document.body.appendChild(toast);
+  setTimeout(() => { toast.classList.add('fade-out'); setTimeout(() => toast.remove(), 300); }, 3000);
+}
+
+const ACHIEVEMENTS_DEF = [
+  { id: 'first_login',   icon: '🎓', name: 'Bun venit!',        desc: 'Prima autentificare',           xp: 10,   check: () => true },
+  { id: 'first_quiz',    icon: '🧠', name: 'Quiz Master I',     desc: 'Primul quiz completat',         xp: 50,   check: () => Object.values(state.quizHistory||{}).flat().length >= 1 },
+  { id: 'quiz_10',       icon: '🏆', name: 'Quiz Master II',    desc: '10 quiz-uri completate',        xp: 150,  check: () => Object.values(state.quizHistory||{}).flat().length >= 10 },
+  { id: 'perfect_quiz',  icon: '💯', name: 'Perfectionist',     desc: 'Quiz cu scor 100%',            xp: 200,  check: () => Object.values(state.quizHistory||{}).flat().some(r => r.score === r.total) },
+  { id: 'first_fc',      icon: '🃏', name: 'Flashcard Fan',     desc: 'Primul deck de flashcard-uri', xp: 30,   check: () => Object.values(state.flashcardDecks||{}).some(d => d.length > 0) },
+  { id: 'fc_100',        icon: '🔮', name: 'Memorie de Fier',   desc: '100 flashcard-uri reviewed',   xp: 100,  check: () => Object.values(state.flashcardDecks||{}).flat().reduce((a,c)=>a+(c.reviews||0),0) >= 100 },
+  { id: 'streak_3',      icon: '🔥', name: 'On Fire!',          desc: '3 zile consecutive',           xp: 75,   check: () => state.streak >= 3 },
+  { id: 'streak_7',      icon: '⚡', name: 'Săptămâna Studiu', desc: '7 zile consecutive',           xp: 200,  check: () => state.streak >= 7 },
+  { id: 'streak_30',     icon: '🌟', name: 'Legendă',           desc: '30 zile consecutive',          xp: 1000, check: () => state.streak >= 30 },
+  { id: 'first_pres',    icon: '📊', name: 'Prezentator',       desc: 'Prima prezentare generată',    xp: 40,   check: () => Object.values(state.presentations||{}).flat().length >= 1 },
+  { id: 'pres_10',       icon: '🎨', name: 'Content Creator',   desc: '10 prezentări generate',       xp: 150,  check: () => Object.values(state.presentations||{}).flat().length >= 10 },
+  { id: 'first_exam',    icon: '📅', name: 'Organizat',         desc: 'Primul examen adăugat',        xp: 20,   check: () => (state.exams||[]).length >= 1 },
+  { id: 'level_5',       icon: '🚀', name: 'Rising Star',       desc: 'Nivel 5',                      xp: 300,  check: () => (state.level||1) >= 5 },
+  { id: 'level_10',      icon: '💎', name: 'Elite',             desc: 'Nivel 10',                     xp: 500,  check: () => (state.level||1) >= 10 },
+  { id: 'first_mindmap', icon: '🗺️', name: 'Cartograf',         desc: 'Primul mind map generat',      xp: 60,   check: () => Object.values(state.mindMaps||{}).some(m => m && m.nodes) },
+  { id: 'exam_sim',      icon: '🎓', name: 'Simulator Pro',     desc: 'Prima sesiune Exam Simulator', xp: 80,   check: () => Object.values(state.examSessions||{}).flat().length >= 1 },
+];
+
+function checkAchievements() {
+  let newUnlocked = [];
+  ACHIEVEMENTS_DEF.forEach(ach => {
+    if (!(state.achievements||[]).includes(ach.id)) {
+      try { if (ach.check()) { state.achievements = [...(state.achievements||[]), ach.id]; newUnlocked.push(ach); } } catch(e) {}
+    }
+  });
+  if (newUnlocked.length) {
+    saveState();
+    newUnlocked.forEach((ach, i) => {
+      setTimeout(() => showToast('🏆 ' + ach.name + ' deblocat!', '+' + ach.xp + ' XP'), (i+1) * 2000);
+    });
+    renderSidebar();
+  }
+}
+
+// =============================================
+// V7 — ACHIEVEMENTS PAGE
+// =============================================
+function renderAchievementsPage(element) {
+  const xpForNext = getLevelXP(state.level || 1);
+  const xpAcc = getTotalXPForLevelAcc((state.level || 1) - 1);
+  const xpInLevel = (state.xp || 0) - xpAcc;
+  const xpPct = Math.min(100, Math.round((xpInLevel / xpForNext) * 100));
+
+  let html = '<div class="anim">';
+
+  // Hero XP card
+  html += '<div style="background:linear-gradient(135deg,var(--accent-muted),var(--bg-raised));border:1px solid var(--accent-border);border-radius:var(--radius);padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;">';
+  html += '<div style="font-size:3.5rem;">⭐</div>';
+  html += '<div style="flex:1;">';
+  html += '<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:4px;">Nivel Curent</div>';
+  html += '<div style="font-family:Newsreader,serif;font-size:2.2rem;font-weight:800;">Nivel ' + (state.level||1) + '</div>';
+  html += '<div class="xp-bar-wrap" style="margin-top:8px;height:10px;"><div class="xp-bar-fill" style="width:' + xpPct + '%"></div></div>';
+  html += '<div style="font-size:.8rem;color:var(--text-secondary);margin-top:4px;">' + (state.xp||0) + ' XP total · ' + xpInLevel + '/' + xpForNext + ' XP pentru nivel următor</div>';
+  html += '</div>';
+  html += '<div style="text-align:center;">';
+  html += '<div style="font-size:.72rem;color:var(--text-muted);margin-bottom:4px;">Streak</div>';
+  html += '<div style="font-size:2.5rem;font-weight:700;' + (state.streak >= 3 ? 'color:var(--amber)' : 'color:var(--text-muted)') + '">' + (state.streak||0) + ' 🔥</div>';
+  html += '<div style="font-size:.72rem;color:var(--text-muted)">zile consecutive</div>';
+  html += '</div></div>';
+
+  // Activity heatmap
+  html += '<div class="chart-panel" style="margin-bottom:24px;">';
+  html += '<div class="chart-title">📈 Activitate — ultimele 14 zile</div>';
+  html += renderActivityHeatmap();
+  html += '</div>';
+
+  // Achievements grid
+  const unlocked = (state.achievements||[]).length;
+  html += '<div style="font-size:.82rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">' + unlocked + ' / ' + ACHIEVEMENTS_DEF.length + ' achievements deblocate</div>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">';
+  ACHIEVEMENTS_DEF.forEach(ach => {
+    const isUnlocked = (state.achievements||[]).includes(ach.id);
+    html += '<div class="achievement-card ' + (isUnlocked ? 'unlocked' : 'locked') + '">';
+    html += '<div class="ach-icon">' + ach.icon + '</div>';
+    html += '<div style="flex:1;"><div class="ach-name">' + ach.name + '</div><div class="ach-desc">' + ach.desc + '</div></div>';
+    html += '<div class="ach-xp">+' + ach.xp + ' XP</div>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+
+  element.innerHTML = html;
+}
+
+function renderActivityHeatmap() {
+  const log = state.activityLog || [];
+  const today = new Date();
+  const cells = [];
+
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date(today); d.setDate(d.getDate() - i);
+    const dStr = d.toISOString().split('T')[0];
+    const dayXP = log.filter(e => e.date === dStr).reduce((a,c) => a + (c.xp||0), 0);
+    cells.push({ date: dStr, xp: dayXP, level: dayXP > 200 ? 4 : dayXP > 100 ? 3 : dayXP > 50 ? 2 : dayXP > 0 ? 1 : 0 });
+  }
+
+  let html = '<div class="activity-heatmap">';
+  cells.forEach(c => {
+    const dayName = new Date(c.date).toLocaleDateString('ro', { weekday: 'short', day: 'numeric' });
+    html += '<div class="heat-cell l' + c.level + '" title="' + dayName + ': ' + c.xp + ' XP"></div>';
+  });
+  html += '</div>';
+  html += '<div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--text-muted);margin-top:6px;">';
+  html += '<span>' + new Date(cells[0].date).toLocaleDateString('ro', {day:'numeric',month:'short'}) + '</span><span>Azi</span></div>';
+  return html;
+}
+
+// =============================================
+// V7 — SUBJECT MANAGER (modal)
+// =============================================
+function openSubjectManager() {
+  const subjects = getSubjects();
+  const isCustom = Object.keys(state.customSubjects||{}).length > 0;
+  let html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">';
+  html += '<div class="modal-box"><div class="modal-header"><div class="modal-title">⚙️ Gestionare Materii</div><button class="modal-close" onclick="closeModal()">✕</button></div>';
+
+  if (isCustom) {
+    html += '<button onclick="resetToDefaultSubjects()" style="width:100%;padding:9px;border-radius:var(--radius-sm);border:1px solid var(--red);background:var(--red-muted);color:var(--red);font-size:.82rem;font-weight:600;cursor:pointer;margin-bottom:16px;">↩ Resetează la materiile ASE default</button>';
+  }
+
+  html += '<div style="margin-bottom:20px;">';
+  for (const [key, subj] of Object.entries(subjects)) {
+    const theme = getSubjectTheme(subj);
+    html += '<div class="subject-card-mini">';
+    html += '<div class="scm-icon" style="background:' + theme.muted + ';color:' + theme.accent + '">' + subj.icon + '</div>';
+    html += '<div class="scm-info"><div class="scm-name">' + escapeHtml(subj.name) + '</div><div class="scm-full">' + escapeHtml(subj.full||'') + '</div></div>';
+    html += '<div class="scm-actions"><button class="scm-btn" onclick="editSubject(\'' + key + '\')">✏️</button><button class="scm-btn danger" onclick="deleteSubject(\'' + key + '\')">🗑️</button></div>';
+    html += '</div>';
+  }
+  html += '</div>';
+
+  html += '<div style="border-top:1px solid var(--border);padding-top:18px;">';
+  html += '<div style="font-size:.82rem;font-weight:700;margin-bottom:12px;color:var(--text-secondary);">➕ Adaugă materie nouă</div>';
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">';
+  html += '<input class="todo-inp" id="newSubjName" placeholder="Nume scurt (ex: Drept)" style="width:100%;">';
+  html += '<input class="todo-inp" id="newSubjIcon" placeholder="Icon emoji (ex: ⚖️)" style="width:100%;">';
+  html += '</div>';
+  html += '<input class="todo-inp" id="newSubjFull" placeholder="Nume complet" style="width:100%;margin-bottom:10px;">';
+  html += '<textarea class="summary-textarea" id="newSubjDesc" placeholder="Descriere scurtă" style="min-height:50px;margin-bottom:10px;"></textarea>';
+  html += '<textarea class="summary-textarea" id="newSubjPrompt" placeholder="System prompt AI Tutor (ex: Ești un profesor de drept...)" style="min-height:70px;margin-bottom:12px;"></textarea>';
+  html += '<div style="font-size:.78rem;font-weight:600;color:var(--text-secondary);margin-bottom:8px;">Culoare temă</div>';
+  html += '<div class="theme-swatches" id="newSubjThemeSwatches">';
+  SUBJECT_THEMES.forEach((theme, i) => {
+    html += '<div class="theme-swatch' + (i===0?' active':'') + '" style="background:' + theme.accent + '" data-theme-id="' + theme.id + '" onclick="selectNewSubjTheme(\'' + theme.id + '\')" title="' + theme.label + '"></div>';
+  });
+  html += '</div>';
+  html += '<button onclick="addNewSubject()" style="width:100%;margin-top:14px;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-weight:700;cursor:pointer;font-size:.92rem;">+ Adaugă Materie</button>';
+  html += '</div></div></div>';
+  document.getElementById('modalContainer').innerHTML = html;
+}
+
+let _newSubjThemeId = 'violet';
+function selectNewSubjTheme(id) {
+  _newSubjThemeId = id;
+  document.querySelectorAll('#newSubjThemeSwatches .theme-swatch').forEach(s => s.classList.toggle('active', s.dataset.themeId===id));
+}
+
+function addNewSubject() {
+  const name = document.getElementById('newSubjName').value.trim();
+  const icon = document.getElementById('newSubjIcon').value.trim() || '📚';
+  const full = document.getElementById('newSubjFull').value.trim() || name;
+  const desc = document.getElementById('newSubjDesc').value.trim() || '';
+  const prompt = document.getElementById('newSubjPrompt').value.trim() || 'Ești un profesor expert în ' + full + '. Răspunde în română.';
+  if (!name) { alert('Introdu un nume pentru materie!'); return; }
+  const key = 'subj_' + name.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0,15) + '_' + Date.now();
+  if (!state.customSubjects || Object.keys(state.customSubjects).length === 0) {
+    state.customSubjects = JSON.parse(JSON.stringify(DEFAULT_SUBJECTS));
+  }
+  state.customSubjects[key] = { icon, name, full, desc, themeId: _newSubjThemeId, resources: [], systemPrompt: prompt };
+  SUBJECTS = getSubjects();
+  saveState();
+  closeModal();
+  renderSidebar();
+  showToast('✅ Materie adăugată: ' + name);
+  awardXP(20, 'Materie nouă adăugată');
+}
+
+function deleteSubject(key) {
+  const subj = getSubjects()[key];
+  if (!confirm('Ștergi materia "' + subj.name + '"? Datele asociate rămân în state dar materia dispare.')) return;
+  if (!state.customSubjects || Object.keys(state.customSubjects).length === 0) state.customSubjects = JSON.parse(JSON.stringify(DEFAULT_SUBJECTS));
+  delete state.customSubjects[key];
+  SUBJECTS = getSubjects();
+  saveState();
+  if (state.tab === key) navigateTo('dashboard');
+  closeModal(); renderSidebar(); openSubjectManager();
+}
+
+function editSubject(key) {
+  const subj = getSubjects()[key];
+  let html = '<div class="modal-overlay" onclick="if(event.target===this){closeModal();}">';
+  html += '<div class="modal-box"><div class="modal-header"><div class="modal-title">✏️ Editează ' + escapeHtml(subj.name) + '</div><button class="modal-close" onclick="closeModal();openSubjectManager()">✕</button></div>';
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">';
+  html += '<input class="todo-inp" id="editSubjName" value="' + escapeHtml(subj.name) + '" style="width:100%;" placeholder="Nume scurt">';
+  html += '<input class="todo-inp" id="editSubjIcon" value="' + escapeHtml(subj.icon) + '" style="width:100%;" placeholder="Icon">';
+  html += '</div>';
+  html += '<input class="todo-inp" id="editSubjFull" value="' + escapeHtml(subj.full||'') + '" style="width:100%;margin-bottom:10px;">';
+  html += '<textarea class="summary-textarea" id="editSubjDesc" style="min-height:50px;margin-bottom:10px;">' + escapeHtml(subj.desc||'') + '</textarea>';
+  html += '<textarea class="summary-textarea" id="editSubjPrompt" style="min-height:70px;margin-bottom:12px;">' + escapeHtml(subj.systemPrompt||'') + '</textarea>';
+  html += '<div class="theme-swatches" id="editSubjThemeSwatches">';
+  SUBJECT_THEMES.forEach(t => { html += '<div class="theme-swatch' + (t.id===(subj.themeId||'violet')?' active':'') + '" style="background:' + t.accent + '" data-theme-id="' + t.id + '" onclick="selectEditSubjTheme(\'' + t.id + '\')" title="' + t.label + '"></div>'; });
+  html += '</div>';
+  html += '<button onclick="saveEditSubject(\'' + key + '\')" style="width:100%;margin-top:14px;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-weight:700;cursor:pointer;">💾 Salvează</button>';
+  html += '</div></div>';
+  document.getElementById('modalContainer').innerHTML = html;
+  _editSubjThemeId = subj.themeId || 'violet';
+}
+
+let _editSubjThemeId = 'violet';
+function selectEditSubjTheme(id) {
+  _editSubjThemeId = id;
+  document.querySelectorAll('#editSubjThemeSwatches .theme-swatch').forEach(s => s.classList.toggle('active', s.dataset.themeId===id));
+}
+
+function saveEditSubject(key) {
+  const name = document.getElementById('editSubjName').value.trim();
+  if (!name) { alert('Numele nu poate fi gol!'); return; }
+  if (!state.customSubjects || Object.keys(state.customSubjects).length===0) state.customSubjects = JSON.parse(JSON.stringify(DEFAULT_SUBJECTS));
+  const existing = state.customSubjects[key] || DEFAULT_getSubjects()[key] || {};
+  state.customSubjects[key] = { ...existing, name, icon: document.getElementById('editSubjIcon').value.trim()||existing.icon, full: document.getElementById('editSubjFull').value.trim()||name, desc: document.getElementById('editSubjDesc').value.trim(), systemPrompt: document.getElementById('editSubjPrompt').value.trim(), themeId: _editSubjThemeId };
+  SUBJECTS = getSubjects();
+  saveState();
+  closeModal();
+  renderSidebar();
+  if (state.tab === key) renderPage();
+  showToast('✅ Materie actualizată: ' + name);
+}
+
+function resetToDefaultSubjects() {
+  if (!confirm('Resetezi la materiile ASE default?')) return;
+  state.customSubjects = {};
+  SUBJECTS = getSubjects();
+  saveState();
+  closeModal();
+  if (!getSubjects()[state.tab]) navigateTo('dashboard');
+  renderSidebar(); renderPage();
+}
+
+function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
+
+// =============================================
+// V7 — DASHBOARD cu grafice Chart.js
+// =============================================
+let dashChartInstance = null;
+
+function renderDashboardCharts() {
+  const subjects = getSubjects();
+  const ctx = document.getElementById('progressChart');
+  if (!ctx) return;
+
+  // Incarca Chart.js dinamic daca nu e deja disponibil
+  if (typeof Chart === 'undefined') {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js';
+    script.onload = () => buildChart(ctx, subjects);
+    script.onerror = () => { ctx.parentElement.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:20px;font-size:.82rem;">📊 Graficul necesită conexiune internet</div>'; };
+    document.head.appendChild(script);
+    return;
+  }
+  buildChart(ctx, subjects);
+}
+
+function buildChart(ctx, subjects) {
+  if (dashChartInstance) { dashChartInstance.destroy(); dashChartInstance = null; }
+  const labels = [], data = [], colors = [];
+  for (const [key, subj] of Object.entries(subjects)) {
+    const todos = state.todos[key] || [];
+    const done = todos.filter(t => t.done).length;
+    const pct = todos.length ? Math.round(done / todos.length * 100) : 0;
+    const theme = getSubjectTheme(subj);
+    labels.push(subj.name); data.push(pct); colors.push(theme.accent);
+  }
+
+  const isDark = document.body.getAttribute('data-theme') !== 'light';
+  const textColor = isDark ? '#8b90a0' : '#5c5c72';
+  const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+
+  dashChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets: [{ label: 'Progres Tasks (%)', data, backgroundColor: colors.map(c => c + '33'), borderColor: colors, borderWidth: 2, borderRadius: 8 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, max: 100, ticks: { color: textColor, callback: v => v + '%' }, grid: { color: gridColor } },
+        x: { ticks: { color: textColor }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+// =============================================
+// V7 — MIND MAP AI
+// =============================================
+function renderMindMapPage(element) {
+  const subjects = getSubjects();
+  let html = '<div class="anim"><div class="dash-hero" style="padding:28px 20px 20px"><h2>🗺️ Mind Map AI</h2><p>Hărți conceptuale vizuale generate din prezentările tale</p></div>';
+  html += '<div class="quiz-gen-section"><h3>⚙️ Generează Mind Map</h3>';
+  html += '<div class="quiz-options-row" id="mmSubjectChips">';
+  for (const [key, subject] of Object.entries(subjects)) {
+    const hasMM = state.mindMaps && state.mindMaps[key] && state.mindMaps[key].nodes;
+    html += '<button class="quiz-chip ' + (state.mmActiveSubject===key?'active':'') + '" onclick="selectMMSubject(\'' + key + '\')">' + subject.icon + ' ' + subject.name + (hasMM?' 🗺️':'') + '</button>';
+  }
+  html += '</div>';
+  if (!state.apiKey) {
+    html += '<div style="padding:12px;background:var(--amber-muted);border-radius:var(--radius-sm);font-size:.85rem;color:var(--amber);margin-top:12px;">⚠️ Configurează API key-ul din Dashboard</div>';
+  } else {
+    html += '<div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;">';
+    html += '<button class="summary-gen-btn" id="mmGenBtn" onclick="generateMindMap()"><span>🗺️</span> Generează Mind Map</button>';
+    if (state.mmActiveSubject && state.mindMaps && state.mindMaps[state.mmActiveSubject]) {
+      html += '<button class="quiz-nav-btn" onclick="clearMindMap()">🗑️ Șterge</button>';
+    }
+    html += '<span class="summary-status" id="mmGenStatus" style="font-size:.82rem;color:var(--text-muted);"></span></div>';
+  }
+  html += '</div>';
+  html += '<div id="mmDisplayZone">';
+  if (state.mmActiveSubject && state.mindMaps && state.mindMaps[state.mmActiveSubject]) {
+    html += renderMindMapSVG(state.mindMaps[state.mmActiveSubject], state.mmActiveSubject);
+  } else {
+    html += '<div style="text-align:center;padding:60px;color:var(--text-muted);">Selectează o materie și generează un mind map 🗺️</div>';
+  }
+  html += '</div></div>';
+  element.innerHTML = html;
+}
+
+function selectMMSubject(key) {
+  state.mmActiveSubject = key;
+  document.querySelectorAll('#mmSubjectChips .quiz-chip').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  const zone = document.getElementById('mmDisplayZone');
+  if (zone) {
+    if (state.mindMaps && state.mindMaps[key] && state.mindMaps[key].nodes) zone.innerHTML = renderMindMapSVG(state.mindMaps[key], key);
+    else zone.innerHTML = '<div style="text-align:center;padding:60px;color:var(--text-muted);">Niciun mind map pentru această materie. Generează unul!</div>';
+  }
+}
+
+async function generateMindMap() {
+  const key = state.mmActiveSubject;
+  if (!key) { document.getElementById('mmGenStatus').textContent = '⚠️ Selectează o materie'; return; }
+  const subject = getSubjects()[key];
+  const allPres = getAllPresentations(key);
+  if (!allPres.length) { document.getElementById('mmGenStatus').textContent = '⚠️ Nu există prezentări pentru ' + subject.name; return; }
+
+  let context = '';
+  allPres.forEach(p => { context += '### ' + p.title + '\n'; p.slides.forEach(s => { context += s.title + ': ' + s.content.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim() + '\n'; }); });
+
+  const btn = document.getElementById('mmGenBtn');
+  const statusEl = document.getElementById('mmGenStatus');
+  btn.disabled = true; btn.innerHTML = '⏳ Se generează...'; statusEl.textContent = 'Durează ~15s...';
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': state.apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 2000,
+        system: 'Generezi structura unui mind map pentru ' + subject.full + '. RĂSPUNDE STRICT cu JSON. {"center":"Titlu Central","nodes":[{"id":"n1","label":"Concept","children":[{"id":"n1a","label":"Sub-concept"}]}]} 5-7 noduri principale, 2-4 copii fiecare, label-uri scurte (max 5 cuvinte), în română.',
+        messages: [{ role: 'user', content: 'Mind map din:\n\n' + context.substring(0, 5000) }]
+      })
+    });
+    const data = await response.json();
+    if (data.content && data.content[0]) {
+      let raw = data.content[0].text.trim().replace(/^```json?\s*/,'').replace(/\s*```$/,'').trim();
+      let mm = null; try { mm = JSON.parse(raw); } catch(e) {}
+      if (mm && mm.center && mm.nodes) {
+        if (!state.mindMaps) state.mindMaps = {};
+        state.mindMaps[key] = mm; saveState();
+        awardXP(60, 'Mind Map generat', key);
+        document.getElementById('mmDisplayZone').innerHTML = renderMindMapSVG(mm, key);
+        statusEl.textContent = '';
+      } else { statusEl.textContent = '⚠️ Eroare la parsare.'; }
+    } else if (data.error) { statusEl.textContent = '⚠️ ' + data.error.message; }
+  } catch(err) { statusEl.textContent = '⚠️ ' + err.message; }
+
+  btn.disabled = false; btn.innerHTML = '<span>🗺️</span> Generează Mind Map';
+}
+
+function clearMindMap() {
+  if (!state.mmActiveSubject || !confirm('Ștergi mind map-ul?')) return;
+  if (state.mindMaps) delete state.mindMaps[state.mmActiveSubject];
+  saveState();
+  document.getElementById('mmDisplayZone').innerHTML = '<div style="text-align:center;padding:60px;color:var(--text-muted);">Mind map șters.</div>';
+}
+
+function renderMindMapSVG(mm, subjectKey) {
+  const subject = getSubjects()[subjectKey];
+  const theme = subject ? getSubjectTheme(subject) : SUBJECT_THEMES[0];
+  const W = 900, H = 580, CX = W/2, CY = H/2;
+  const nodes = mm.nodes || [], N = nodes.length;
+  let nodeElements = '', lineElements = '';
+
+  nodes.forEach((node, i) => {
+    const angle = (i/N) * 2 * Math.PI - Math.PI/2;
+    const nx = CX + 185 * Math.cos(angle), ny = CY + 185 * Math.sin(angle);
+    lineElements += `<line x1="${CX}" y1="${CY}" x2="${nx}" y2="${ny}" stroke="${theme.accent}" stroke-width="2" stroke-opacity="0.45"/>`;
+
+    (node.children||[]).forEach((child, j) => {
+      const ca = angle + ((j - (node.children.length-1)/2) * 0.5);
+      const cx2 = nx + 92 * Math.cos(ca), cy2 = ny + 92 * Math.sin(ca);
+      lineElements += `<line x1="${nx}" y1="${ny}" x2="${cx2}" y2="${cy2}" stroke="${theme.accent}" stroke-width="1.5" stroke-opacity="0.3"/>`;
+      nodeElements += `<g><rect x="${cx2-46}" y="${cy2-15}" width="92" height="30" rx="8" fill="${theme.muted}" stroke="${theme.border}" stroke-width="1"/><text x="${cx2}" y="${cy2+5}" text-anchor="middle" font-size="10" fill="${theme.accent}" font-family="Outfit,sans-serif" font-weight="500">${escapeHtml((child.label||'').substring(0,20))}</text></g>`;
+    });
+
+    const words = (node.label||'').split(' ');
+    nodeElements += `<g><circle cx="${nx}" cy="${ny}" r="38" fill="${theme.muted}" stroke="${theme.accent}" stroke-width="2"/><text x="${nx}" y="${ny-4}" text-anchor="middle" font-size="11" fill="${theme.accent}" font-family="Outfit,sans-serif" font-weight="700">${escapeHtml(words.slice(0,2).join(' '))}</text>${words.length>2?`<text x="${nx}" y="${ny+10}" text-anchor="middle" font-size="9" fill="${theme.accent}" font-family="Outfit,sans-serif">${escapeHtml(words.slice(2).join(' '))}</text>`:''}</g>`;
+  });
+
+  const cWords = (mm.center||'').split(' ');
+  const centerEl = `<circle cx="${CX}" cy="${CY}" r="52" fill="${theme.accent}" opacity="0.9"/><text x="${CX}" y="${CY-6}" text-anchor="middle" font-size="13" fill="white" font-family="Newsreader,serif" font-weight="800">${escapeHtml(cWords.slice(0,3).join(' '))}</text>${cWords.length>3?`<text x="${CX}" y="${CY+11}" text-anchor="middle" font-size="11" fill="white" font-family="Newsreader,serif">${escapeHtml(cWords.slice(3).join(' '))}</text>`:''}`;
+
+  return `<div class="mindmap-container" style="margin-top:20px;"><div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;"><span style="font-size:.82rem;font-weight:700;color:var(--text-secondary);">🗺️ ${escapeHtml(mm.center||'')}</span><button class="quiz-nav-btn" style="font-size:.75rem;" onclick="downloadMindMapSVG()">⬇️ SVG</button></div><div id="mmSvgContainer"><svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-height:480px;display:block;"><rect width="${W}" height="${H}" fill="transparent"/>${lineElements}${nodeElements}${centerEl}</svg></div></div>`;
+}
+
+function downloadMindMapSVG() {
+  const svgEl = document.querySelector('#mmSvgContainer svg');
+  if (!svgEl) return;
+  const blob = new Blob([svgEl.outerHTML], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'mindmap.svg'; a.click(); URL.revokeObjectURL(url);
+}
+
+// =============================================
+// V7 — EXAM SIMULATOR
+// =============================================
+let examSimInterval = null;
+
+function renderExamSimPage(element) {
+  const subjects = getSubjects();
+  let html = '<div class="anim"><div class="dash-hero" style="padding:28px 20px 20px"><h2>🎓 Exam Simulator</h2><p>Simulează condiții reale de examen — timp limitat, fără ajutor</p></div>';
+
+  if (!state.activeExamSim) {
+    html += '<div class="quiz-gen-section"><h3>⚙️ Configurează Sesiunea</h3>';
+    html += '<div style="margin-bottom:14px;"><label style="font-size:.82rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Materie</label>';
+    html += '<div class="quiz-options-row" id="simSubjectChips">';
+    for (const [key, subject] of Object.entries(subjects)) {
+      html += '<button class="quiz-chip ' + (state.simConfig&&state.simConfig.subject===key?'active':'') + '" onclick="selectSimSubject(\'' + key + '\')">' + subject.icon + ' ' + subject.name + '</button>';
+    }
+    html += '</div></div>';
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">';
+    html += '<div><label style="font-size:.82rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Număr întrebări</label><div class="quiz-options-row">';
+    [10,20,30,40].forEach(n => html += '<button class="quiz-chip ' + (!state.simConfig&&n===20||state.simConfig&&state.simConfig.count===n?'active':'') + '" onclick="selectSimCount(' + n + ')">' + n + '</button>');
+    html += '</div></div><div><label style="font-size:.82rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Timp (minute)</label><div class="quiz-options-row">';
+    [30,45,60,90].forEach(m => html += '<button class="quiz-chip ' + (!state.simConfig&&m===45||state.simConfig&&state.simConfig.minutes===m?'active':'') + '" onclick="selectSimMinutes(' + m + ')">' + m + ' min</button>');
+    html += '</div></div></div>';
+    if (!state.apiKey) html += '<div style="padding:12px;background:var(--amber-muted);border-radius:var(--radius-sm);font-size:.85rem;color:var(--amber);">⚠️ Configurează API key-ul</div>';
+    else { html += '<button class="summary-gen-btn" id="simGenBtn" onclick="startExamSim()"><span>🎓</span> Începe Simularea</button><span class="summary-status" id="simGenStatus" style="margin-left:12px;font-size:.82rem;color:var(--text-muted);"></span>'; }
+    html += '</div>';
+    html += renderExamSimHistory();
+  } else {
+    html += renderActiveExamSim();
+  }
+  html += '</div>';
+  element.innerHTML = html;
+  if (state.activeExamSim) startExamSimTimer();
+}
+
+function selectSimSubject(k) { if(!state.simConfig)state.simConfig={}; state.simConfig.subject=k; document.querySelectorAll('#simSubjectChips .quiz-chip').forEach(b=>b.classList.remove('active')); event.target.classList.add('active'); }
+function selectSimCount(n) { if(!state.simConfig)state.simConfig={}; state.simConfig.count=n; event.target.closest('.quiz-options-row').querySelectorAll('.quiz-chip').forEach(b=>b.classList.remove('active')); event.target.classList.add('active'); }
+function selectSimMinutes(m) { if(!state.simConfig)state.simConfig={}; state.simConfig.minutes=m; event.target.closest('.quiz-options-row').querySelectorAll('.quiz-chip').forEach(b=>b.classList.remove('active')); event.target.classList.add('active'); }
+
+function renderExamSimHistory() {
+  const sessions = Object.values(state.examSessions||{}).flat();
+  if (!sessions.length) return '';
+  const subjects = getSubjects();
+  sessions.sort((a,b)=>b.timestamp-a.timestamp);
+  let html = '<div style="margin-top:24px;"><div style="font-size:.82rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">📊 Sesiuni Anterioare</div>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">';
+  sessions.slice(0,8).forEach(s => {
+    const subj = subjects[s.subject];
+    const pct = Math.round((s.score/s.total)*100);
+    const color = pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)';
+    html += '<div style="background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;">';
+    html += '<div style="font-size:.72rem;color:var(--text-muted);margin-bottom:4px;">' + (subj?subj.icon+' '+subj.name:s.subject) + ' · ' + new Date(s.timestamp).toLocaleDateString('ro') + '</div>';
+    html += '<div style="font-size:1.6rem;font-weight:800;color:'+color+';font-family:Newsreader,serif">'+pct+'%</div>';
+    html += '<div style="font-size:.8rem;color:var(--text-secondary)">'+s.score+'/'+s.total+' corecte</div></div>';
+  });
+  html += '</div></div>';
+  return html;
+}
+
+async function startExamSim() {
+  const cfg = state.simConfig||{};
+  const subjectKey = cfg.subject, count = cfg.count||20, minutes = cfg.minutes||45;
+  if (!subjectKey) { document.getElementById('simGenStatus').textContent = '⚠️ Selectează o materie'; return; }
+  const subject = getSubjects()[subjectKey];
+  const allPres = getAllPresentations(subjectKey);
+  if (!allPres.length) { document.getElementById('simGenStatus').textContent = '⚠️ Nu există prezentări'; return; }
+
+  let context = '';
+  allPres.forEach(p => { context += p.slides.map(s => s.title + ': ' + s.content.replace(/<[^>]+>/g,' ').trim()).join('\n') + '\n\n'; });
+
+  const btn = document.getElementById('simGenBtn'), statusEl = document.getElementById('simGenStatus');
+  btn.disabled = true; btn.innerHTML = '⏳ Se generează...'; statusEl.textContent = 'Durează ~25s...';
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': state.apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 8000,
+        system: 'Creezi subiecte de examen pentru ' + subject.full + '. RĂSPUNDE STRICT cu JSON array. [{"q":"text","options":["A. v1","B. v2","C. v3","D. v4"],"correct":0,"explanation":"de ce"}]. EXACT ' + count + ' întrebări. Mix 70% grile, 30% adevărat/fals. Dificultate reală. În română.',
+        messages: [{ role: 'user', content: 'Generează ' + count + ' subiecte din:\n\n' + context.substring(0,7000) }]
+      })
+    });
+    const data = await response.json();
+    if (data.content && data.content[0]) {
+      let raw = data.content[0].text.trim().replace(/^```json?\s*/,'').replace(/\s*```$/,'').trim();
+      let questions = null; try { questions = JSON.parse(raw); if (!Array.isArray(questions)) questions = null; } catch(e) {}
+      if (questions && questions.length) {
+        state.activeExamSim = { subjectKey, questions, answers: new Array(questions.length).fill(undefined), flagged: new Array(questions.length).fill(false), currentIndex: 0, timeLimitMs: minutes*60000, timeLeftMs: minutes*60000, startedAt: Date.now() };
+        saveState(); renderPage();
+      } else { statusEl.textContent = '⚠️ Eroare la parsare.'; }
+    } else if (data.error) { statusEl.textContent = '⚠️ ' + data.error.message; }
+  } catch(err) { statusEl.textContent = '⚠️ ' + err.message; }
+
+  btn.disabled = false; btn.innerHTML = '<span>🎓</span> Începe Simularea';
+}
+
+function renderActiveExamSim() {
+  const sim = state.activeExamSim; if (!sim) return '';
+  const { questions, answers, flagged, currentIndex, timeLeftMs } = sim;
+  const q = questions[currentIndex];
+  const mL = Math.floor(timeLeftMs/60000), sL = Math.floor((timeLeftMs%60000)/1000);
+  const tClass = mL<5?'danger':mL<10?'warning':'';
+  const subjects = getSubjects(), subject = subjects[sim.subjectKey];
+  const totalAnswered = answers.filter(a=>a!==undefined).length;
+
+  let html = '<div>';
+  html += '<div class="exam-sim-header">';
+  html += '<div><div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:4px;">' + (subject?subject.icon+' '+subject.name:'') + '</div><div style="font-size:.85rem;font-weight:600;">' + totalAnswered + '/' + questions.length + ' răspunse</div></div>';
+  html += '<div class="exam-sim-meta"><div class="exam-sim-timer ' + tClass + '" id="examTimer">' + String(mL).padStart(2,'0') + ':' + String(sL).padStart(2,'0') + '</div><div class="esm-label">timp rămas</div></div>';
+  html += '<button class="quiz-nav-btn" onclick="submitExamSim()" style="background:var(--red);color:#fff;border-color:var(--red);">🏁 Predă</button></div>';
+
+  html += '<div class="exam-q-nav">';
+  questions.forEach((_,i) => { let cls = 'eq-nav-dot'; if(i===currentIndex)cls+=' current'; else if(answers[i]!==undefined)cls+=' answered'; else if(flagged[i])cls+=' flagged'; html += '<button class="'+cls+'" onclick="goToSimQuestion('+i+')">'+(i+1)+'</button>'; });
+  html += '</div>';
+
+  html += '<div class="quiz-question-card">';
+  html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+  html += '<div class="quiz-q-num">Întrebarea ' + (currentIndex+1) + ' din ' + questions.length + '</div>';
+  html += '<button onclick="toggleSimFlag('+currentIndex+')" style="background:' + (flagged[currentIndex]?'var(--amber-muted)':'var(--bg-surface)') + ';border:1px solid ' + (flagged[currentIndex]?'var(--amber)':'var(--border)') + ';color:' + (flagged[currentIndex]?'var(--amber)':'var(--text-muted)') + ';padding:5px 12px;border-radius:var(--radius-xs);font-size:.78rem;cursor:pointer;">🚩 Marchează</button></div>';
+  html += '<div class="quiz-q-text">' + escapeHtml(q.q) + '</div><div class="quiz-options">';
+  const letters = ['A','B','C','D'];
+  (q.options||[]).forEach((opt,oi) => {
+    const isSel = answers[currentIndex]===oi;
+    html += '<button class="quiz-option' + (isSel?'" style="background:var(--accent-muted);border-color:var(--accent);"':'"') + ' onclick="answerSimQuestion('+oi+')">';
+    html += '<span class="quiz-option-letter"' + (isSel?' style="background:var(--accent);color:#fff;"':'') + '>' + letters[oi] + '</span><span>' + escapeHtml(opt) + '</span></button>';
+  });
+  html += '</div></div>';
+
+  html += '<div class="quiz-nav-btns">';
+  html += '<button class="quiz-nav-btn" onclick="prevSimQuestion()" ' + (currentIndex===0?'disabled':'') + '>← Prev</button>';
+  html += '<button class="quiz-nav-btn primary" onclick="nextSimQuestion()" ' + (currentIndex===questions.length-1?'disabled':'') + '>Next →</button></div></div>';
+  return html;
+}
+
+function startExamSimTimer() {
+  if (examSimInterval) clearInterval(examSimInterval);
+  examSimInterval = setInterval(() => {
+    if (!state.activeExamSim) { clearInterval(examSimInterval); return; }
+    state.activeExamSim.timeLeftMs -= 1000;
+    if (state.activeExamSim.timeLeftMs <= 0) { clearInterval(examSimInterval); submitExamSim(); return; }
+    const ms = state.activeExamSim.timeLeftMs, m = Math.floor(ms/60000), s = Math.floor((ms%60000)/1000);
+    const el = document.getElementById('examTimer');
+    if (el) { el.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0'); el.className = 'exam-sim-timer ' + (m<5?'danger':m<10?'warning':''); }
+  }, 1000);
+}
+
+function goToSimQuestion(i) { if(!state.activeExamSim)return; state.activeExamSim.currentIndex=i; document.getElementById('pageContent').innerHTML='<div class="anim">'+renderActiveExamSim()+'</div>'; startExamSimTimer(); }
+function answerSimQuestion(oi) { if(!state.activeExamSim)return; state.activeExamSim.answers[state.activeExamSim.currentIndex]=oi; saveState(); document.getElementById('pageContent').innerHTML='<div class="anim">'+renderActiveExamSim()+'</div>'; startExamSimTimer(); }
+function toggleSimFlag(i) { if(!state.activeExamSim)return; state.activeExamSim.flagged[i]=!state.activeExamSim.flagged[i]; saveState(); document.getElementById('pageContent').innerHTML='<div class="anim">'+renderActiveExamSim()+'</div>'; startExamSimTimer(); }
+function nextSimQuestion() { if(!state.activeExamSim||state.activeExamSim.currentIndex>=state.activeExamSim.questions.length-1)return; state.activeExamSim.currentIndex++; document.getElementById('pageContent').innerHTML='<div class="anim">'+renderActiveExamSim()+'</div>'; startExamSimTimer(); }
+function prevSimQuestion() { if(!state.activeExamSim||state.activeExamSim.currentIndex<=0)return; state.activeExamSim.currentIndex--; document.getElementById('pageContent').innerHTML='<div class="anim">'+renderActiveExamSim()+'</div>'; startExamSimTimer(); }
+
+function submitExamSim() {
+  if (!state.activeExamSim) return;
+  if (examSimInterval) clearInterval(examSimInterval);
+  const sim = state.activeExamSim;
+  const { questions, answers, subjectKey, timeLimitMs, timeLeftMs } = sim;
+  const score = answers.filter((a,i) => a === questions[i].correct).length, total = questions.length;
+  const pct = Math.round((score/total)*100);
+  if (!state.examSessions) state.examSessions = {};
+  if (!state.examSessions[subjectKey]) state.examSessions[subjectKey] = [];
+  state.examSessions[subjectKey].push({ subject: subjectKey, score, total, timeLimitMs, timeLeftMs, timestamp: Date.now() });
+  state.activeExamSim = null;
+  awardXP(pct>=80?150:pct>=60?80:40, 'Exam Simulator (' + pct + '%)', subjectKey);
+  saveState();
+
+  const subjects = getSubjects(), subject = subjects[subjectKey];
+  const color = pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)';
+  let html = '<div class="anim"><div class="quiz-score-card" style="margin:20px 0;">';
+  html += '<div style="font-size:3rem;margin-bottom:12px;">' + (pct>=80?'🎉':pct>=60?'👍':'📚') + '</div>';
+  html += '<div class="quiz-score-num" style="color:'+color+'">' + pct + '%</div>';
+  html += '<div class="quiz-score-label">' + score + '/' + total + ' corecte</div>';
+  html += '<div style="text-align:left;margin:20px 0;">';
+  questions.forEach((q,i) => {
+    const ok = answers[i]===q.correct;
+    html += '<div style="padding:8px 12px;border-radius:var(--radius-xs);margin-bottom:5px;background:' + (ok?'var(--green-muted)':'var(--red-muted)') + ';border:1px solid ' + (ok?'var(--green)':'var(--red)') + ';font-size:.82rem;">';
+    html += '<strong style="color:' + (ok?'var(--green)':'var(--red)') + '">' + (ok?'✓':'✗') + ' Q' + (i+1) + '.</strong> ' + escapeHtml(q.q.substring(0,60)) + (q.q.length>60?'...':'');
+    if (!ok) html += '<div style="font-size:.75rem;color:var(--text-secondary);margin-top:3px;">Răspuns corect: ' + escapeHtml((q.options||[])[q.correct]||'') + '</div>';
+    html += '</div>';
+  });
+  html += '</div><button class="quiz-nav-btn primary" onclick="navigateTo(\'examsim\')">↩ Sesiune nouă</button></div></div>';
+  document.getElementById('pageContent').innerHTML = html;
+}
+
+// =============================================
+// V7 — SETTINGS (Import / Export / Collab)
+// =============================================
+function renderSettingsPage(element) {
+  let html = '<div class="anim"><div class="dash-hero" style="padding:28px 20px 20px"><h2>📦 Import / Export / Collab</h2><p>Backup complet, transfer date, mod colaborare</p></div>';
+
+  html += '<div class="quiz-gen-section"><h3>⬇️ Export Date</h3>';
+  html += '<p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:14px;">Descarcă toate datele tale ca fișier JSON pentru backup sau transfer.</p>';
+  html += '<div style="display:flex;gap:10px;flex-wrap:wrap;">';
+  html += '<button class="summary-gen-btn" onclick="exportData()"><span>⬇️</span> Export JSON complet</button>';
+  html += '<button class="quiz-nav-btn" onclick="exportCollabCode()">🔗 Generează Cod Collab</button></div></div>';
+
+  html += '<div class="quiz-gen-section"><h3>⬆️ Import Date</h3>';
+  html += '<p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:14px;">Restaurează dintr-un backup JSON.</p>';
+  html += '<div class="import-export-zone"><input type="file" accept=".json" onchange="importData(event)"><div style="font-size:2rem;margin-bottom:8px;">📁</div><div style="font-weight:600;">Trage fișierul JSON sau click</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:4px;">Fișier exportat din ASE Study Hub</div></div></div>';
+
+  html += '<div class="quiz-gen-section"><h3>🤝 Collab Mode</h3>';
+  html += '<p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:14px;">Partajează prezentările cu un coleg folosind un cod.</p>';
+  html += '<div style="display:flex;gap:10px;"><input class="todo-inp" id="collabCodeInput" placeholder="Introdu cod collab..." style="flex:1;"><button class="quiz-nav-btn primary" onclick="importCollabCode()">📥 Import</button></div>';
+  html += '<div id="collabCodeDisplay"></div></div>';
+
+  html += '<div class="quiz-gen-section" style="border:1px solid var(--red);background:var(--red-muted);">';
+  html += '<h3 style="color:var(--red)">⚠️ Zone Periculoasă</h3>';
+  html += '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">';
+  html += '<button class="quiz-nav-btn" style="border-color:var(--red);color:var(--red);" onclick="resetPIN()">🔑 Schimbă PIN</button>';
+  html += '<button class="quiz-nav-btn" style="border-color:var(--red);color:var(--red);" onclick="clearAllData()">🗑️ Șterge toate datele</button></div></div>';
+
+  html += '</div>';
+  element.innerHTML = html;
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify({ version:7, exportDate: new Date().toISOString(), data: JSON.parse(JSON.stringify(state)) }, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'ase-study-hub-backup-' + new Date().toISOString().split('T')[0] + '.json'; a.click(); URL.revokeObjectURL(url);
+  showToast('✅ Export complet descărcat!');
+}
+
+function importData(event) {
+  const file = event.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      const data = imported.data || imported;
+      if (!confirm('Importezi datele din backup? Datele curente vor fi înlocuite!')) return;
+      Object.assign(state, data); SUBJECTS = getSubjects(); saveState();
+      showToast('✅ Date importate cu succes!'); renderPage(); renderSidebar();
+    } catch(err) { alert('Fișier invalid: ' + err.message); }
+  };
+  reader.readAsText(file);
+}
+
+function exportCollabCode() {
+  const collabData = { type:'collab', presentations: state.presentations, customSubjects: state.customSubjects, version:7 };
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(collabData))));
+  const shortCode = encoded.substring(0,8).toUpperCase();
+  localStorage.setItem('ash_collab_' + shortCode, encoded);
+  const displayEl = document.getElementById('collabCodeDisplay');
+  if (displayEl) displayEl.innerHTML = '<div class="collab-code-display">' + shortCode + '</div><div style="font-size:.78rem;color:var(--text-muted);text-align:center;">Dă acest cod colegului tău</div>';
+  showToast('🔗 Cod generat: ' + shortCode);
+}
+
+function importCollabCode() {
+  const code = document.getElementById('collabCodeInput').value.trim().toUpperCase();
+  if (!code) { alert('Introdu un cod!'); return; }
+  const encoded = localStorage.getItem('ash_collab_' + code);
+  if (!encoded) { alert('Codul nu a fost găsit în acest browser. Folosește Export JSON pentru transfer între dispozitive.'); return; }
+  try {
+    const data = JSON.parse(decodeURIComponent(escape(atob(encoded))));
+    if (!confirm('Importezi din codul "' + code + '"?')) return;
+    if (data.presentations) {
+      for (const [key, pres] of Object.entries(data.presentations)) {
+        if (!state.presentations[key]) state.presentations[key] = [];
+        const existing = state.presentations[key].map(p => p.id);
+        pres.forEach(p => { if (!existing.includes(p.id)) state.presentations[key].push(p); });
+      }
+    }
+    if (data.customSubjects && Object.keys(data.customSubjects).length) { state.customSubjects = { ...state.customSubjects, ...data.customSubjects }; SUBJECTS = getSubjects(); }
+    saveState(); showToast('✅ Date collab importate!'); renderPage(); renderSidebar();
+  } catch(err) { alert('Eroare la import: ' + err.message); }
+}
+
+function resetPIN() {
+  if (!confirm('Resetezi PIN-ul?')) return;
+  state.pin = null; saveState(); handleLogout();
+}
+
+function clearAllData() {
+  if (!confirm('ATENȚIE! Pierzi TOATE datele. Continui?')) return;
+  if (!confirm('Ești absolut sigur? Ireversibil!')) return;
+  localStorage.clear(); location.reload();
+}
+
+// =============================================
 // INIT
 // =============================================
 // Page is ready, waiting for PIN input
+
+// Award first login XP — integrat direct in unlock (fara redeclarare)
+// XP-ul se acorda din renderPage dupa primul load
 
 </script>
 </body>
