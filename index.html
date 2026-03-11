@@ -3179,12 +3179,14 @@ const DEFAULT_SUBJECTS = {
 // Returneaza SUBJECTS — NUMAI ce a definit userul
 // Platforma porneste GOALA — userul isi adauga materiile lui
 function getSubjects() {
+  // Daca userul si-a definit propriile materii → le folosim pe ale lui
+  // Altfel → DEFAULT_SUBJECTS (cele 5 ASE) ca demo/punct de plecare
   return state.customSubjects && Object.keys(state.customSubjects).length > 0
     ? state.customSubjects
-    : {};
+    : DEFAULT_SUBJECTS;
 }
 
-// Verifica daca platforma e la primul start (nicio materie adaugata)
+// Verifica daca userul nu si-a personalizat inca materiile
 function isFirstRun() {
   return Object.keys(state.customSubjects || {}).length === 0;
 }
@@ -3493,7 +3495,7 @@ function renderSidebar() {
   html += navBtn('calendar', '📅', 'Calendar', getUpcomingExamBadge());
   html += navBtn('achievements', '🏆', 'Realizări & XP', getAchievementBadge());
 
-  html += '<div class="nav-section">Materii</div>';
+  html += '<div class="nav-section">Materii' + (isFirstRun() ? ' <span style="font-size:.6rem;background:var(--amber-muted);color:var(--amber);padding:1px 5px;border-radius:4px;vertical-align:middle;">demo</span>' : '') + '</div>';
 
   if (Object.keys(subjects).length === 0) {
     html += '<button class="nav-item" onclick="openSubjectManager()" style="border:1px dashed var(--border);margin:4px 10px;width:calc(100% - 20px);justify-content:center;color:var(--text-muted);">';
@@ -3767,6 +3769,16 @@ function renderDashboard(element) {
   html += '<h2>Bun venit la Study Hub</h2>';
   html += '<p>Platforma ta AI-powered pentru sesiune</p>';
   html += '</div>';
+
+  // Banner demo — vizibil doar cand userul inca foloseste DEFAULT_SUBJECTS
+  if (isFirstRun()) {
+    html += '<div style="background:var(--amber-muted);border:1px solid var(--amber);border-radius:var(--radius);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;" class="anim">';
+    html += '<span style="font-size:1.5rem;">👋</span>';
+    html += '<div style="flex:1;"><div style="font-weight:700;font-size:.92rem;color:var(--amber);">Acestea sunt materii demo (ASE)</div>';
+    html += '<div style="font-size:.8rem;color:var(--text-secondary);margin-top:2px;">Poți folosi platforma cu ele sau îți adaugi propriile materii din ⚙️</div></div>';
+    html += '<button onclick="openSubjectManager()" style="padding:8px 16px;background:var(--amber);color:#fff;border:none;border-radius:var(--radius-sm);font-weight:600;font-size:.82rem;cursor:pointer;white-space:nowrap;">⚙️ Personalizează</button>';
+    html += '</div>';
+  }
 
   // Stats
   html += '<div class="quick-stats anim anim-d1">';
