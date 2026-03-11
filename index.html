@@ -91,6 +91,679 @@ button { cursor: pointer; font-family: inherit; }
 input, textarea, select { font-family: inherit; }
 
 /* =============================================
+   QUIZ MODE STYLES
+   ============================================= */
+.quiz-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.quiz-progress-bar {
+  height: 6px;
+  background: var(--bg-overlay);
+  border-radius: 3px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.4s var(--ease);
+}
+
+.quiz-question-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.quiz-q-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.quiz-q-text {
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  font-size: 0.92rem;
+  width: 100%;
+}
+
+.quiz-option:hover:not(:disabled) {
+  border-color: var(--accent-border);
+  background: var(--accent-muted);
+}
+
+.quiz-option.correct {
+  border-color: var(--green);
+  background: var(--green-muted);
+  color: var(--green);
+}
+
+.quiz-option.wrong {
+  border-color: var(--red);
+  background: var(--red-muted);
+  color: var(--red);
+}
+
+.quiz-option-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--bg-overlay);
+  font-weight: 700;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.quiz-option.correct .quiz-option-letter {
+  background: var(--green);
+  color: #fff;
+}
+
+.quiz-option.wrong .quiz-option-letter {
+  background: var(--red);
+  color: #fff;
+}
+
+.quiz-explanation {
+  background: var(--bg-overlay);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-top: 14px;
+  display: none;
+}
+
+.quiz-explanation.show { display: block; }
+
+.quiz-nav-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.quiz-nav-btn {
+  padding: 10px 22px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+}
+
+.quiz-nav-btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.quiz-nav-btn:hover:not(:disabled) {
+  border-color: var(--accent-border);
+  background: var(--accent-muted);
+}
+
+.quiz-nav-btn.primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.quiz-score-card {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.quiz-score-num {
+  font-family: 'Newsreader', serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.quiz-score-label {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 24px;
+}
+
+.quiz-gen-section {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.quiz-gen-section h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quiz-options-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.quiz-chip {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-secondary);
+}
+
+.quiz-chip.active {
+  background: var(--accent-muted);
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+/* =============================================
+   FLASHCARDS STYLES
+   ============================================= */
+.flashcard-container {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.flashcard-stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.fc-stat {
+  flex: 1;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+}
+
+.fc-stat-val {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-family: 'Newsreader', serif;
+}
+
+.fc-stat-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+.flashcard-scene {
+  perspective: 1200px;
+  height: 280px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.flashcard-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.flashcard-front {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+}
+
+.flashcard-back {
+  background: linear-gradient(135deg, var(--accent-muted), var(--bg-raised));
+  border: 1px solid var(--accent-border);
+  transform: rotateY(180deg);
+}
+
+.fc-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.fc-content {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  max-width: 500px;
+}
+
+.flashcard-back .fc-content {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.fc-flip-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.flashcard-answer-btns {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.fc-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.fc-btn.easy {
+  background: var(--green-muted);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.fc-btn.easy:hover { background: var(--green); color: #fff; }
+
+.fc-btn.hard {
+  background: var(--red-muted);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.fc-btn.hard:hover { background: var(--red); color: #fff; }
+
+.fc-btn.skip {
+  background: var(--bg-surface);
+  color: var(--text-muted);
+}
+
+.fc-btn.skip:hover { background: var(--bg-overlay); color: var(--text-primary); }
+
+.fc-queue-info {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.fc-deck-done {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* =============================================
+   CALENDAR / EXAM PLANNER STYLES
+   ============================================= */
+.calendar-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .calendar-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.exam-countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.exam-countdown-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.exam-countdown-card:hover {
+  border-color: var(--accent-border);
+}
+
+.exam-countdown-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+.exam-countdown-card.urgent::before { background: var(--red); }
+.exam-countdown-card.soon::before { background: var(--amber); }
+.exam-countdown-card.ok::before { background: var(--green); }
+
+.ecc-subject {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.ecc-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.ecc-days {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.exam-countdown-card.urgent .ecc-days { color: var(--red); }
+.exam-countdown-card.soon .ecc-days { color: var(--amber); }
+.exam-countdown-card.ok .ecc-days { color: var(--green); }
+
+.ecc-days-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.ecc-date {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+.ecc-del {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: var(--red-muted);
+  color: var(--red);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.exam-countdown-card:hover .ecc-del {
+  opacity: 1;
+}
+
+.add-exam-form {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.add-exam-form h3 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.exam-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+  .exam-form-row { grid-template-columns: 1fr; }
+}
+
+.calendar-mini {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.calendar-mini-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.calendar-mini-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.cal-nav-btn {
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cal-nav-btn:hover {
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.cal-day-header {
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 4px 0;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+
+.cal-day:hover:not(.empty) {
+  background: var(--bg-overlay);
+}
+
+.cal-day.today {
+  background: var(--accent-muted);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.cal-day.has-exam {
+  background: var(--red-muted);
+  color: var(--red);
+  font-weight: 700;
+}
+
+.cal-day.empty {
+  cursor: default;
+}
+
+.cal-exam-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--red);
+  margin-top: 1px;
+}
+
+.study-plan-section {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.study-plan-section h3 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.study-day-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.study-day-row:last-child { border-bottom: none; }
+
+.sdr-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.sdr-subject {
+  flex: 1;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.sdr-hours {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* =============================================
    LOCK SCREEN
    ============================================= */
 .lock-screen {
@@ -1664,7 +2337,12 @@ let state = {
   links: {},
   progress: {},
   files: {},
-  pomodoro: { running: false, mode: 'work', timeLeft: 1500 }
+  pomodoro: { running: false, mode: 'work', timeLeft: 1500 },
+  // === NOU v6: Quiz, Flashcards, Calendar, Export ===
+  quizHistory: {},        // quiz scores per materie
+  flashcardDecks: {},     // flashcard decks per materie (cu spaced repetition)
+  exams: [],              // lista examene cu date
+  studyPlan: {}           // plan zilnic de studiu
 };
 
 let presSlidePositions = {};
@@ -1676,6 +2354,11 @@ function loadState() {
       const saved = JSON.parse(raw);
       Object.assign(state, saved);
     }
+    // Asigura ca campurile noi exista (compatibilitate cu versiuni vechi)
+    if (!state.exams) state.exams = [];
+    if (!state.quizHistory) state.quizHistory = {};
+    if (!state.flashcardDecks) state.flashcardDecks = {};
+    if (!state.studyPlan) state.studyPlan = {};
   } catch (e) {
     console.error('Failed to load state:', e);
   }
@@ -1803,6 +2486,14 @@ function renderSidebar() {
   html += '<div class="nav-section">General</div>';
   html += '<button class="nav-item ' + (state.tab === 'dashboard' ? 'active' : '') + '" onclick="navigateTo(\'dashboard\')">';
   html += '<span class="ni-icon">🏠</span> Dashboard</button>';
+
+  // === NOI: Calendar sesiune ===
+  html += '<button class="nav-item ' + (state.tab === 'calendar' ? 'active' : '') + '" onclick="navigateTo(\'calendar\')">';
+  html += '<span class="ni-icon">📅</span> Calendar Sesiune';
+  const totalExams = (state.exams || []).length;
+  if (totalExams) html += '<span class="ni-badge" style="background:var(--red-muted);color:var(--red)">' + totalExams + '</span>';
+  html += '</button>';
+
   html += '<div class="nav-section">Materii</div>';
 
   for (const [key, subject] of Object.entries(SUBJECTS)) {
@@ -1820,7 +2511,31 @@ function renderSidebar() {
     html += '</button>';
   }
 
+  // === NOI: Sectiune Tools AI ===
+  html += '<div class="nav-section">Tools AI</div>';
+  html += '<button class="nav-item ' + (state.tab === 'quiz' ? 'active' : '') + '" onclick="navigateTo(\'quiz\')">';
+  html += '<span class="ni-icon">🧠</span> Quiz Mode</button>';
+  html += '<button class="nav-item ' + (state.tab === 'flashcards' ? 'active' : '') + '" onclick="navigateTo(\'flashcards\')">';
+  const dueCount = getFlashcardsDueCount();
+  html += '<span class="ni-icon">🃏</span> Flashcards';
+  if (dueCount > 0) html += '<span class="ni-badge" style="background:var(--amber-muted);color:var(--amber)">' + dueCount + '</span>';
+  html += '</button>';
+
   nav.innerHTML = html;
+}
+
+// Număr de flashcards scadente (de revizuit azi)
+function getFlashcardsDueCount() {
+  const decks = state.flashcardDecks || {};
+  let count = 0;
+  const now = Date.now();
+  for (const key of Object.keys(decks)) {
+    const cards = decks[key] || [];
+    cards.forEach(card => {
+      if (!card.nextReview || card.nextReview <= now) count++;
+    });
+  }
+  return count;
 }
 
 function navigateTo(tab) {
@@ -1841,6 +2556,18 @@ function renderPage() {
   if (state.tab === 'dashboard') {
     title.textContent = 'Dashboard';
     renderDashboard(page);
+  } else if (state.tab === 'calendar') {
+    // === NOU: Calendar Sesiune ===
+    title.textContent = '📅 Calendar Sesiune';
+    renderCalendarPage(page);
+  } else if (state.tab === 'quiz') {
+    // === NOU: Quiz Mode ===
+    title.textContent = '🧠 Quiz Mode — Grile AI';
+    renderQuizPage(page);
+  } else if (state.tab === 'flashcards') {
+    // === NOU: Flashcards ===
+    title.textContent = '🃏 Flashcards cu Spaced Repetition';
+    renderFlashcardsPage(page);
   } else {
     const subject = SUBJECTS[state.tab];
     title.textContent = subject.name + ' — ' + subject.full;
@@ -1870,6 +2597,25 @@ function renderDashboard(element) {
   html += '<div class="qs-card"><div class="qs-val">' + totalTodos + '</div><div class="qs-label">Tasks</div></div>';
   html += '<div class="qs-card"><div class="qs-val">' + (totalTodos ? Math.round(doneTodos / totalTodos * 100) : 0) + '%</div><div class="qs-label">Progres</div></div>';
   html += '<div class="qs-card"><div class="qs-val">' + totalPres + '</div><div class="qs-label">Prezentări</div></div>';
+
+  // === NOU v6: Stats noi ===
+  const totalExams = (state.exams || []).length;
+  const upcomingExams = (state.exams || []).filter(function(e) {
+    return new Date(e.date) >= new Date();
+  }).length;
+  const totalFCCards = Object.values(state.flashcardDecks || {}).reduce(function(acc, cards) { return acc + cards.length; }, 0);
+  const dueFC = getFlashcardsDueCount();
+
+  if (totalExams) {
+    html += '<div class="qs-card" onclick="navigateTo(\'calendar\')" style="cursor:pointer;">';
+    html += '<div class="qs-val" style="color:var(--red)">' + upcomingExams + '</div>';
+    html += '<div class="qs-label">Examene Viitoare</div></div>';
+  }
+  if (totalFCCards) {
+    html += '<div class="qs-card" onclick="navigateTo(\'flashcards\')" style="cursor:pointer;">';
+    html += '<div class="qs-val" style="color:var(--amber)">' + dueFC + '</div>';
+    html += '<div class="qs-label">Flashcards Due</div></div>';
+  }
   html += '</div>';
 
   // API Config
@@ -1893,7 +2639,49 @@ function renderDashboard(element) {
     html += '<div class="dc-sub">' + presCount + ' prezentări · ' + (todos.length ? done + '/' + todos.length + ' tasks' : '0 tasks') + '</div>';
     html += '</div>';
   }
+  html += '</div>';
+
+  // === NOU v6: Tool-uri AI shortcuts ===
+  html += '<div style="margin-top:24px;" class="anim anim-d3">';
+  html += '<div class="nav-section" style="padding:0 0 10px;font-size:.7rem;">🚀 Tool-uri AI</div>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">';
+
+  // Quiz card
+  html += '<div class="dash-card" onclick="navigateTo(\'quiz\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">';
+  html += '<span style="font-size:2rem;">🧠</span>';
+  html += '<div><div style="font-weight:700;">Quiz Mode</div>';
+  html += '<div style="font-size:.78rem;color:var(--text-secondary)">Grile AI din prezentări</div></div>';
+  html += '</div>';
+
+  // Flashcards card
+  const dueCount2 = getFlashcardsDueCount();
+  html += '<div class="dash-card" onclick="navigateTo(\'flashcards\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">';
+  html += '<span style="font-size:2rem;">🃏</span>';
+  html += '<div><div style="font-weight:700;">Flashcards</div>';
+  html += '<div style="font-size:.78rem;color:var(--text-secondary)">' + (dueCount2 > 0 ? '<span style="color:var(--amber)">⚡ ' + dueCount2 + ' scadente azi</span>' : 'Spaced repetition') + '</div></div>';
+  html += '</div>';
+
+  // Calendar card
+  const examCount2 = (state.exams || []).filter(function(e) { return new Date(e.date) >= new Date(); }).length;
+  const nextExam = (state.exams || [])
+    .filter(function(e) { return new Date(e.date) >= new Date(); })
+    .sort(function(a, b) { return new Date(a.date) - new Date(b.date); })[0];
+
+  html += '<div class="dash-card" onclick="navigateTo(\'calendar\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">';
+  html += '<span style="font-size:2rem;">📅</span>';
+  html += '<div><div style="font-weight:700;">Calendar Sesiune</div>';
+  if (nextExam) {
+    const daysLeft = Math.round((new Date(nextExam.date) - new Date()) / (1000 * 60 * 60 * 24));
+    const subj = SUBJECTS[nextExam.subject];
+    html += '<div style="font-size:.78rem;color:var(--red)">⏰ ' + (subj ? subj.name : '') + ' — ' + daysLeft + ' zile</div>';
+  } else {
+    html += '<div style="font-size:.78rem;color:var(--text-secondary)">Countdown examene</div>';
+  }
   html += '</div></div>';
+
+  html += '</div></div>';
+
+  html += '</div>';  // end anim
 
   element.innerHTML = html;
 }
@@ -2012,7 +2800,14 @@ function renderSubjectPage(element, key, subject) {
   // === AI CHAT ===
   html += '<div class="panel panel-full anim-d2">';
   html += '<div class="panel-head"><span>🤖 AI Tutor — ' + subject.name + '</span>';
-  html += '<span style="font-size:.72rem;color:var(--text-muted)">powered by Claude</span></div>';
+  html += '<div style="display:flex;gap:8px;align-items:center;">';
+  html += '<span style="font-size:.72rem;color:var(--text-muted)">powered by Claude</span>';
+  if (state.chatHistories[key] && state.chatHistories[key].length > 0) {
+    // === NOU: Buton export chat ca PDF ===
+    html += '<button class="quiz-nav-btn" style="font-size:.72rem;padding:5px 12px;" onclick="exportChatAsPDF(\'' + key + '\')">⬇️ Export PDF</button>';
+    html += '<button class="quiz-nav-btn" style="font-size:.72rem;padding:5px 12px;color:var(--red);" onclick="clearChatHistory(\'' + key + '\')">🗑️ Șterge</button>';
+  }
+  html += '</div></div>';
   html += '<div class="panel-body">';
 
   if (!state.apiKey) {
@@ -3071,6 +3866,1359 @@ function deleteFile(key, index) {
     saveState();
     document.getElementById('fileList').innerHTML = renderFileOrganizer(key);
   }
+}
+
+// =============================================
+// CHAT HISTORY — CLEAR & EXPORT PDF
+// =============================================
+
+// Sterge istoricul chat per materie
+function clearChatHistory(key) {
+  if (!confirm('Sigur vrei să ștergi istoricul conversației cu AI Tutor?')) return;
+  state.chatHistories[key] = [];
+  saveState();
+  renderPage();
+}
+
+// Exporta conversatia cu AI ca PDF (folosind print dialog)
+async function exportChatAsPDF(key) {
+  const subject = SUBJECTS[key];
+  const history = state.chatHistories[key] || [];
+  if (!history.length) {
+    alert('Nu există conversații de exportat.');
+    return;
+  }
+
+  // Construim HTML-ul pentru export
+  const exportDate = new Date().toLocaleDateString('ro', { year: 'numeric', month: 'long', day: 'numeric' });
+  const exportTime = new Date().toLocaleTimeString('ro', { hour: '2-digit', minute: '2-digit' });
+
+  let messagesHtml = '';
+  history.forEach(function(msg) {
+    if (msg.role === 'user') {
+      messagesHtml += `
+        <div style="margin-bottom:16px;">
+          <div style="font-size:11px;font-weight:700;color:#6554d4;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">👤 Tu</div>
+          <div style="background:#f4f2ee;border-radius:8px;padding:12px 16px;font-size:14px;line-height:1.6;">${escapeHtml(msg.content)}</div>
+        </div>`;
+    } else {
+      messagesHtml += `
+        <div style="margin-bottom:16px;">
+          <div style="font-size:11px;font-weight:700;color:#1a1a28;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🤖 AI Tutor</div>
+          <div style="background:#ffffff;border:1px solid #e8e4dc;border-radius:8px;padding:12px 16px;font-size:14px;line-height:1.6;">${msg.content}</div>
+        </div>`;
+    }
+  });
+
+  // Deschidem o fereastra noua cu continut printabil
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html lang="ro">
+    <head>
+      <meta charset="UTF-8">
+      <title>ASE Study Hub — ${subject.name} Chat Export</title>
+      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+          font-family: 'Outfit', sans-serif;
+          color: #1a1a28;
+          background: #fff;
+          padding: 40px;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+        .header {
+          border-bottom: 2px solid #6554d4;
+          padding-bottom: 20px;
+          margin-bottom: 30px;
+        }
+        .header-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 8px;
+        }
+        .logo {
+          font-size: 20px;
+          font-weight: 800;
+          color: #6554d4;
+        }
+        .meta {
+          font-size: 12px;
+          color: #9494a8;
+        }
+        .title {
+          font-size: 22px;
+          font-weight: 700;
+          margin-bottom: 4px;
+        }
+        .subtitle {
+          font-size: 14px;
+          color: #5c5c72;
+        }
+        .stats-bar {
+          display: flex;
+          gap: 20px;
+          padding: 14px 16px;
+          background: #f4f2ee;
+          border-radius: 8px;
+          margin-bottom: 24px;
+          font-size: 13px;
+        }
+        .stat { color: #5c5c72; }
+        .stat strong { color: #1a1a28; }
+        .messages { }
+        .footer {
+          margin-top: 30px;
+          padding-top: 16px;
+          border-top: 1px solid #e8e4dc;
+          font-size: 11px;
+          color: #9494a8;
+          text-align: center;
+        }
+        @media print {
+          body { padding: 20px; }
+          .no-print { display: none; }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <div class="header-top">
+          <div class="logo">🎓 ASE Study Hub</div>
+          <div class="meta">Exportat: ${exportDate}, ${exportTime}</div>
+        </div>
+        <div class="title">${subject.icon} AI Tutor — ${subject.name}</div>
+        <div class="subtitle">${subject.full}</div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat"><strong>${history.filter(m => m.role === 'user').length}</strong> întrebări</div>
+        <div class="stat"><strong>${history.filter(m => m.role === 'assistant').length}</strong> răspunsuri</div>
+        <div class="stat"><strong>${history.length}</strong> mesaje total</div>
+      </div>
+
+      <div class="messages">
+        ${messagesHtml}
+      </div>
+
+      <div class="footer">
+        ASE Study Hub — AI-Powered Learning Platform · Generat cu Claude by Anthropic
+      </div>
+
+      <script>
+        // Auto-print la deschidere
+        window.onload = function() {
+          setTimeout(function() { window.print(); }, 500);
+        };
+      <\/script>
+    </body>
+    </html>
+  `);
+  printWindow.document.close();
+}
+
+// =============================================
+// QUIZ MODE — PAGINA PRINCIPALA
+// =============================================
+function renderQuizPage(element) {
+  let html = '<div class="anim">';
+
+  // Header cu selectie materie si optiuni
+  html += '<div class="dash-hero" style="padding:32px 20px 24px">';
+  html += '<h2>🧠 Quiz Mode</h2>';
+  html += '<p>Grile și întrebări tip examen generate de AI din prezentările tale</p>';
+  html += '</div>';
+
+  // Sectiunea de generare quiz
+  html += '<div class="quiz-gen-section">';
+  html += '<h3>⚙️ Configurează Quiz-ul</h3>';
+
+  // Selectie materie
+  html += '<div style="margin-bottom:14px;">';
+  html += '<label style="font-size:.82rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Materie</label>';
+  html += '<div class="quiz-options-row" id="quizSubjectChips">';
+  for (const [key, subject] of Object.entries(SUBJECTS)) {
+    const isActive = (state.quizConfig && state.quizConfig.subject === key) || false;
+    html += '<button class="quiz-chip ' + (isActive ? 'active' : '') + '" onclick="selectQuizSubject(\'' + key + '\')">';
+    html += subject.icon + ' ' + subject.name;
+    html += '</button>';
+  }
+  html += '</div></div>';
+
+  // Numar intrebari
+  html += '<div style="margin-bottom:14px;">';
+  html += '<label style="font-size:.82rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Număr întrebări</label>';
+  html += '<div class="quiz-options-row" id="quizCountChips">';
+  [5, 10, 15, 20].forEach(function(n) {
+    const isActive = (state.quizConfig && state.quizConfig.count === n) || n === 10;
+    html += '<button class="quiz-chip ' + (isActive ? 'active' : '') + '" onclick="selectQuizCount(' + n + ')">' + n + ' întrebări</button>';
+  });
+  html += '</div></div>';
+
+  // Tip intrebari
+  html += '<div style="margin-bottom:16px;">';
+  html += '<label style="font-size:.82rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Tip întrebări</label>';
+  html += '<div class="quiz-options-row" id="quizTypeChips">';
+  [
+    { val: 'mixed', label: '🎲 Mix' },
+    { val: 'grile', label: '☑️ Grile (4 variante)' },
+    { val: 'adevarat', label: '✓✗ Adevărat/Fals' }
+  ].forEach(function(t) {
+    const isActive = (state.quizConfig && state.quizConfig.type === t.val) || t.val === 'mixed';
+    html += '<button class="quiz-chip ' + (isActive ? 'active' : '') + '" onclick="selectQuizType(\'' + t.val + '\')">' + t.label + '</button>';
+  });
+  html += '</div></div>';
+
+  if (!state.apiKey) {
+    html += '<div style="padding:12px;background:var(--amber-muted);border-radius:var(--radius-sm);font-size:.85rem;color:var(--amber);">⚠️ Configurează API key-ul din Dashboard pentru a genera quiz-uri AI</div>';
+  } else {
+    html += '<button class="summary-gen-btn" id="quizGenBtn" onclick="generateQuiz()">';
+    html += '<span>🧠</span> Generează Quiz</button>';
+    html += '<span class="summary-status" id="quizGenStatus" style="margin-left:12px;font-size:.82rem;color:var(--text-muted);"></span>';
+  }
+
+  html += '</div>'; // end quiz-gen-section
+
+  // Zona quiz activ sau istoric
+  html += '<div id="quizActiveZone">';
+  if (state.activeQuiz) {
+    html += renderActiveQuiz();
+  } else {
+    html += renderQuizHistory();
+  }
+  html += '</div>';
+
+  html += '</div>'; // end anim
+  element.innerHTML = html;
+}
+
+// Functii selectie optiuni quiz
+function selectQuizSubject(key) {
+  if (!state.quizConfig) state.quizConfig = {};
+  state.quizConfig.subject = key;
+  document.querySelectorAll('#quizSubjectChips .quiz-chip').forEach(function(btn) {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+}
+
+function selectQuizCount(n) {
+  if (!state.quizConfig) state.quizConfig = {};
+  state.quizConfig.count = n;
+  document.querySelectorAll('#quizCountChips .quiz-chip').forEach(function(btn) {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+}
+
+function selectQuizType(type) {
+  if (!state.quizConfig) state.quizConfig = {};
+  state.quizConfig.type = type;
+  document.querySelectorAll('#quizTypeChips .quiz-chip').forEach(function(btn) {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+}
+
+// Afiseaza istoricul quiz-urilor anterioare
+function renderQuizHistory() {
+  const history = state.quizHistory || {};
+  const allResults = [];
+  for (const [key, results] of Object.entries(history)) {
+    results.forEach(function(r) {
+      allResults.push({ subject: key, ...r });
+    });
+  }
+
+  if (!allResults.length) {
+    return '<div style="text-align:center;padding:40px;color:var(--text-muted);">Niciun quiz completat încă. Generează primul tău quiz! 🎓</div>';
+  }
+
+  // Sorteaza dupa data, cel mai recent primul
+  allResults.sort(function(a, b) { return b.timestamp - a.timestamp; });
+
+  let html = '<div style="margin-top:4px;">';
+  html += '<div style="font-size:.82rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">📊 Rezultate anterioare</div>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">';
+
+  allResults.slice(0, 12).forEach(function(result) {
+    const subj = SUBJECTS[result.subject];
+    const pct = Math.round((result.score / result.total) * 100);
+    const color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--amber)' : 'var(--red)';
+    const date = new Date(result.timestamp).toLocaleDateString('ro');
+
+    html += '<div style="background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;">';
+    html += '<div style="font-size:.72rem;color:var(--text-muted);margin-bottom:4px;">' + (subj ? subj.icon + ' ' + subj.name : result.subject) + ' · ' + date + '</div>';
+    html += '<div style="font-size:1.6rem;font-weight:800;color:' + color + ';font-family:Newsreader,serif">' + pct + '%</div>';
+    html += '<div style="font-size:.8rem;color:var(--text-secondary)">' + result.score + '/' + result.total + ' corecte · ' + result.count + ' întrebări</div>';
+    html += '</div>';
+  });
+
+  html += '</div></div>';
+  return html;
+}
+
+// Genereaza quiz cu AI
+async function generateQuiz() {
+  const cfg = state.quizConfig || {};
+  const subjectKey = cfg.subject;
+  const count = cfg.count || 10;
+  const type = cfg.type || 'mixed';
+
+  if (!subjectKey) {
+    document.getElementById('quizGenStatus').textContent = '⚠️ Selectează o materie mai întâi';
+    return;
+  }
+
+  const subject = SUBJECTS[subjectKey];
+  const allPres = getAllPresentations(subjectKey);
+
+  // Construim contextul din prezentari disponibile
+  let context = '';
+  if (allPres.length > 0) {
+    allPres.forEach(function(pres) {
+      context += '### ' + pres.title + '\n';
+      pres.slides.forEach(function(slide) {
+        context += '**' + slide.title + '**: ';
+        // Strip HTML tags pentru context
+        context += slide.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        context += '\n\n';
+      });
+    });
+  }
+
+  if (!context) {
+    document.getElementById('quizGenStatus').textContent = '⚠️ Nu există prezentări pentru ' + subject.name + '. Generează mai întâi o prezentare!';
+    return;
+  }
+
+  const btn = document.getElementById('quizGenBtn');
+  const statusEl = document.getElementById('quizGenStatus');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Se generează quiz-ul...';
+  statusEl.textContent = 'Durează ~20-30 secunde...';
+
+  // Prompt pentru tipul de intrebari
+  let typeInstruction = '';
+  if (type === 'grile') {
+    typeInstruction = 'TOATE întrebările să fie cu 4 variante de răspuns (A, B, C, D). Exact UN singur răspuns corect.';
+  } else if (type === 'adevarat') {
+    typeInstruction = 'TOATE întrebările să fie de tip Adevărat/Fals. Opțiunile sunt ["Adevărat", "Fals"].';
+  } else {
+    typeInstruction = 'Mix: jumătate grile cu 4 variante, jumătate Adevărat/Fals.';
+  }
+
+  const systemPrompt = `Ești un profesor expert în ${subject.full}. Generezi întrebări de examen de calitate înaltă.
+
+RĂSPUNDE STRICT cu un JSON array. FĂRĂ markdown, FĂRĂ backticks, FĂRĂ alt text.
+
+Fiecare întrebare are structura:
+{
+  "q": "textul întrebării",
+  "options": ["A. varianta 1", "B. varianta 2", "C. varianta 3", "D. varianta 4"],
+  "correct": 0,
+  "explanation": "explicație scurtă de ce este corect"
+}
+
+Unde "correct" este indexul (0-based) răspunsului corect din array-ul options.
+
+REGULI:
+- EXACT ${count} întrebări
+- ${typeInstruction}
+- Întrebările trebuie să fie relevante pentru materie și bazate pe conținut
+- Dificultate variată: 30% ușoare, 50% medii, 20% dificile
+- Explicații clare și educative
+- În română
+- DOAR JSON valid`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': state.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 6000,
+        system: systemPrompt,
+        messages: [{
+          role: 'user',
+          content: 'Generează ' + count + ' întrebări de examen bazate pe acest material:\n\n' + context.substring(0, 6000)
+        }]
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.content && data.content[0]) {
+      let rawText = data.content[0].text.trim();
+      rawText = rawText.replace(/^```json?\s*/, '').replace(/\s*```$/, '').trim();
+
+      let questions = null;
+      try {
+        questions = JSON.parse(rawText);
+        if (!Array.isArray(questions)) questions = null;
+      } catch (e) {
+        console.error('Quiz JSON parse error:', e);
+      }
+
+      if (questions && questions.length > 0) {
+        // Seteaza quiz-ul activ
+        state.activeQuiz = {
+          subjectKey: subjectKey,
+          questions: questions,
+          currentIndex: 0,
+          answers: [],
+          startedAt: Date.now()
+        };
+        saveState();
+
+        const zone = document.getElementById('quizActiveZone');
+        if (zone) zone.innerHTML = renderActiveQuiz();
+        statusEl.textContent = '';
+      } else {
+        statusEl.textContent = '⚠️ Eroare la parsarea întrebărilor. Încearcă din nou.';
+      }
+    } else if (data.error) {
+      statusEl.textContent = '⚠️ Eroare API: ' + data.error.message;
+    }
+  } catch (err) {
+    statusEl.textContent = '⚠️ Eroare conexiune: ' + err.message;
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<span>🧠</span> Generează Quiz';
+}
+
+// Randeaza quiz-ul activ (grile interactive)
+function renderActiveQuiz() {
+  const quiz = state.activeQuiz;
+  if (!quiz) return '';
+
+  const { questions, currentIndex, answers } = quiz;
+  const total = questions.length;
+  const isDone = currentIndex >= total;
+
+  if (isDone) {
+    // Calculam scorul
+    const score = answers.filter(function(a, i) {
+      return a === questions[i].correct;
+    }).length;
+
+    // Salvam in istoric
+    if (!state.quizHistory) state.quizHistory = {};
+    if (!state.quizHistory[quiz.subjectKey]) state.quizHistory[quiz.subjectKey] = [];
+    state.quizHistory[quiz.subjectKey].push({
+      score: score,
+      total: total,
+      count: total,
+      timestamp: Date.now()
+    });
+    state.activeQuiz = null;
+    saveState();
+
+    const pct = Math.round((score / total) * 100);
+    const color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--amber)' : 'var(--red)';
+    const emoji = pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '📚';
+    const msg = pct >= 80 ? 'Excelent! Ești pregătit!' : pct >= 60 ? 'Bun! Mai exersează puțin.' : 'Continuă să studiezi — poți!';
+
+    let html = '<div class="quiz-score-card" style="margin-top:20px;">';
+    html += '<div style="font-size:3rem;margin-bottom:12px;">' + emoji + '</div>';
+    html += '<div class="quiz-score-num" style="color:' + color + '">' + pct + '%</div>';
+    html += '<div class="quiz-score-label">' + score + ' din ' + total + ' corecte</div>';
+    html += '<p style="color:var(--text-secondary);margin-bottom:24px;">' + msg + '</p>';
+
+    // Recapitulare
+    html += '<div style="text-align:left;margin-bottom:24px;">';
+    questions.forEach(function(q, i) {
+      const userAnswer = answers[i];
+      const isCorrect = userAnswer === q.correct;
+      html += '<div style="padding:12px;border-radius:var(--radius-sm);margin-bottom:8px;background:' + (isCorrect ? 'var(--green-muted)' : 'var(--red-muted)') + ';border:1px solid ' + (isCorrect ? 'var(--green)' : 'var(--red)') + ';">';
+      html += '<div style="font-size:.82rem;font-weight:700;color:' + (isCorrect ? 'var(--green)' : 'var(--red)') + '">' + (isCorrect ? '✓ Corect' : '✗ Greșit') + ' — Întrebarea ' + (i + 1) + '</div>';
+      html += '<div style="font-size:.88rem;margin-top:4px;">' + q.q + '</div>';
+      if (!isCorrect) {
+        html += '<div style="font-size:.8rem;color:var(--text-secondary);margin-top:4px;">Răspuns corect: ' + (q.options[q.correct] || 'Adevărat') + '</div>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+
+    html += '<button class="quiz-nav-btn primary" onclick="navigateTo(\'quiz\')">Nou Quiz</button>';
+    html += '</div>';
+    return html;
+  }
+
+  // Intrebarea curenta
+  const q = questions[currentIndex];
+  const hasAnswered = answers[currentIndex] !== undefined;
+  const userAnswer = answers[currentIndex];
+  const progress = Math.round((currentIndex / total) * 100);
+
+  let html = '<div class="quiz-container" style="margin-top:20px;">';
+  html += '<div class="quiz-header">';
+  html += '<span style="font-size:.88rem;font-weight:600;">Întrebarea ' + (currentIndex + 1) + ' din ' + total + '</span>';
+  html += '<button class="quiz-nav-btn" style="font-size:.78rem;" onclick="abandonQuiz()">✕ Abandonează</button>';
+  html += '</div>';
+
+  html += '<div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:' + progress + '%"></div></div>';
+
+  html += '<div class="quiz-question-card">';
+  html += '<div class="quiz-q-num">' + SUBJECTS[quiz.subjectKey].icon + ' ' + SUBJECTS[quiz.subjectKey].name + '</div>';
+  html += '<div class="quiz-q-text">' + escapeHtml(q.q) + '</div>';
+
+  html += '<div class="quiz-options">';
+  const letters = ['A', 'B', 'C', 'D'];
+  q.options.forEach(function(option, optIndex) {
+    let className = 'quiz-option';
+    if (hasAnswered) {
+      if (optIndex === q.correct) className += ' correct';
+      else if (optIndex === userAnswer) className += ' wrong';
+    }
+    const disabled = hasAnswered ? 'disabled' : '';
+    html += '<button class="' + className + '" ' + disabled + ' onclick="answerQuizQuestion(' + optIndex + ')">';
+    html += '<span class="quiz-option-letter">' + letters[optIndex] + '</span>';
+    html += '<span>' + escapeHtml(option) + '</span>';
+    html += '</button>';
+  });
+  html += '</div>';
+
+  // Explicatie (arata dupa raspuns)
+  if (hasAnswered && q.explanation) {
+    html += '<div class="quiz-explanation show">💡 ' + escapeHtml(q.explanation) + '</div>';
+  }
+
+  html += '</div>'; // end quiz-question-card
+
+  // Navigare
+  html += '<div class="quiz-nav-btns">';
+  if (currentIndex > 0) {
+    html += '<button class="quiz-nav-btn" onclick="prevQuizQuestion()">← Prev</button>';
+  } else {
+    html += '<div></div>';
+  }
+
+  if (hasAnswered) {
+    const isLast = currentIndex === total - 1;
+    if (isLast) {
+      html += '<button class="quiz-nav-btn primary" onclick="nextQuizQuestion()">Finalizează 🏁</button>';
+    } else {
+      html += '<button class="quiz-nav-btn primary" onclick="nextQuizQuestion()">Următor →</button>';
+    }
+  } else {
+    html += '<span style="font-size:.82rem;color:var(--text-muted)">Selectează un răspuns</span>';
+  }
+
+  html += '</div>';
+  html += '</div>'; // end quiz-container
+  return html;
+}
+
+// Raspunde la intrebare
+function answerQuizQuestion(optionIndex) {
+  if (!state.activeQuiz) return;
+  const { currentIndex } = state.activeQuiz;
+  if (state.activeQuiz.answers[currentIndex] !== undefined) return; // deja raspuns
+
+  state.activeQuiz.answers[currentIndex] = optionIndex;
+  saveState();
+
+  const zone = document.getElementById('quizActiveZone');
+  if (zone) zone.innerHTML = renderActiveQuiz();
+}
+
+// Urmator
+function nextQuizQuestion() {
+  if (!state.activeQuiz) return;
+  state.activeQuiz.currentIndex++;
+  saveState();
+  const zone = document.getElementById('quizActiveZone');
+  if (zone) zone.innerHTML = renderActiveQuiz();
+}
+
+// Precedent
+function prevQuizQuestion() {
+  if (!state.activeQuiz) return;
+  if (state.activeQuiz.currentIndex > 0) {
+    state.activeQuiz.currentIndex--;
+    saveState();
+    const zone = document.getElementById('quizActiveZone');
+    if (zone) zone.innerHTML = renderActiveQuiz();
+  }
+}
+
+// Abandoneaza quiz
+function abandonQuiz() {
+  if (!confirm('Sigur vrei să abandonezi quiz-ul? Progresul se va pierde.')) return;
+  state.activeQuiz = null;
+  saveState();
+  navigateTo('quiz');
+}
+
+// =============================================
+// FLASHCARDS — SPACED REPETITION (SM-2 simplificat)
+// =============================================
+
+// Calcula intervalul urmator bazat pe rating Easy/Hard
+// Easy → interval * 2.5, Hard → interval / 2 (min 1 zi)
+function calculateNextReview(card, rating) {
+  const now = Date.now();
+  const DAY_MS = 24 * 60 * 60 * 1000;
+
+  if (rating === 'easy') {
+    const interval = (card.interval || 1) * 2.5;
+    card.interval = Math.round(interval);
+    card.ease = Math.min((card.ease || 2.5) + 0.1, 3.0);
+    card.nextReview = now + card.interval * DAY_MS;
+    card.streak = (card.streak || 0) + 1;
+  } else if (rating === 'hard') {
+    card.interval = Math.max(1, Math.round((card.interval || 1) / 2));
+    card.ease = Math.max((card.ease || 2.5) - 0.2, 1.3);
+    card.nextReview = now + card.interval * DAY_MS;
+    card.streak = 0;
+  }
+
+  card.lastReviewed = now;
+  card.reviews = (card.reviews || 0) + 1;
+  return card;
+}
+
+// Randeaza pagina Flashcards
+function renderFlashcardsPage(element) {
+  let html = '<div class="anim">';
+  html += '<div class="dash-hero" style="padding:32px 20px 24px">';
+  html += '<h2>🃏 Flashcards</h2>';
+  html += '<p>Spaced repetition — revizuiești mai puțin, reții mai mult</p>';
+  html += '</div>';
+
+  // Selectie materie + generare
+  html += '<div class="quiz-gen-section">';
+  html += '<h3>⚙️ Generează sau Studiază</h3>';
+
+  html += '<div style="margin-bottom:14px;">';
+  html += '<label style="font-size:.82rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Selectează materia</label>';
+  html += '<div class="quiz-options-row" id="fcSubjectChips">';
+  for (const [key, subject] of Object.entries(SUBJECTS)) {
+    const isActive = state.fcActiveSubject === key;
+    const cardCount = (state.flashcardDecks && state.flashcardDecks[key] || []).length;
+    html += '<button class="quiz-chip ' + (isActive ? 'active' : '') + '" onclick="selectFCSubject(\'' + key + '\')">';
+    html += subject.icon + ' ' + subject.name;
+    if (cardCount) html += ' <span style="font-size:.72rem;opacity:.7">(' + cardCount + ')</span>';
+    html += '</button>';
+  }
+  html += '</div></div>';
+
+  if (!state.apiKey) {
+    html += '<div style="padding:12px;background:var(--amber-muted);border-radius:var(--radius-sm);font-size:.85rem;color:var(--amber);">⚠️ Configurează API key-ul din Dashboard pentru a genera flashcard-uri AI</div>';
+  } else {
+    html += '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">';
+    html += '<button class="summary-gen-btn" id="fcGenBtn" onclick="generateFlashcards()" style="flex:none;">';
+    html += '<span>✨</span> Generează Flashcard-uri AI</button>';
+    html += '<span class="summary-status" id="fcGenStatus" style="font-size:.82rem;color:var(--text-muted);"></span>';
+    html += '</div>';
+  }
+
+  html += '</div>'; // end quiz-gen-section
+
+  // Zona de studiu
+  html += '<div id="fcStudyZone">';
+  if (state.fcActiveSubject) {
+    html += renderFlashcardStudy(state.fcActiveSubject);
+  } else {
+    html += renderAllFCStats();
+  }
+  html += '</div>';
+
+  html += '</div>';
+  element.innerHTML = html;
+}
+
+// Statistici globale flashcards
+function renderAllFCStats() {
+  const decks = state.flashcardDecks || {};
+  const now = Date.now();
+
+  let totalCards = 0;
+  let dueCards = 0;
+  let masteredCards = 0;
+
+  for (const [key, cards] of Object.entries(decks)) {
+    cards.forEach(function(card) {
+      totalCards++;
+      if (!card.nextReview || card.nextReview <= now) dueCards++;
+      if ((card.streak || 0) >= 5) masteredCards++;
+    });
+  }
+
+  if (!totalCards) {
+    return '<div style="text-align:center;padding:40px;color:var(--text-muted);">Selectează o materie și generează flashcard-uri pentru a începe 🃏</div>';
+  }
+
+  let html = '<div class="flashcard-stats" style="margin-top:20px;">';
+  html += '<div class="fc-stat"><div class="fc-stat-val">' + totalCards + '</div><div class="fc-stat-label">Total Cards</div></div>';
+  html += '<div class="fc-stat"><div class="fc-stat-val" style="color:var(--amber)">' + dueCards + '</div><div class="fc-stat-label">De Revizuit</div></div>';
+  html += '<div class="fc-stat"><div class="fc-stat-val" style="color:var(--green)">' + masteredCards + '</div><div class="fc-stat-label">Memorate</div></div>';
+  html += '</div>';
+  html += '<div style="text-align:center;color:var(--text-muted);font-size:.88rem;">Selectează o materie pentru a studia flashcard-urile.</div>';
+  return html;
+}
+
+// Selectie materie pentru flashcards
+function selectFCSubject(key) {
+  state.fcActiveSubject = key;
+  state.fcCurrentCard = 0;
+  state.fcFlipped = false;
+
+  document.querySelectorAll('#fcSubjectChips .quiz-chip').forEach(function(btn) {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+
+  const zone = document.getElementById('fcStudyZone');
+  if (zone) zone.innerHTML = renderFlashcardStudy(key);
+}
+
+// Randeaza studiul de flashcards pentru o materie
+function renderFlashcardStudy(key) {
+  const decks = state.flashcardDecks || {};
+  const allCards = decks[key] || [];
+  const subject = SUBJECTS[key];
+  const now = Date.now();
+
+  // Filtram cardurile scadente (due)
+  const dueCards = allCards.filter(function(card) {
+    return !card.nextReview || card.nextReview <= now;
+  });
+
+  const totalCards = allCards.length;
+  const masteredCards = allCards.filter(function(c) { return (c.streak || 0) >= 5; }).length;
+
+  let html = '<div style="margin-top:20px;">';
+
+  // Stats deck
+  html += '<div class="flashcard-stats">';
+  html += '<div class="fc-stat"><div class="fc-stat-val">' + totalCards + '</div><div class="fc-stat-label">Total</div></div>';
+  html += '<div class="fc-stat"><div class="fc-stat-val" style="color:var(--amber)">' + dueCards.length + '</div><div class="fc-stat-label">De Revizuit</div></div>';
+  html += '<div class="fc-stat"><div class="fc-stat-val" style="color:var(--green)">' + masteredCards + '</div><div class="fc-stat-label">Memorate</div></div>';
+  html += '<div class="fc-stat"><div class="fc-stat-val">' + (totalCards - dueCards.length - masteredCards) + '</div><div class="fc-stat-label">In Progres</div></div>';
+  html += '</div>';
+
+  if (!dueCards.length && totalCards > 0) {
+    // Toate memorate pe azi!
+    html += '<div class="fc-deck-done">';
+    html += '<div style="font-size:3rem;margin-bottom:12px;">🎉</div>';
+    html += '<div style="font-size:1.3rem;font-weight:700;margin-bottom:8px;">Bravo! Ai terminat pentru azi!</div>';
+    html += '<p style="color:var(--text-secondary);margin-bottom:20px;">Revino mâine pentru următoarea sesiune de revizie.</p>';
+    html += '<button class="quiz-nav-btn primary" onclick="studyAllCardsNow(\'' + key + '\')">📚 Studiază Toate (' + totalCards + ')</button>';
+    html += '</div>';
+    html += '</div>';
+    return html;
+  }
+
+  if (!totalCards) {
+    html += '<div style="text-align:center;padding:40px;color:var(--text-muted);">Niciun flashcard pentru ' + subject.name + '. Generează mai întâi!</div>';
+    html += '</div>';
+    return html;
+  }
+
+  // Card curent
+  const cardIndex = state.fcCurrentCard || 0;
+  const card = dueCards[cardIndex % dueCards.length];
+  const isFlipped = state.fcFlipped || false;
+  const remaining = dueCards.length - cardIndex;
+
+  html += '<div class="fc-queue-info">' + Math.max(0, remaining) + ' carduri rămase din ' + dueCards.length + ' scadente</div>';
+
+  // Flashcard cu flip
+  html += '<div class="flashcard-scene" onclick="flipFlashcard()">';
+  html += '<div class="flashcard-inner ' + (isFlipped ? 'flipped' : '') + '" id="fcInner">';
+
+  // Fata (intrebarea)
+  html += '<div class="flashcard-face flashcard-front">';
+  html += '<div class="fc-label">❓ Întrebare</div>';
+  html += '<div class="fc-content">' + escapeHtml(card.front) + '</div>';
+  html += '<div class="fc-flip-hint"><span>👆</span> Click pentru a vedea răspunsul</div>';
+  html += '</div>';
+
+  // Spate (raspunsul)
+  html += '<div class="flashcard-face flashcard-back">';
+  html += '<div class="fc-label" style="color:var(--accent)">💡 Răspuns</div>';
+  html += '<div class="fc-content">' + escapeHtml(card.back) + '</div>';
+  html += '</div>';
+
+  html += '</div></div>'; // end flashcard-inner și flashcard-scene
+
+  // Butoane de rating (apar dupa flip)
+  if (isFlipped) {
+    html += '<div class="flashcard-answer-btns">';
+    html += '<button class="fc-btn hard" onclick="rateFlashcard(\'' + key + '\',' + dueCards.indexOf(card) + ',\'hard\')">😓 Greu — Revizuiesc</button>';
+    html += '<button class="fc-btn skip" onclick="skipFlashcard()">⏭ Skip</button>';
+    html += '<button class="fc-btn easy" onclick="rateFlashcard(\'' + key + '\',' + dueCards.indexOf(card) + ',\'easy\')">😊 Ușor — Știu!</button>';
+    html += '</div>';
+
+    html += '<div style="text-align:center;font-size:.78rem;color:var(--text-muted);">';
+    html += '😓 Greu = revizuiești în ' + Math.max(1, Math.round((card.interval || 1) / 2)) + ' zi · ';
+    html += '😊 Ușor = revizuiești în ' + Math.round((card.interval || 1) * 2.5) + ' zile';
+    html += '</div>';
+  } else {
+    html += '<div style="text-align:center;color:var(--text-muted);font-size:.85rem;padding:12px;">Întoarce cardul pentru a vedea răspunsul</div>';
+  }
+
+  // Optiune stergere deck
+  html += '<div style="text-align:center;margin-top:16px;">';
+  html += '<button class="quiz-nav-btn" style="font-size:.75rem;color:var(--red);" onclick="clearFlashcardDeck(\'' + key + '\')">🗑️ Șterge toate flashcard-urile din ' + subject.name + '</button>';
+  html += '</div>';
+
+  html += '</div>';
+  return html;
+}
+
+// Rastoarnă flashcard-ul
+function flipFlashcard() {
+  state.fcFlipped = !state.fcFlipped;
+  const inner = document.getElementById('fcInner');
+  if (inner) {
+    inner.classList.toggle('flipped', state.fcFlipped);
+  }
+  // Re-render pentru a arata butoanele dupa flip
+  const zone = document.getElementById('fcStudyZone');
+  if (zone && state.fcActiveSubject) {
+    zone.innerHTML = renderFlashcardStudy(state.fcActiveSubject);
+  }
+}
+
+// Evalueaza cardul (Easy/Hard)
+function rateFlashcard(key, cardIndex, rating) {
+  const decks = state.flashcardDecks || {};
+  const allCards = decks[key] || [];
+  const now = Date.now();
+
+  // Gasim cardul in deck-ul principal
+  const dueCards = allCards.filter(function(card) {
+    return !card.nextReview || card.nextReview <= now;
+  });
+
+  if (cardIndex >= dueCards.length) return;
+
+  const card = dueCards[cardIndex];
+  // Updatam in deck-ul principal
+  const mainIndex = allCards.findIndex(function(c) { return c.id === card.id; });
+  if (mainIndex >= 0) {
+    allCards[mainIndex] = calculateNextReview(allCards[mainIndex], rating);
+  }
+
+  state.flashcardDecks[key] = allCards;
+  state.fcCurrentCard = (state.fcCurrentCard || 0) + 1;
+  state.fcFlipped = false;
+  saveState();
+
+  // Re-render
+  const zone = document.getElementById('fcStudyZone');
+  if (zone) zone.innerHTML = renderFlashcardStudy(key);
+  renderSidebar();
+}
+
+// Skip card (trece la urmatorul)
+function skipFlashcard() {
+  state.fcCurrentCard = (state.fcCurrentCard || 0) + 1;
+  state.fcFlipped = false;
+  const zone = document.getElementById('fcStudyZone');
+  if (zone && state.fcActiveSubject) {
+    zone.innerHTML = renderFlashcardStudy(state.fcActiveSubject);
+  }
+}
+
+// Studiaza toate cardurile (nu doar cele scadente)
+function studyAllCardsNow(key) {
+  const decks = state.flashcardDecks || {};
+  const allCards = decks[key] || [];
+  // Reseteaza nextReview pentru toate
+  allCards.forEach(function(card) {
+    card.nextReview = Date.now() - 1;
+  });
+  state.flashcardDecks[key] = allCards;
+  state.fcCurrentCard = 0;
+  state.fcFlipped = false;
+  saveState();
+  const zone = document.getElementById('fcStudyZone');
+  if (zone) zone.innerHTML = renderFlashcardStudy(key);
+}
+
+// Sterge deck-ul unei materii
+function clearFlashcardDeck(key) {
+  if (!confirm('Sigur vrei să ștergi toate flashcard-urile pentru ' + SUBJECTS[key].name + '?')) return;
+  if (!state.flashcardDecks) state.flashcardDecks = {};
+  state.flashcardDecks[key] = [];
+  state.fcCurrentCard = 0;
+  state.fcFlipped = false;
+  saveState();
+  const zone = document.getElementById('fcStudyZone');
+  if (zone) zone.innerHTML = renderFlashcardStudy(key);
+  renderSidebar();
+}
+
+// Genereaza flashcard-uri cu AI
+async function generateFlashcards() {
+  const key = state.fcActiveSubject;
+  if (!key) {
+    document.getElementById('fcGenStatus').textContent = '⚠️ Selectează o materie mai întâi';
+    return;
+  }
+
+  const subject = SUBJECTS[key];
+  const allPres = getAllPresentations(key);
+
+  if (!allPres.length) {
+    document.getElementById('fcGenStatus').textContent = '⚠️ Nu există prezentări pentru ' + subject.name + '. Generează mai întâi o prezentare!';
+    return;
+  }
+
+  // Construim contextul din prezentari
+  let context = '';
+  allPres.forEach(function(pres) {
+    context += '### ' + pres.title + '\n';
+    pres.slides.forEach(function(slide) {
+      context += slide.title + ': ';
+      context += slide.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      context += '\n\n';
+    });
+  });
+
+  const btn = document.getElementById('fcGenBtn');
+  const statusEl = document.getElementById('fcGenStatus');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Se generează...';
+  statusEl.textContent = 'Durează ~15-25 secunde...';
+
+  const systemPrompt = `Ești un expert în ${subject.full}. Generezi flashcard-uri pentru memorare eficientă.
+
+RĂSPUNDE STRICT cu un JSON array. FĂRĂ markdown, FĂRĂ backticks, FĂRĂ alt text.
+
+Fiecare flashcard are structura:
+{
+  "front": "întrebarea sau conceptul",
+  "back": "răspunsul complet și clar"
+}
+
+REGULI:
+- EXACT 20 flashcard-uri
+- Front: întrebare directă sau concept de definit
+- Back: răspuns concis, clar, memorable (max 60 cuvinte)
+- Acoperă toate conceptele cheie din material
+- Variație: definiții, formule, exemple, comparații
+- În română
+- DOAR JSON valid`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': state.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        system: systemPrompt,
+        messages: [{
+          role: 'user',
+          content: 'Generează 20 flashcard-uri din:\n\n' + context.substring(0, 6000)
+        }]
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.content && data.content[0]) {
+      let rawText = data.content[0].text.trim();
+      rawText = rawText.replace(/^```json?\s*/, '').replace(/\s*```$/, '').trim();
+
+      let cards = null;
+      try {
+        cards = JSON.parse(rawText);
+        if (!Array.isArray(cards)) cards = null;
+      } catch (e) {
+        console.error('FC JSON parse error:', e);
+      }
+
+      if (cards && cards.length > 0) {
+        // Adaugam ID unic si metadate spaced repetition fiecarui card
+        const newCards = cards.map(function(card, i) {
+          return {
+            id: 'fc_' + Date.now() + '_' + i,
+            front: card.front,
+            back: card.back,
+            interval: 1,         // interval initial: 1 zi
+            ease: 2.5,           // ease factor initial
+            streak: 0,           // zile consecutive corecte
+            reviews: 0,          // numar total de reviews
+            nextReview: null,    // null = scadent acum
+            lastReviewed: null
+          };
+        });
+
+        if (!state.flashcardDecks) state.flashcardDecks = {};
+        // Adaugam la deck-ul existent (nu inlocuim)
+        const existing = state.flashcardDecks[key] || [];
+        state.flashcardDecks[key] = [...existing, ...newCards];
+        state.fcCurrentCard = 0;
+        state.fcFlipped = false;
+        saveState();
+
+        statusEl.textContent = '✅ ' + newCards.length + ' flashcard-uri adăugate!';
+        const zone = document.getElementById('fcStudyZone');
+        if (zone) zone.innerHTML = renderFlashcardStudy(key);
+        renderSidebar();
+      } else {
+        statusEl.textContent = '⚠️ Eroare la parsare. Încearcă din nou.';
+      }
+    } else if (data.error) {
+      statusEl.textContent = '⚠️ Eroare API: ' + data.error.message;
+    }
+  } catch (err) {
+    statusEl.textContent = '⚠️ Eroare conexiune: ' + err.message;
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<span>✨</span> Generează Flashcard-uri AI';
+}
+
+// =============================================
+// CALENDAR SESIUNE — EXAMENE + PLANNER
+// =============================================
+
+// Starea calendarului mini
+let calendarState = {
+  year: new Date().getFullYear(),
+  month: new Date().getMonth()
+};
+
+// Randeaza pagina Calendar
+function renderCalendarPage(element) {
+  let html = '<div class="anim">';
+  html += '<div class="dash-hero" style="padding:32px 20px 24px">';
+  html += '<h2>📅 Calendar Sesiune</h2>';
+  html += '<p>Countdown la examene și planificator de studiu</p>';
+  html += '</div>';
+
+  // Countdown cards pentru examene
+  const exams = state.exams || [];
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  if (exams.length > 0) {
+    html += '<div class="exam-countdown-grid anim-d1">';
+    exams.sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+
+    exams.forEach(function(exam, index) {
+      const examDate = new Date(exam.date);
+      examDate.setHours(0, 0, 0, 0);
+      const diffMs = examDate - now;
+      const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+
+      let urgency = 'ok';
+      if (diffDays < 0) urgency = 'past';
+      else if (diffDays <= 3) urgency = 'urgent';
+      else if (diffDays <= 7) urgency = 'soon';
+
+      const subject = SUBJECTS[exam.subject];
+
+      html += '<div class="exam-countdown-card ' + urgency + '">';
+      html += '<button class="ecc-del" onclick="deleteExam(' + index + ')">✕</button>';
+      html += '<div class="ecc-subject">' + (subject ? subject.icon + ' ' + subject.name : exam.subject) + '</div>';
+      html += '<div class="ecc-name">' + escapeHtml(exam.name) + '</div>';
+
+      if (diffDays < 0) {
+        html += '<div class="ecc-days" style="color:var(--text-muted)">-</div>';
+        html += '<div class="ecc-days-label">Trecut</div>';
+      } else if (diffDays === 0) {
+        html += '<div class="ecc-days" style="color:var(--red)">AZI</div>';
+        html += '<div class="ecc-days-label">Mult succes! 💪</div>';
+      } else {
+        html += '<div class="ecc-days">' + diffDays + '</div>';
+        html += '<div class="ecc-days-label">' + (diffDays === 1 ? 'zi rămase' : 'zile rămase') + '</div>';
+      }
+
+      html += '<div class="ecc-date">📅 ' + examDate.toLocaleDateString('ro', { weekday: 'long', day: 'numeric', month: 'long' }) + '</div>';
+
+      if (exam.room) {
+        html += '<div class="ecc-date" style="margin-top:4px;">🏛️ ' + escapeHtml(exam.room) + '</div>';
+      }
+      html += '</div>';
+    });
+
+    html += '</div>';
+  }
+
+  // Form adaugare examen + calendar mini
+  html += '<div class="calendar-layout anim-d2">';
+
+  // Stanga: form + plan
+  html += '<div>';
+
+  html += '<div class="add-exam-form">';
+  html += '<h3>➕ Adaugă Examen</h3>';
+  html += '<div class="exam-form-row">';
+  html += '<input class="todo-inp" id="examName" placeholder="Ex: Examen parțial MAP" style="width:100%;">';
+  html += '<select class="todo-inp" id="examSubject" style="width:100%;">';
+  html += '<option value="">— Materie —</option>';
+  for (const [key, subject] of Object.entries(SUBJECTS)) {
+    html += '<option value="' + key + '">' + subject.icon + ' ' + subject.name + '</option>';
+  }
+  html += '</select>';
+  html += '<button class="todo-btn" onclick="addExam()">+</button>';
+  html += '</div>';
+  html += '<div class="exam-form-row" style="grid-template-columns:1fr 1fr;margin-top:10px;">';
+  html += '<input class="todo-inp" type="date" id="examDate" value="' + new Date().toISOString().split('T')[0] + '" style="width:100%;">';
+  html += '<input class="todo-inp" id="examRoom" placeholder="Sala (opțional)" style="width:100%;">';
+  html += '</div>';
+  html += '</div>'; // end add-exam-form
+
+  // Plan de studiu auto-generat
+  html += '<div class="study-plan-section">';
+  html += '<h3>📋 Plan Auto de Studiu</h3>';
+
+  if (exams.length === 0) {
+    html += '<div style="color:var(--text-muted);font-size:.85rem;text-align:center;padding:16px;">Adaugă examene pentru a genera un plan de studiu</div>';
+  } else {
+    // Generam plan pentru urmatoarele 14 zile
+    const plan = generateStudyPlan(exams, 14);
+    if (plan.length === 0) {
+      html += '<div style="color:var(--text-muted);font-size:.85rem;text-align:center;padding:16px;">Nu există examene viitoare în următoarele 14 zile</div>';
+    } else {
+      plan.forEach(function(day) {
+        const dayDate = new Date(day.date);
+        const isToday = dayDate.toDateString() === new Date().toDateString();
+        html += '<div class="study-day-row">';
+        html += '<div class="sdr-date" style="' + (isToday ? 'color:var(--accent);font-weight:700;' : '') + '">';
+        html += dayDate.toLocaleDateString('ro', { weekday: 'short', day: 'numeric', month: 'short' });
+        html += (isToday ? ' 📌' : '');
+        html += '</div>';
+        html += '<div class="sdr-subject">';
+        html += day.tasks.map(function(task) {
+          const subj = SUBJECTS[task.subject];
+          return (subj ? subj.icon + ' ' + subj.name : task.subject) + ' — ' + task.activity;
+        }).join(' · ');
+        html += '</div>';
+        html += '<div class="sdr-hours">⏱ ' + day.hours + 'h</div>';
+        html += '</div>';
+      });
+    }
+  }
+
+  html += '</div>'; // end study-plan-section
+  html += '</div>'; // end stanga
+
+  // Dreapta: calendar mini
+  html += '<div>';
+  html += '<div class="calendar-mini">';
+  html += renderMiniCalendar(exams);
+  html += '</div>';
+  html += '</div>';
+
+  html += '</div>'; // end calendar-layout
+  html += '</div>'; // end anim
+  element.innerHTML = html;
+}
+
+// Genereaza plan de studiu automat bazat pe examene
+function generateStudyPlan(exams, daysAhead) {
+  const plan = [];
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  // Activitati recomandate
+  const activities = ['Recitire prezentări', 'Rezolvare exerciții', 'Flashcards', 'Quiz AI', 'Notițe rezumative', 'Recapitulare finală'];
+
+  for (let d = 0; d < daysAhead; d++) {
+    const date = new Date(now);
+    date.setDate(date.getDate() + d);
+
+    const tasks = [];
+    let hours = 0;
+
+    // Sortam examenele dupa distanta de la ziua curenta
+    const upcoming = exams
+      .filter(function(e) {
+        const ed = new Date(e.date);
+        ed.setHours(0, 0, 0, 0);
+        return ed >= date;
+      })
+      .sort(function(a, b) {
+        return new Date(a.date) - new Date(b.date);
+      });
+
+    if (upcoming.length === 0) continue;
+
+    // Prioritizeaza examenele cele mai apropiate
+    upcoming.slice(0, 2).forEach(function(exam, i) {
+      const examDate = new Date(exam.date);
+      examDate.setHours(0, 0, 0, 0);
+      const daysLeft = Math.round((examDate - date) / (1000 * 60 * 60 * 24));
+
+      if (daysLeft < 0) return;
+
+      let activityIndex = 0;
+      if (daysLeft === 0) activityIndex = 5; // Recapitulare finala
+      else if (daysLeft <= 2) activityIndex = 4; // Notite rezumative
+      else if (daysLeft <= 5) activityIndex = Math.floor(Math.random() * 2) + 2; // Flashcards sau Quiz
+      else activityIndex = Math.floor(Math.random() * 2); // Recitire sau Exercitii
+
+      tasks.push({
+        subject: exam.subject,
+        activity: activities[activityIndex],
+        priority: i === 0 ? 'high' : 'normal'
+      });
+
+      hours += daysLeft <= 3 ? 3 : daysLeft <= 7 ? 2 : 1;
+    });
+
+    if (tasks.length > 0) {
+      plan.push({
+        date: date.toISOString().split('T')[0],
+        tasks: tasks,
+        hours: Math.min(hours, 6)
+      });
+    }
+  }
+
+  return plan;
+}
+
+// Randeaza calendarul mini
+function renderMiniCalendar(exams) {
+  const year = calendarState.year;
+  const month = calendarState.month;
+
+  const monthNames = ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie',
+    'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'];
+  const dayNames = ['Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ', 'Du'];
+
+  // Construim set de date cu examene
+  const examDates = new Set();
+  (exams || []).forEach(function(exam) {
+    examDates.add(exam.date);
+  });
+
+  const today = new Date();
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  let startDow = firstDay.getDay() - 1; // Luni = 0
+  if (startDow < 0) startDow = 6;
+
+  let html = '<div class="calendar-mini-header">';
+  html += '<button class="cal-nav-btn" onclick="prevCalMonth()">←</button>';
+  html += '<div class="calendar-mini-title">' + monthNames[month] + ' ' + year + '</div>';
+  html += '<button class="cal-nav-btn" onclick="nextCalMonth()">→</button>';
+  html += '</div>';
+
+  html += '<div class="calendar-grid">';
+
+  // Header zile
+  dayNames.forEach(function(d) {
+    html += '<div class="cal-day-header">' + d + '</div>';
+  });
+
+  // Padding zile goale
+  for (let i = 0; i < startDow; i++) {
+    html += '<div class="cal-day empty"></div>';
+  }
+
+  // Zilele lunii
+  for (let d = 1; d <= lastDay.getDate(); d++) {
+    const dateStr = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+    const isToday = d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+    const hasExam = examDates.has(dateStr);
+
+    let classes = 'cal-day';
+    if (isToday) classes += ' today';
+    if (hasExam) classes += ' has-exam';
+
+    html += '<div class="' + classes + '">' + d;
+    if (hasExam) html += '<div class="cal-exam-dot"></div>';
+    html += '</div>';
+  }
+
+  html += '</div>'; // end calendar-grid
+
+  // Legenda
+  html += '<div style="margin-top:14px;font-size:.72rem;color:var(--text-muted);display:flex;gap:14px;justify-content:center;">';
+  html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent);margin-right:4px;"></span>Azi</span>';
+  html += '<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--red);margin-right:4px;"></span>Examen</span>';
+  html += '</div>';
+
+  return html;
+}
+
+// Navigare calendar
+function prevCalMonth() {
+  calendarState.month--;
+  if (calendarState.month < 0) {
+    calendarState.month = 11;
+    calendarState.year--;
+  }
+  const calEl = document.querySelector('.calendar-mini');
+  if (calEl) calEl.innerHTML = renderMiniCalendar(state.exams || []);
+}
+
+function nextCalMonth() {
+  calendarState.month++;
+  if (calendarState.month > 11) {
+    calendarState.month = 0;
+    calendarState.year++;
+  }
+  const calEl = document.querySelector('.calendar-mini');
+  if (calEl) calEl.innerHTML = renderMiniCalendar(state.exams || []);
+}
+
+// Adauga examen
+function addExam() {
+  const nameInput = document.getElementById('examName');
+  const subjectSelect = document.getElementById('examSubject');
+  const dateInput = document.getElementById('examDate');
+  const roomInput = document.getElementById('examRoom');
+
+  const name = nameInput.value.trim();
+  const subject = subjectSelect.value;
+  const date = dateInput.value;
+
+  if (!name || !subject || !date) {
+    alert('Completează cel puțin numele, materia și data examenului!');
+    return;
+  }
+
+  if (!state.exams) state.exams = [];
+  state.exams.push({
+    name: name,
+    subject: subject,
+    date: date,
+    room: roomInput ? roomInput.value.trim() : '',
+    addedAt: Date.now()
+  });
+
+  saveState();
+
+  nameInput.value = '';
+  roomInput.value = '';
+
+  renderCalendarPage(document.getElementById('pageContent'));
+  renderSidebar();
+}
+
+// Sterge examen
+function deleteExam(index) {
+  if (!confirm('Ștergi examenul?')) return;
+  state.exams.splice(index, 1);
+  saveState();
+  renderCalendarPage(document.getElementById('pageContent'));
+  renderSidebar();
 }
 
 // =============================================
