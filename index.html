@@ -3085,8 +3085,338 @@ input, textarea, select { font-family: inherit; }
 .pomo-done-btn.primary.green:hover { background: #0ecf98; }
 
 /* =============================================
-   FILE ORGANIZER
+   HOME PAGE — structured hub
    ============================================= */
+.home-greeting {
+  margin-bottom: 28px;
+}
+
+.home-greeting-time {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.home-greeting h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+
+.home-greeting p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* KPI strip */
+.home-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .home-kpis { grid-template-columns: repeat(2, 1fr); }
+}
+
+.home-kpi {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: default;
+  transition: border-color 0.15s;
+}
+
+.home-kpi:hover { border-color: var(--border-hover); }
+.home-kpi.clickable { cursor: pointer; }
+.home-kpi.clickable:hover { border-color: var(--accent-border); background: var(--accent-muted); }
+
+.home-kpi-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.home-kpi-body { flex: 1; min-width: 0; }
+
+.home-kpi-val {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.home-kpi-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Section headers on home */
+.home-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  margin-top: 32px;
+}
+
+.home-section-title {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-section-action {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 4px 10px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.home-section-action:hover { border-color: var(--accent-border); color: var(--accent); }
+
+/* Subject group */
+.subject-group {
+  margin-bottom: 24px;
+}
+
+.subject-group-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.subject-group-name {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.subject-group-edit {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.subject-group-edit:hover { color: var(--accent); }
+
+.subject-group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .subject-group-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Subject card on home — compact */
+.home-subj-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.home-subj-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--subj-accent, var(--accent));
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.home-subj-card:hover {
+  border-color: var(--subj-border, var(--accent-border));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.home-subj-card:hover::before { opacity: 1; }
+
+.home-subj-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-subj-name {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.home-subj-meta {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.home-subj-progress {
+  height: 3px;
+  background: var(--bg-overlay);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.home-subj-progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s var(--ease);
+}
+
+/* Tools grid on home */
+.home-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .home-tools-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.home-tool-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.home-tool-card:hover {
+  border-color: var(--tool-border, var(--accent-border));
+  background: var(--tool-muted, var(--accent-muted));
+}
+
+.home-tool-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.home-tool-name {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.home-tool-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Today widget */
+.home-today {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 0;
+}
+
+.home-today-title {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+}
+
+.home-today-insight {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Add subject card */
+.home-add-subj-card {
+  background: transparent;
+  border: 1px dashed var(--border-hover);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  min-height: 90px;
+}
+
+.home-add-subj-card:hover { border-color: var(--accent-border); color: var(--accent); background: var(--accent-muted); }
 .file-list { display: flex; flex-direction: column; gap: 6px; }
 
 .file-item {
@@ -4988,6 +5318,8 @@ let state = {
   // === v8 features ===
   studyTime: {},          // timp studiu per materie {key: minutes}
   mentorHistory: [],      // istoricul conversatiilor cu AI Mentor
+  subjectGroups: [],      // grupari materii: [{id, name, keys:[]}]
+  pomoLog: [],            // log sesiuni pomodoro [{date, minutes, type}]
 };
 
 let presSlidePositions = {};
@@ -5011,6 +5343,8 @@ function loadState() {
     if (!state.activityLog) state.activityLog = [];
     if (!state.studyTime) state.studyTime = {};
     if (!state.mentorHistory) state.mentorHistory = [];
+    if (!state.subjectGroups) state.subjectGroups = [];
+    if (!state.pomoLog) state.pomoLog = [];
     if (state.xp === undefined) state.xp = 0;
     if (state.level === undefined) state.level = 1;
     if (state.streak === undefined) state.streak = 0;
@@ -5572,7 +5906,6 @@ function renderDashboard(element) {
 
   let html = '<div class="anim">';
 
-  // ── ONBOARDING — nicio materie adaugata ──
   if (!hasSubjects) {
     html += renderOnboarding();
     html += '</div>';
@@ -5580,99 +5913,209 @@ function renderDashboard(element) {
     return;
   }
 
-  // ── DASHBOARD NORMAL ──
+  // ── GREETING ──────────────────────────────
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? 'Bună dimineața' : hour < 18 ? 'Bună ziua' : 'Bună seara';
+  const streak = state.streak || 0;
+  const streakMsg = streak > 0 ? ' · ' + streak + ' zile streak' + (streak >= 7 ? ' 🔥' : '') : '';
+
+  html += '<div class="home-greeting">';
+  html += '<div class="home-greeting-time">' + new Date().toLocaleDateString('ro', {weekday:'long', day:'numeric', month:'long'}) + streakMsg + '</div>';
+  html += '<h1>' + greet + '</h1>';
+  html += '</div>';
+
+  // ── KPI STRIP ─────────────────────────────
   const totalTodos = Object.values(state.todos).flat().length;
-  const doneTodos = Object.values(state.todos).flat().filter(t => t.done).length;
-  const totalPres = Object.keys(subjects).reduce((acc, key) => acc + getAllPresentations(key).length, 0);
+  const doneTodos  = Object.values(state.todos).flat().filter(t => t.done).length;
+  const totalPres  = Object.keys(subjects).reduce((a, k) => a + getAllPresentations(k).length, 0);
+  const dueFC      = getFlashcardsDueCount();
+  const nextExam   = (state.exams||[]).filter(e=>new Date(e.date)>=new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date))[0];
+  const avgQ = (() => { const all=Object.values(state.quizHistory||{}).flat(); return all.length?Math.round(all.reduce((a,r)=>a+(r.score/r.total)*100,0)/all.length):null; })();
 
-  // Hero
-  html += '<div class="dash-hero">';
-  html += '<h2>Bun venit la Study Hub</h2>';
-  html += '<p>Platforma ta AI-powered pentru sesiune</p>';
+  html += '<div class="home-kpis">';
+
+  // Progres tasks
+  const progPct = totalTodos ? Math.round(doneTodos/totalTodos*100) : 0;
+  html += '<div class="home-kpi">';
+  html += '<div class="home-kpi-icon" style="background:var(--accent-muted);color:var(--accent)">' + icon('check_circle','sm') + '</div>';
+  html += '<div class="home-kpi-body"><div class="home-kpi-val" style="color:var(--accent)">' + progPct + '%</div><div class="home-kpi-label">' + doneTodos + '/' + totalTodos + ' tasks completate</div></div>';
   html += '</div>';
 
-  // Banner demo — vizibil doar cand userul inca foloseste DEFAULT_SUBJECTS
+  // Flashcards due
+  html += '<div class="home-kpi clickable" onclick="navigateTo(\'flashcards\')" style="--tool-border:var(--amber-border)">';
+  html += '<div class="home-kpi-icon" style="background:var(--amber-muted);color:var(--amber)">' + icon('cards','sm') + '</div>';
+  html += '<div class="home-kpi-body"><div class="home-kpi-val" style="color:' + (dueFC>0?'var(--amber)':'var(--text-primary)') + '">' + dueFC + '</div><div class="home-kpi-label">flashcard-uri scadente</div></div>';
+  html += '</div>';
+
+  // Exam countdown
+  const examDays = nextExam ? Math.round((new Date(nextExam.date)-new Date())/86400000) : null;
+  html += '<div class="home-kpi ' + (nextExam?'clickable':'') + '" ' + (nextExam?'onclick="navigateTo(\'calendar\')"':'') + '>';
+  html += '<div class="home-kpi-icon" style="background:' + (examDays!==null&&examDays<=3?'var(--red-muted)':'var(--blue-muted)') + ';color:' + (examDays!==null&&examDays<=3?'var(--red)':'var(--blue)') + '">' + icon('calendar','sm') + '</div>';
+  html += '<div class="home-kpi-body"><div class="home-kpi-val" style="color:' + (examDays!==null&&examDays<=3?'var(--red)':'var(--text-primary)') + '">' + (examDays!==null ? examDays+'z' : '—') + '</div><div class="home-kpi-label">' + (nextExam ? escapeHtml(nextExam.name) : 'niciun examen') + '</div></div>';
+  html += '</div>';
+
+  // Quiz avg
+  html += '<div class="home-kpi clickable" onclick="navigateTo(\'stats\')">';
+  html += '<div class="home-kpi-icon" style="background:var(--green-muted);color:var(--green)">' + icon('trending','sm') + '</div>';
+  html += '<div class="home-kpi-body"><div class="home-kpi-val" style="color:var(--green)">' + (avgQ!==null?avgQ+'%':'—') + '</div><div class="home-kpi-label">medie quiz-uri</div></div>';
+  html += '</div>';
+
+  html += '</div>'; // end kpis
+
+  // Demo banner
   if (isFirstRun()) {
-    html += '<div style="background:var(--amber-muted);border:1px solid var(--amber);border-radius:var(--radius);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;" class="anim">';
-    html += icon('sparkle','md');
-    html += '<div style="flex:1;"><div style="font-weight:700;font-size:.92rem;color:var(--amber);">Acestea sunt materii demo (ASE)</div>';
-    html += '<div style="font-size:.8rem;color:var(--text-secondary);margin-top:2px;">Poți folosi platforma cu ele sau îți adaugi propriile materii.</div></div>';
-    html += '<button onclick="openSubjectManager()" style="padding:8px 16px;background:var(--amber);color:#fff;border:none;border-radius:var(--radius-sm);font-weight:600;font-size:.82rem;cursor:pointer;white-space:nowrap;">' + icon('settings','xs') + ' Personalizează</button>';
+    html += '<div style="background:var(--amber-muted);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">';
+    html += icon('sparkle','sm');
+    html += '<div style="flex:1;font-size:.84rem;color:var(--text-secondary);">Acestea sunt <strong style="color:var(--amber)">materii demo</strong> — personalizează sau înlocuiește-le cu ale tale.</div>';
+    html += '<button onclick="openSubjectManager()" style="padding:6px 14px;background:var(--amber);color:#fff;border:none;border-radius:var(--radius-xs);font-weight:600;font-size:.78rem;cursor:pointer;white-space:nowrap;flex-shrink:0;">Personalizează</button>';
     html += '</div>';
   }
 
-  // Stats
-  html += '<div class="quick-stats anim anim-d1">';
-  html += '<div class="qs-card"><div class="qs-val">' + Object.keys(subjects).length + '</div><div class="qs-label">Materii</div></div>';
-  html += '<div class="qs-card"><div class="qs-val">' + totalTodos + '</div><div class="qs-label">Tasks</div></div>';
-  html += '<div class="qs-card"><div class="qs-val">' + (totalTodos ? Math.round(doneTodos / totalTodos * 100) : 0) + '%</div><div class="qs-label">Progres</div></div>';
-  html += '<div class="qs-card"><div class="qs-val">' + totalPres + '</div><div class="qs-label">Prezentări</div></div>';
-  html += '<div class="qs-card" onclick="navigateTo(\'achievements\')" style="cursor:pointer;"><div class="qs-val" style="color:var(--amber)">' + (state.level||1) + '</div><div class="qs-label">Nivel XP</div></div>';
+  // ── MATERII PE GRUPE ──────────────────────
+  html += '<div class="home-section-header">';
+  html += '<div class="home-section-title">' + icon('book','sm') + ' Materiile mele</div>';
+  html += '<button class="home-section-action" onclick="openSubjectManager()">' + icon('settings','xs') + ' Gestionează</button>';
   html += '</div>';
 
-  // API Config
-  html += '<details class="api-config anim anim-d2" ' + (state.apiKey ? '' : 'open') + '>';
-  html += '<summary>Configurare API Anthropic ' + (state.apiKey ? '— [OK] Configurat' : '— necesară pentru AI') + '</summary>';
-  html += '<p style="font-size:.82rem;color:var(--text-secondary);margin-top:10px;">Pentru AI Tutor și generarea de prezentări ai nevoie de un API key de la <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--accent);">console.anthropic.com</a>. Key-ul se salvează doar local.</p>';
-  html += '<div class="api-row"><input type="password" class="api-inp" id="apiKeyInput" placeholder="sk-ant-api03-..." value="' + (state.apiKey || '') + '">';
-  html += '<button class="api-save" onclick="saveApiKey()">Salvează</button></div>';
-  html += '<div class="api-status" id="apiStatus"></div></details>';
+  // Build groups — dacă nu există grupe, pune toate materiile într-un grup default
+  const groups = getSubjectGroupsForDisplay(subjects);
 
-  // Subject Cards
-  html += '<div class="dash-grid anim anim-d3">';
-  for (const [key, subject] of Object.entries(subjects)) {
-    const todos = state.todos[key] || [];
-    const done = todos.filter(t => t.done).length;
-    const presCount = getAllPresentations(key).length;
-    const theme = getSubjectTheme(subject);
-    html += '<div class="dash-card" onclick="navigateTo(\'' + key + '\')" style="border-color:' + theme.border + '">';
-    html += '<div class="dc-icon" style="background:' + theme.muted + ';display:flex;align-items:center;justify-content:center;">' + subjectIcon(subject, 'md') + '</div>';
-    html += '<div class="dc-name">' + subject.name + '</div>';
-    html += '<div class="dc-sub">' + presCount + ' prez · ' + (todos.length ? done + '/' + todos.length + ' tasks' : '0 tasks') + '</div>';
+  groups.forEach(group => {
+    html += '<div class="subject-group">';
+    html += '<div class="subject-group-label">';
+    html += '<span class="subject-group-name">' + icon('layers','xs') + ' ' + escapeHtml(group.name) + '</span>';
+    html += '<button class="subject-group-edit" onclick="editGroupName(\'' + group.id + '\')">' + icon('edit','xs') + ' Redenumește</button>';
+    html += '</div>';
+    html += '<div class="subject-group-grid">';
+
+    group.keys.forEach(key => {
+      const subj = subjects[key];
+      if (!subj) return;
+      const theme = getSubjectTheme(subj);
+      const todos = state.todos[key] || [];
+      const done  = todos.filter(t => t.done).length;
+      const pct   = todos.length ? Math.round(done/todos.length*100) : 0;
+      const pres  = getAllPresentations(key).length;
+
+      html += '<div class="home-subj-card" onclick="navigateTo(\'' + key + '\')" style="--subj-accent:' + theme.accent + ';--subj-border:' + theme.border + '">';
+      html += '<div class="home-subj-top">';
+      html += subjectIconBadge(subj, 32);
+      if (pct > 0) html += '<span style="font-family:var(--font-mono);font-size:.68rem;color:' + theme.accent + '">' + pct + '%</span>';
+      html += '</div>';
+      html += '<div>';
+      html += '<div class="home-subj-name">' + escapeHtml(subj.name) + '</div>';
+      html += '<div class="home-subj-meta">' + pres + ' prez · ' + (todos.length ? done+'/'+todos.length+' tasks' : '0 tasks') + '</div>';
+      html += '</div>';
+      if (todos.length) {
+        html += '<div class="home-subj-progress"><div class="home-subj-progress-fill" style="width:' + pct + '%;background:' + theme.accent + '"></div></div>';
+      }
+      html += '</div>';
+    });
+
+    // Add subject to this group
+    html += '<div class="home-add-subj-card" onclick="openSubjectManager()">' + icon('plus','sm') + '<span>Adaugă</span></div>';
+
+    html += '</div></div>'; // end grid + group
+  });
+
+  // ── TOOLS AI ──────────────────────────────
+  html += '<div class="home-section-header">';
+  html += '<div class="home-section-title">' + icon('cpu','sm') + ' Tool-uri AI</div>';
+  html += '</div>';
+  html += '<div class="home-tools-grid">';
+
+  const tools = [
+    { tab:'quiz',        iconN:'brain',      color:'var(--accent)',  muted:'var(--accent-muted)',  border:'var(--accent-border)',   name:'Quiz Mode',          desc:'Grile generate din cursul tău' },
+    { tab:'flashcards',  iconN:'cards',      color:'var(--blue)',    muted:'var(--blue-muted)',    border:'rgba(56,189,248,.22)',    name:'Flashcards',         desc:'Spaced repetition · ' + (dueFC?'<span style="color:var(--amber)">'+dueFC+' scadente</span>':'0 scadente') },
+    { tab:'mindmap',     iconN:'map',        color:'var(--green)',   muted:'var(--green-muted)',   border:'rgba(16,217,160,.22)',    name:'Mind Map AI',        desc:'Hărți conceptuale vizuale' },
+    { tab:'examsim',     iconN:'graduation', color:'var(--purple)',  muted:'var(--purple-muted)',  border:'rgba(167,139,250,.22)',   name:'Exam Simulator',     desc:'Sesiune cronometrată cu feedback' },
+    { tab:'mentor',      iconN:'robot',      color:'var(--accent)',  muted:'var(--accent-muted)',  border:'var(--accent-border)',   name:'AI Mentor',          desc:generateAutoInsightShort() },
+    { tab:'calendar',    iconN:'calendar',   color:'var(--red)',     muted:'var(--red-muted)',     border:'rgba(239,69,101,.22)',    name:'Calendar Sesiune',   desc:nextExam ? examDays+'z · '+escapeHtml(nextExam.name) : 'Programează examene' },
+    { tab:'stats',       iconN:'chart',      color:'var(--blue)',    muted:'var(--blue-muted)',    border:'rgba(56,189,248,.22)',    name:'Statistici',         desc:'Progres detaliat & grafice' },
+    { tab:'achievements',iconN:'trophy',     color:'var(--amber)',   muted:'var(--amber-muted)',   border:'rgba(245,166,35,.22)',    name:'Realizări & XP',     desc:'Nivel '+(state.level||1)+' · '+(state.xp||0)+' XP total' },
+  ];
+
+  tools.forEach(t => {
+    html += '<div class="home-tool-card" onclick="navigateTo(\'' + t.tab + '\')" style="--tool-border:' + t.border + ';--tool-muted:' + t.muted + '">';
+    html += '<div class="home-tool-icon" style="background:' + t.muted + ';color:' + t.color + '">' + icon(t.iconN,'sm') + '</div>';
+    html += '<div><div class="home-tool-name">' + t.name + '</div><div class="home-tool-desc">' + t.desc + '</div></div>';
+    html += '</div>';
+  });
+
+  html += '</div>'; // end tools grid
+
+  // ── API CONFIG (dacă nu e setat) ──────────
+  if (!state.apiKey) {
+    html += '<div style="margin-top:24px;background:var(--bg-raised);border:1px solid var(--accent-border);border-radius:var(--radius-sm);padding:16px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">';
+    html += '<div class="home-kpi-icon" style="background:var(--accent-muted);color:var(--accent);flex-shrink:0;">' + icon('key','sm') + '</div>';
+    html += '<div style="flex:1;"><div style="font-weight:600;font-size:.88rem;margin-bottom:2px;">Conectează Claude AI</div>';
+    html += '<div style="font-size:.78rem;color:var(--text-muted);">Necesar pentru Quiz, Flashcards AI, Prezentări, Mind Maps, Mentor.</div></div>';
+    html += '<button onclick="navigateTo(\'settings\')" style="padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-xs);font-weight:600;font-size:.8rem;cursor:pointer;white-space:nowrap;flex-shrink:0;">Configurează</button>';
     html += '</div>';
   }
-  // Card + adaugare rapida materie
-  html += '<div class="dash-card" onclick="openSubjectManager()" style="border-style:dashed;opacity:.7;">';
-  html += '<div class="dc-icon">' + icon('plus','md') + '</div>';
-  html += '<div class="dc-name">Materie Nouă</div>';
-  html += '<div class="dc-sub">Click pentru a adăuga</div>';
-  html += '</div>';
-  html += '</div>';
 
-  // Tool-uri AI shortcuts
-  html += '<div style="margin-top:24px;" class="anim anim-d3">';
-  html += '<div class="nav-section" style="padding:0 0 10px;font-size:.7rem;">Tool-uri AI</div>';
-  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">';
-
-  html += '<div class="dash-card" onclick="navigateTo(\'quiz\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">' + iconBadge('brain','') + '<div><div style="font-weight:700;">Quiz Mode</div><div style="font-size:.78rem;color:var(--text-secondary)">Grile AI din prezentări</div></div></div>';
-
-  const dueCount2 = getFlashcardsDueCount();
-  html += '<div class="dash-card" onclick="navigateTo(\'flashcards\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">' + iconBadge('cards','blue') + '<div><div style="font-weight:700;">Flashcards</div><div style="font-size:.78rem;color:var(--text-secondary)">' + (dueCount2>0?'<span style="color:var(--amber)">'+dueCount2+' scadente</span>':'Spaced repetition') + '</div></div></div>';
-
-  html += '<div class="dash-card" onclick="navigateTo(\'mindmap\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">' + iconBadge('map','green') + '<div><div style="font-weight:700;">Mind Map AI</div><div style="font-size:.78rem;color:var(--text-secondary)">Hărți conceptuale</div></div></div>';
-
-  html += '<div class="dash-card" onclick="navigateTo(\'examsim\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">' + iconBadge('graduation','') + '<div><div style="font-weight:700;">Exam Simulator</div><div style="font-size:.78rem;color:var(--text-secondary)">Sesiune cronometrată</div></div></div>';
-
-  const nextExam = (state.exams||[]).filter(e=>new Date(e.date)>=new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date))[0];
-  html += '<div class="dash-card" onclick="navigateTo(\'calendar\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">' + iconBadge('calendar','muted') + '<div><div style="font-weight:700;">Calendar Sesiune</div><div style="font-size:.78rem;color:' + (nextExam?'var(--red)':'var(--text-secondary)') + '">' + (nextExam?''+Math.round((new Date(nextExam.date)-new Date())/(1000*60*60*24))+' zile':'Countdown examene') + '</div></div></div>';
-
-  html += '<div class="dash-card" onclick="navigateTo(\'achievements\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">' + iconBadge('trophy','amber') + '<div><div style="font-weight:700;">Realizări & XP</div><div style="font-size:.78rem;color:var(--amber)">Nivel '+(state.level||1)+' · '+(state.xp||0)+' XP</div></div></div>';
-
-  html += '<div class="dash-card" onclick="navigateTo(\'stats\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">' + iconBadge('chart','blue') + '<div><div style="font-weight:700;">Statistici Avansate</div><div style="font-size:.78rem;color:var(--text-secondary)">Timp studiu, XP, grafice</div></div></div>';
-
-  html += '<div class="dash-card" onclick="navigateTo(\'mentor\')" style="text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;">' + iconBadge('robot','') + '<div><div style="font-weight:700;">AI Mentor</div><div style="font-size:.78rem;color:var(--text-secondary)">' + generateAutoInsightShort() + '</div></div></div>';
-
-  html += '</div></div>';
-
-  // Chart.js progres
-  html += '<div class="chart-panel anim anim-d3" style="margin-top:20px;">';
-  html += '<div class="chart-title">Progres Tasks per Materie</div>';
-  html += '<div style="height:180px;"><canvas id="progressChart"></canvas></div>';
-  html += '</div>';
-
-  html += '</div>';  // end anim
+  html += '</div>'; // end anim
   element.innerHTML = html;
-  setTimeout(renderDashboardCharts, 100);
+}
+
+// ── Subject groups helpers ──────────────────
+function getSubjectGroupsForDisplay(subjects) {
+  const subjectKeys = Object.keys(subjects);
+  if (!subjectKeys.length) return [];
+
+  // Dacă nu există grupe definite, creează un grup default
+  if (!state.subjectGroups || !state.subjectGroups.length) {
+    return [{ id: 'default', name: 'Materiile mele', keys: subjectKeys }];
+  }
+
+  // Colectează cheile deja asignate
+  const assigned = new Set(state.subjectGroups.flatMap(g => g.keys));
+  const unassigned = subjectKeys.filter(k => !assigned.has(k));
+
+  const result = state.subjectGroups
+    .map(g => ({ ...g, keys: g.keys.filter(k => subjects[k]) }))
+    .filter(g => g.keys.length > 0);
+
+  // Materiile neasignate → grup "Negruupate"
+  if (unassigned.length) {
+    result.push({ id: 'ungrouped', name: 'Alte materii', keys: unassigned });
+  }
+
+  return result.length ? result : [{ id: 'default', name: 'Materiile mele', keys: subjectKeys }];
+}
+
+function editGroupName(groupId) {
+  // Găsim sau creăm grupul
+  if (groupId === 'default') {
+    // Convertim la grup real
+    if (!state.subjectGroups.length) {
+      const name = prompt('Numele grupului:', 'Semestrul 1');
+      if (!name) return;
+      state.subjectGroups = [{ id: 'grp_' + Date.now(), name, keys: Object.keys(getSubjects()) }];
+      saveState();
+      navigateTo('dashboard');
+    }
+    return;
+  }
+
+  const grp = state.subjectGroups.find(g => g.id === groupId);
+  if (!grp) return;
+  const name = prompt('Redenumește grupul:', grp.name);
+  if (!name || name === grp.name) return;
+  grp.name = name;
+  saveState();
+  navigateTo('dashboard');
+}
+
+// Adaugă grup nou din subject manager
+function addSubjectGroup() {
+  const name = prompt('Numele noului grup (ex: Semestrul 2, Opționale):', '');
+  if (!name) return;
+  if (!state.subjectGroups) state.subjectGroups = [];
+  state.subjectGroups.push({ id: 'grp_' + Date.now(), name, keys: [] });
+  saveState();
+  showToast('Grup creat: ' + name, null, 'success', 2500);
+  navigateTo('dashboard');
 }
 
 function saveApiKey() {
