@@ -169,7 +169,7 @@ input, textarea, select { font-family: inherit; }
 .quiz-q-num {
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-bottom: 10px;
@@ -381,15 +381,16 @@ input, textarea, select { font-family: inherit; }
 .fc-stat-val {
   font-size: 1.6rem;
   font-weight: 800;
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
+  color: var(--text-primary);
 }
 
 .fc-stat-label {
   font-size: 0.72rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .flashcard-scene {
@@ -440,7 +441,7 @@ input, textarea, select { font-family: inherit; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   margin-bottom: 16px;
 }
 
@@ -459,7 +460,7 @@ input, textarea, select { font-family: inherit; }
 
 .fc-flip-hint {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   margin-top: 16px;
   display: flex;
   align-items: center;
@@ -509,7 +510,7 @@ input, textarea, select { font-family: inherit; }
 .fc-queue-info {
   text-align: center;
   font-size: 0.82rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   margin-bottom: 12px;
 }
 
@@ -576,7 +577,7 @@ input, textarea, select { font-family: inherit; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   margin-bottom: 6px;
 }
 
@@ -600,8 +601,9 @@ input, textarea, select { font-family: inherit; }
 
 .ecc-days-label {
   font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 2px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+  font-weight: 500;
 }
 
 .ecc-date {
@@ -1028,78 +1030,7 @@ input, textarea, select { font-family: inherit; }
   overflow-y: auto;
 }
 
-.nav-section {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 14px 10px 5px;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 10px;
-  border-radius: var(--radius-xs);
-  background: transparent;
-  border: none;
-  width: 100%;
-  text-align: left;
-  color: var(--text-secondary);
-  font-size: 0.855rem;
-  font-family: var(--font-body);
-  font-weight: 500;
-  transition: all 0.15s;
-  position: relative;
-}
-
-.nav-item:hover {
-  background: var(--bg-surface);
-  color: var(--text-primary);
-}
-
-.nav-item.active {
-  background: var(--accent-muted);
-  color: var(--accent);
-  border: 1px solid var(--accent-border);
-}
-
-.nav-item.active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 18px;
-  background: var(--accent);
-  border-radius: 0 3px 3px 0;
-}
-
-.nav-item .ni-icon {
-  flex-shrink: 0;
-  width: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.7;
-}
-.nav-item.active .ni-icon { opacity: 1; }
-
-.nav-item .ni-badge {
-  margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: var(--accent-muted);
-  color: var(--accent);
-  border: 1px solid var(--accent-border);
-}
+/* nav-section and nav-item moved to V1.3 section */
 
 .sidebar-footer {
   padding: 12px 14px;
@@ -1481,7 +1412,7 @@ input, textarea, select { font-family: inherit; }
 }
 
 .qs-val {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: 2.4rem;
   font-weight: 700;
   color: var(--accent);
@@ -1491,8 +1422,9 @@ input, textarea, select { font-family: inherit; }
 
 .qs-label {
   font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 2px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: 500;
 }
 
 /* =============================================
@@ -3155,20 +3087,21 @@ input, textarea, select { font-family: inherit; }
 .home-kpi-body { flex: 1; min-width: 0; }
 
 .home-kpi-val {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .home-kpi-label {
   font-size: 0.72rem;
-  color: var(--text-muted);
-  margin-top: 3px;
+  color: var(--text-secondary);
+  margin-top: 4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 400;
 }
 
 /* Section headers on home */
@@ -3258,121 +3191,525 @@ input, textarea, select { font-family: inherit; }
   .subject-group-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Subject card on home — compact */
+/* home-subj-card and home-tool-card moved to V1.3 section */
+
+/* =============================================
+   V1.3 — HERO SECTION
+   ============================================= */
+.dash-hero-v13 {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 28px;
+  padding: 40px 36px 36px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+}
+
+/* Blueprint background SVG */
+.dash-hero-v13::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='220' viewBox='0 0 900 220'%3E%3Cg fill='none' stroke='%234f6ef7' stroke-width='0.7' opacity='0.18'%3E%3Crect x='580' y='30' width='280' height='160' rx='2'/%3E%3Crect x='600' y='50' width='60' height='80'/%3E%3Crect x='670' y='50' width='60' height='80'/%3E%3Crect x='740' y='50' width='60' height='80'/%3E%3Crect x='810' y='50' width='40' height='80'/%3E%3Crect x='620' y='140' width='20' height='50'/%3E%3Crect x='700' y='140' width='20' height='50'/%3E%3Crect x='780' y='140' width='20' height='50'/%3E%3Cline x1='580' y1='190' x2='860' y2='190'/%3E%3Crect x='695' y='20' width='30' height='10' rx='2'/%3E%3Cline x1='720' y1='30' x2='720' y2='50'/%3E%3Cline x1='580' y1='130' x2='860' y2='130'/%3E%3Cline x1='640' y1='30' x2='640' y2='190'/%3E%3Cline x1='800' y1='30' x2='800' y2='190'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
+  pointer-events: none;
+}
+
+/* Gradient overlay spre stânga */
+.dash-hero-v13::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--bg-raised) 45%, transparent 85%);
+  pointer-events: none;
+}
+
+.dash-hero-v13-content {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+}
+
+.dash-hero-v13-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-muted);
+  border: 1px solid var(--accent-border);
+  border-radius: 20px;
+  padding: 4px 10px;
+  margin-bottom: 14px;
+}
+
+.dash-hero-v13 h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, var(--text-primary) 60%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dash-hero-v13-sub {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 420px;
+}
+
+.dash-hero-v13-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  box-shadow: 0 4px 16px rgba(79,110,247,0.35);
+  text-decoration: none;
+}
+.dash-hero-v13-cta:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 6px 24px rgba(79,110,247,0.5);
+  transform: translateY(-1px);
+}
+.dash-hero-v13-cta:active { transform: translateY(0); }
+
+/* =============================================
+   V1.3 — HOW TO START (onboarding steps)
+   ============================================= */
+.how-to-start {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 28px;
+}
+@media (max-width: 768px) { .how-to-start { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .how-to-start { grid-template-columns: 1fr 1fr; } }
+
+.hts-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s, transform 0.15s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.hts-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--hts-color, var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+.hts-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+.hts-card:hover::after { transform: scaleX(1); }
+
+.hts-step {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--hts-color, var(--accent));
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}
+
+.hts-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--hts-bg, var(--accent-muted));
+  color: var(--hts-color, var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hts-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.hts-desc {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* =============================================
+   V1.3 — EMPTY STATES
+   ============================================= */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  gap: 12px;
+}
+
+.empty-state-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--accent-muted);
+  border: 1px solid var(--accent-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.empty-state-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.empty-state-desc {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  max-width: 320px;
+  line-height: 1.55;
+}
+
+.empty-state-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 3px 12px rgba(79,110,247,0.3);
+  margin-top: 4px;
+}
+.empty-state-btn:hover { background: var(--accent-hover); box-shadow: 0 4px 16px rgba(79,110,247,0.4); }
+
+/* =============================================
+   V1.3 — ENHANCED SUBJECT CARDS
+   ============================================= */
 .home-subj-card {
   background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 14px;
+  padding: 16px 14px 12px;
   cursor: pointer;
-  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  transition: border-color 0.2s, transform 0.2s var(--ease), box-shadow 0.2s;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .home-subj-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 2px;
+  height: 3px;
   background: var(--subj-accent, var(--accent));
   opacity: 0;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s;
 }
 
+/* Subtle glow on hover */
 .home-subj-card:hover {
   border-color: var(--subj-border, var(--accent-border));
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.25), 0 0 0 1px var(--subj-border, var(--accent-border));
 }
-
 .home-subj-card:hover::before { opacity: 1; }
+.home-subj-card:active { transform: translateY(-1px); }
 
-.home-subj-top {
+/* Stats row inside subject card */
+.home-subj-stats {
+  display: flex;
+  gap: 10px;
+}
+.home-subj-stat {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.home-subj-name {
-  font-weight: 700;
-  font-size: 0.88rem;
-  color: var(--text-primary);
-  line-height: 1.2;
-}
-
-.home-subj-meta {
-  font-size: 0.7rem;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
   color: var(--text-muted);
-  margin-top: 2px;
 }
+.home-subj-stat svg { opacity: 0.5; }
 
+/* Progress bar thicker + animated */
 .home-subj-progress {
-  height: 3px;
+  height: 4px;
   background: var(--bg-overlay);
   border-radius: 2px;
   overflow: hidden;
 }
-
 .home-subj-progress-fill {
   height: 100%;
   border-radius: 2px;
-  transition: width 0.4s var(--ease);
+  transition: width 0.6s var(--ease);
+  position: relative;
+}
+.home-subj-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 20px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+  border-radius: 2px;
 }
 
-/* Tools grid on home */
-.home-tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 10px;
+/* Add subject card */
+.home-add-subj-card {
+  background: transparent;
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  min-height: 100px;
+}
+.home-add-subj-card:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-muted);
+  color: var(--accent);
 }
 
-@media (max-width: 600px) {
-  .home-tools-grid { grid-template-columns: 1fr 1fr; }
-}
-
+/* =============================================
+   V1.3 — ENHANCED TOOL CARDS
+   ============================================= */
 .home-tool-card {
   background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 16px;
   cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  position: relative;
+  overflow: hidden;
 }
-
+.home-tool-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--tool-muted, var(--accent-muted));
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
 .home-tool-card:hover {
   border-color: var(--tool-border, var(--accent-border));
-  background: var(--tool-muted, var(--accent-muted));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
 }
+.home-tool-card:hover::after { opacity: 1; }
+.home-tool-card > * { position: relative; z-index: 1; }
 
 .home-tool-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 9px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform 0.2s;
 }
+.home-tool-card:hover .home-tool-icon { transform: scale(1.08); }
 
-.home-tool-name {
+/* =============================================
+   V1.3 — SIDEBAR IMPROVEMENTS
+   ============================================= */
+.nav-section {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
   font-weight: 700;
-  font-size: 0.88rem;
-  color: var(--text-primary);
-  margin-bottom: 3px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 16px 12px 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-section::before {
+  content: '';
+  display: block;
+  height: 1px;
+  flex: 1;
+  background: var(--border);
+  margin-right: 2px;
 }
 
-.home-tool-desc {
-  font-size: 0.74rem;
-  color: var(--text-muted);
-  line-height: 1.4;
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: var(--text-secondary);
+  font-size: 0.855rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  transition: all 0.15s;
+  position: relative;
 }
+.nav-item:hover {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  transform: translateX(2px);
+}
+.nav-item.active {
+  background: var(--accent-muted);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 18px;
+  background: var(--accent);
+  border-radius: 0 3px 3px 0;
+}
+.nav-item .ni-icon {
+  flex-shrink: 0;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+}
+.nav-item.active .ni-icon { opacity: 1; }
+.nav-item .ni-badge {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--accent-muted);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+/* =============================================
+   V1.3 — API KEY BANNER (prominent, top)
+   ============================================= */
+.api-key-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(79,110,247,0.08), rgba(79,110,247,0.04));
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.api-key-banner-text { flex: 1; min-width: 0; }
+.api-key-banner-title { font-weight: 700; font-size: 0.88rem; margin-bottom: 2px; }
+.api-key-banner-sub { font-size: 0.75rem; color: var(--text-secondary); }
+.api-key-banner-btn {
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-xs);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.api-key-banner-btn:hover { background: var(--accent-hover); }
+
+/* =============================================
+   V1.3 — STREAK / GAMIFICATION WIDGET
+   ============================================= */
+.dash-streak-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.dsb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+}
+.dsb-label { color: var(--text-muted); font-size: 0.72rem; }
+.dsb-val { font-family: var(--font-mono); font-weight: 700; font-size: 0.88rem; }
+.dsb-divider { width: 1px; height: 20px; background: var(--border); flex-shrink: 0; }
+.dsb-xp-bar { flex: 1; min-width: 80px; }
+.dsb-xp-track { height: 5px; background: var(--bg-overlay); border-radius: 3px; overflow: hidden; margin-top: 3px; }
+.dsb-xp-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--blue)); border-radius: 3px; transition: width 0.6s var(--ease); }
 
 /* Today widget */
 .home-today {
@@ -3382,6 +3719,7 @@ input, textarea, select { font-family: inherit; }
   padding: 18px 20px;
   margin-bottom: 0;
 }
+
 
 .home-today-title {
   font-family: var(--font-mono);
@@ -3398,25 +3736,7 @@ input, textarea, select { font-family: inherit; }
   line-height: 1.5;
 }
 
-/* Add subject card */
-.home-add-subj-card {
-  background: transparent;
-  border: 1px dashed var(--border-hover);
-  border-radius: var(--radius-sm);
-  padding: 14px;
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  color: var(--text-muted);
-  font-size: 0.78rem;
-  min-height: 90px;
-}
-
-.home-add-subj-card:hover { border-color: var(--accent-border); color: var(--accent); background: var(--accent-muted); }
+/* home-add-subj-card defined in V1.3 section */
 .file-list { display: flex; flex-direction: column; gap: 6px; }
 
 .file-item {
@@ -3931,25 +4251,26 @@ input, textarea, select { font-family: inherit; }
 .stat-hero-card:hover { border-color: var(--accent-border); }
 
 .shc-val {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: 2.4rem;
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.02em;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .shc-label {
   font-size: 0.72rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-weight: 600;
 }
 
 .shc-sub {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 5px;
 }
 
 .stats-two-col {
@@ -5523,6 +5844,18 @@ updateClock();
 // =============================================
 // UTILITIES
 // =============================================
+
+// Formatează minutele de studiu într-un string lizibil
+// 0 → '0m' | 45 → '45m' | 90 → '1h 30m' | 120 → '2h'
+function formatStudyTime(minutes) {
+  if (!minutes || minutes <= 0) return '0m';
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  if (h === 0) return m + 'm';
+  if (m === 0) return h + 'h';
+  return h + 'h ' + m + 'm';
+}
+
 function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
@@ -5608,7 +5941,7 @@ function renderSidebar() {
   html += navBtn('stats', 'chart', 'Statistici Avansate');
   html += navBtn('mentor', 'robot', 'AI Mentor');
   html += '<div class="nav-section">Cont</div>';
-  html += navBtn('settings', 'package', 'Import / Export');
+  html += navBtn('settings', 'settings', 'Setări & API Key');
 
   nav.innerHTML = html;
 }
@@ -5900,6 +6233,10 @@ function importASETemplate() {
   renderPage();
   showToast('[OK] 5 materii ASE importate! Le poți edita din Settings');
 }
+function renderDailyGoals() {
+  return '';
+}
+
 function renderDashboard(element) {
   const subjects = getSubjects();
   const hasSubjects = Object.keys(subjects).length > 0;
@@ -5913,63 +6250,105 @@ function renderDashboard(element) {
     return;
   }
 
-  // ── GREETING ──────────────────────────────
+  // ── API KEY BANNER (dacă nu e setat) ──────
+  if (!state.apiKey) {
+    html += '<div class="api-key-banner">';
+    html += '<div style="width:38px;height:38px;border-radius:10px;background:var(--accent-muted);color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;">' + icon('key','sm') + '</div>';
+    html += '<div class="api-key-banner-text">';
+    html += '<div class="api-key-banner-title">Conectează Claude AI pentru a debloca toate funcționalitățile</div>';
+    html += '<div class="api-key-banner-sub">Quiz, Flashcards AI, Prezentări, Mind Maps și Mentor necesită un API key Anthropic gratuit.</div>';
+    html += '</div>';
+    html += '<button class="api-key-banner-btn" onclick="navigateTo(\'settings\')">' + icon('key','xs') + ' Configurează</button>';
+    html += '</div>';
+  }
+
+  // ── HERO SECTION ──────────────────────────
   const hour = new Date().getHours();
   const greet = hour < 12 ? 'Bună dimineața' : hour < 18 ? 'Bună ziua' : 'Bună seara';
   const streak = state.streak || 0;
-  const streakMsg = streak > 0 ? ' · ' + streak + ' zile streak' + (streak >= 7 ? ' 🔥' : '') : '';
 
-  html += '<div class="home-greeting">';
-  html += '<div class="home-greeting-time">' + new Date().toLocaleDateString('ro', {weekday:'long', day:'numeric', month:'long'}) + streakMsg + '</div>';
+  html += '<div class="dash-hero-v13">';
+  html += '<div class="dash-hero-v13-content">';
+  html += '<div class="dash-hero-v13-tag">' + icon('graduation','xs') + ' ASE Study Hub</div>';
   html += '<h1>' + greet + '</h1>';
+  html += '<p class="dash-hero-v13-sub">Organizează toată materia într-un singur loc. Generează rezumate, quizuri și simulări de examen cu AI.</p>';
+  html += '<button class="dash-hero-v13-cta" onclick="openSubjectManager()">' + icon('plus','xs') + ' Adaugă materie</button>';
+  html += '</div>';
   html += '</div>';
 
-  // ── KPI STRIP ─────────────────────────────
+  // ── STREAK / GAMIFICATION BAR ─────────────
   const totalTodos = Object.values(state.todos).flat().length;
   const doneTodos  = Object.values(state.todos).flat().filter(t => t.done).length;
-  const totalPres  = Object.keys(subjects).reduce((a, k) => a + getAllPresentations(k).length, 0);
   const dueFC      = getFlashcardsDueCount();
   const nextExam   = (state.exams||[]).filter(e=>new Date(e.date)>=new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date))[0];
   const avgQ = (() => { const all=Object.values(state.quizHistory||{}).flat(); return all.length?Math.round(all.reduce((a,r)=>a+(r.score/r.total)*100,0)/all.length):null; })();
+  const xpForLevel = (state.level || 1) * 50;
+  const xpPct = Math.min(100, Math.round(((state.xp||0) % xpForLevel) / xpForLevel * 100));
 
-  html += '<div class="home-kpis">';
-
-  // Progres tasks
-  const progPct = totalTodos ? Math.round(doneTodos/totalTodos*100) : 0;
-  html += '<div class="home-kpi">';
-  html += '<div class="home-kpi-icon" style="background:var(--accent-muted);color:var(--accent)">' + icon('check_circle','sm') + '</div>';
-  html += '<div class="home-kpi-body"><div class="home-kpi-val" style="color:var(--accent)">' + progPct + '%</div><div class="home-kpi-label">' + doneTodos + '/' + totalTodos + ' tasks completate</div></div>';
+  html += '<div class="dash-streak-bar">';
+  // Streak
+  html += '<div class="dsb-item">';
+  html += '<span style="font-size:1.1rem">' + (streak >= 7 ? '🔥' : streak > 0 ? '⚡' : '💤') + '</span>';
+  html += '<div><div class="dsb-val" style="color:' + (streak>=7?'var(--amber)':streak>0?'var(--accent)':'var(--text-muted)') + '">' + streak + ' zile</div><div class="dsb-label">Streak</div></div>';
   html += '</div>';
-
-  // Flashcards due
-  html += '<div class="home-kpi clickable" onclick="navigateTo(\'flashcards\')" style="--tool-border:var(--amber-border)">';
-  html += '<div class="home-kpi-icon" style="background:var(--amber-muted);color:var(--amber)">' + icon('cards','sm') + '</div>';
-  html += '<div class="home-kpi-body"><div class="home-kpi-val" style="color:' + (dueFC>0?'var(--amber)':'var(--text-primary)') + '">' + dueFC + '</div><div class="home-kpi-label">flashcard-uri scadente</div></div>';
+  html += '<div class="dsb-divider"></div>';
+  // Level + XP bar
+  html += '<div class="dsb-item" style="gap:10px;">';
+  html += '<div style="width:30px;height:30px;border-radius:8px;background:var(--accent-muted);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.72rem;font-weight:700;">L' + (state.level||1) + '</div>';
+  html += '<div class="dsb-xp-bar"><div style="font-size:.72rem;color:var(--text-secondary);font-family:var(--font-mono);">' + (state.xp||0) + ' XP</div><div class="dsb-xp-track"><div class="dsb-xp-fill" style="width:' + xpPct + '%"></div></div></div>';
   html += '</div>';
-
-  // Exam countdown
-  const examDays = nextExam ? Math.round((new Date(nextExam.date)-new Date())/86400000) : null;
-  html += '<div class="home-kpi ' + (nextExam?'clickable':'') + '" ' + (nextExam?'onclick="navigateTo(\'calendar\')"':'') + '>';
-  html += '<div class="home-kpi-icon" style="background:' + (examDays!==null&&examDays<=3?'var(--red-muted)':'var(--blue-muted)') + ';color:' + (examDays!==null&&examDays<=3?'var(--red)':'var(--blue)') + '">' + icon('calendar','sm') + '</div>';
-  html += '<div class="home-kpi-body"><div class="home-kpi-val" style="color:' + (examDays!==null&&examDays<=3?'var(--red)':'var(--text-primary)') + '">' + (examDays!==null ? examDays+'z' : '—') + '</div><div class="home-kpi-label">' + (nextExam ? escapeHtml(nextExam.name) : 'niciun examen') + '</div></div>';
-  html += '</div>';
-
+  html += '<div class="dsb-divider"></div>';
   // Quiz avg
-  html += '<div class="home-kpi clickable" onclick="navigateTo(\'stats\')">';
-  html += '<div class="home-kpi-icon" style="background:var(--green-muted);color:var(--green)">' + icon('trending','sm') + '</div>';
-  html += '<div class="home-kpi-body"><div class="home-kpi-val" style="color:var(--green)">' + (avgQ!==null?avgQ+'%':'—') + '</div><div class="home-kpi-label">medie quiz-uri</div></div>';
+  if (avgQ !== null) {
+    html += '<div class="dsb-item"><span style="color:var(--green)">' + icon('trending','xs') + '</span><div><div class="dsb-val" style="color:var(--green)">' + avgQ + '%</div><div class="dsb-label">Quiz avg</div></div></div>';
+    html += '<div class="dsb-divider"></div>';
+  }
+  // Tasks
+  const progPct = totalTodos ? Math.round(doneTodos/totalTodos*100) : 0;
+  html += '<div class="dsb-item"><span style="color:var(--accent)">' + icon('check_circle','xs') + '</span><div><div class="dsb-val" style="color:var(--accent)">' + progPct + '%</div><div class="dsb-label">Tasks (' + doneTodos + '/' + totalTodos + ')</div></div></div>';
+  // Flashcards due
+  if (dueFC > 0) {
+    html += '<div class="dsb-divider"></div>';
+    html += '<div class="dsb-item clickable" onclick="navigateTo(\'flashcards\')" style="cursor:pointer;"><span style="color:var(--amber)">' + icon('cards','xs') + '</span><div><div class="dsb-val" style="color:var(--amber)">' + dueFC + '</div><div class="dsb-label">De revizuit</div></div></div>';
+  }
+  // Next exam
+  if (nextExam) {
+    const examDays = Math.round((new Date(nextExam.date)-new Date())/86400000);
+    html += '<div class="dsb-divider"></div>';
+    html += '<div class="dsb-item clickable" onclick="navigateTo(\'calendar\')" style="cursor:pointer;margin-left:auto;"><span style="color:' + (examDays<=3?'var(--red)':'var(--blue)') + '">' + icon('calendar','xs') + '</span><div><div class="dsb-val" style="color:' + (examDays<=3?'var(--red)':'var(--blue)') + '">' + examDays + 'z</div><div class="dsb-label" style="max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + escapeHtml(nextExam.name) + '</div></div></div>';
+  }
   html += '</div>';
 
-  html += '</div>'; // end kpis
-
-  // Demo banner
+  // ── HOW TO START (prima utilizare) ────────
   if (isFirstRun()) {
-    html += '<div style="background:var(--amber-muted);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">';
-    html += icon('sparkle','sm');
-    html += '<div style="flex:1;font-size:.84rem;color:var(--text-secondary);">Acestea sunt <strong style="color:var(--amber)">materii demo</strong> — personalizează sau înlocuiește-le cu ale tale.</div>';
-    html += '<button onclick="openSubjectManager()" style="padding:6px 14px;background:var(--amber);color:#fff;border:none;border-radius:var(--radius-xs);font-weight:600;font-size:.78rem;cursor:pointer;white-space:nowrap;flex-shrink:0;">Personalizează</button>';
+    html += '<div class="home-section-header" style="margin-top:0;">';
+    html += '<div class="home-section-title">' + icon('sparkle','xs') + ' Cum începi</div>';
+    html += '</div>';
+    html += '<div class="how-to-start">';
+    const steps = [
+      { n:'01', icon:'settings', title:'Creează o materie', desc:'Adaugă materiile tale din universitate cu nume și descriere', color:'var(--accent)', bg:'var(--accent-muted)' },
+      { n:'02', icon:'upload',   title:'Adaugă bibliografie', desc:'Încarcă PDF-uri, DOCX sau lipește text din cursuri', color:'var(--blue)', bg:'var(--blue-muted)' },
+      { n:'03', icon:'sparkle',  title:'Generează cu AI', desc:'Creează rezumate, prezentări și flashcard-uri automat', color:'var(--green)', bg:'var(--green-muted)' },
+      { n:'04', icon:'brain',    title:'Testează-te', desc:'Quiz-uri, simulări de examen și spaced repetition', color:'var(--purple)', bg:'var(--purple-muted)' },
+    ];
+    steps.forEach(s => {
+      html += '<div class="hts-card" style="--hts-color:' + s.color + ';--hts-bg:' + s.bg + '">';
+      html += '<div class="hts-step">Pas ' + s.n + '</div>';
+      html += '<div class="hts-icon">' + icon(s.icon,'sm') + '</div>';
+      html += '<div class="hts-title">' + s.title + '</div>';
+      html += '<div class="hts-desc">' + s.desc + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    // Demo banner subtil
+    html += '<div style="background:var(--amber-muted);border:1px solid rgba(245,166,35,.25);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">';
+    html += '<div style="font-size:.82rem;color:var(--text-secondary);flex:1;">' + icon('alert','xs') + ' Acestea sunt <strong style="color:var(--amber)">materii demo</strong> — personalizează sau înlocuiește-le cu ale tale.</div>';
+    html += '<button onclick="openSubjectManager()" style="padding:5px 12px;background:var(--amber);color:#fff;border:none;border-radius:var(--radius-xs);font-weight:600;font-size:.75rem;cursor:pointer;white-space:nowrap;">Personalizează</button>';
     html += '</div>';
   }
+
+  // ── DAILY GOALS ───────────────────────────
+  html += renderDailyGoals();
 
   // ── MATERII PE GRUPE ──────────────────────
   html += '<div class="home-section-header">';
@@ -5977,9 +6356,7 @@ function renderDashboard(element) {
   html += '<button class="home-section-action" onclick="openSubjectManager()">' + icon('settings','xs') + ' Gestionează</button>';
   html += '</div>';
 
-  // Build groups — dacă nu există grupe, pune toate materiile într-un grup default
   const groups = getSubjectGroupsForDisplay(subjects);
-
   groups.forEach(group => {
     html += '<div class="subject-group">';
     html += '<div class="subject-group-label">';
@@ -5996,26 +6373,37 @@ function renderDashboard(element) {
       const done  = todos.filter(t => t.done).length;
       const pct   = todos.length ? Math.round(done/todos.length*100) : 0;
       const pres  = getAllPresentations(key).length;
+      const fcCount = (state.flashcardDecks && state.flashcardDecks[key] || []).length;
+      const qCount = (state.quizHistory && state.quizHistory[key] || []).length;
 
       html += '<div class="home-subj-card" onclick="navigateTo(\'' + key + '\')" style="--subj-accent:' + theme.accent + ';--subj-border:' + theme.border + '">';
+      // Top: icon + percent
       html += '<div class="home-subj-top">';
       html += subjectIconBadge(subj, 32);
-      if (pct > 0) html += '<span style="font-family:var(--font-mono);font-size:.68rem;color:' + theme.accent + '">' + pct + '%</span>';
+      if (pct > 0) html += '<span style="font-family:var(--font-mono);font-size:.7rem;font-weight:700;color:' + theme.accent + '">' + pct + '%</span>';
       html += '</div>';
+      // Name
       html += '<div>';
       html += '<div class="home-subj-name">' + escapeHtml(subj.name) + '</div>';
-      html += '<div class="home-subj-meta">' + pres + ' prez · ' + (todos.length ? done+'/'+todos.length+' tasks' : '0 tasks') + '</div>';
+      html += '<div class="home-subj-meta" style="margin-top:2px;">' + escapeHtml(subj.desc ? subj.desc.split(',')[0] : '') + '</div>';
       html += '</div>';
+      // Stats row
+      html += '<div class="home-subj-stats">';
+      html += '<span class="home-subj-stat">' + icon('layers','xs') + ' ' + pres + ' prez</span>';
+      if (fcCount) html += '<span class="home-subj-stat">' + icon('cards','xs') + ' ' + fcCount + '</span>';
+      if (qCount) html += '<span class="home-subj-stat">' + icon('brain','xs') + ' ' + qCount + '</span>';
+      html += '</div>';
+      // Progress bar
       if (todos.length) {
         html += '<div class="home-subj-progress"><div class="home-subj-progress-fill" style="width:' + pct + '%;background:' + theme.accent + '"></div></div>';
+      } else {
+        html += '<div class="home-subj-progress"><div class="home-subj-progress-fill" style="width:0%;background:' + theme.accent + '"></div></div>';
       }
       html += '</div>';
     });
 
-    // Add subject to this group
-    html += '<div class="home-add-subj-card" onclick="openSubjectManager()">' + icon('plus','sm') + '<span>Adaugă</span></div>';
-
-    html += '</div></div>'; // end grid + group
+    html += '<div class="home-add-subj-card" onclick="openSubjectManager()">' + icon('plus','sm') + '<span>Adaugă materie</span></div>';
+    html += '</div></div>';
   });
 
   // ── TOOLS AI ──────────────────────────────
@@ -6025,14 +6413,14 @@ function renderDashboard(element) {
   html += '<div class="home-tools-grid">';
 
   const tools = [
-    { tab:'quiz',        iconN:'brain',      color:'var(--accent)',  muted:'var(--accent-muted)',  border:'var(--accent-border)',   name:'Quiz Mode',          desc:'Grile generate din cursul tău' },
-    { tab:'flashcards',  iconN:'cards',      color:'var(--blue)',    muted:'var(--blue-muted)',    border:'rgba(56,189,248,.22)',    name:'Flashcards',         desc:'Spaced repetition · ' + (dueFC?'<span style="color:var(--amber)">'+dueFC+' scadente</span>':'0 scadente') },
-    { tab:'mindmap',     iconN:'map',        color:'var(--green)',   muted:'var(--green-muted)',   border:'rgba(16,217,160,.22)',    name:'Mind Map AI',        desc:'Hărți conceptuale vizuale' },
-    { tab:'examsim',     iconN:'graduation', color:'var(--purple)',  muted:'var(--purple-muted)',  border:'rgba(167,139,250,.22)',   name:'Exam Simulator',     desc:'Sesiune cronometrată cu feedback' },
-    { tab:'mentor',      iconN:'robot',      color:'var(--accent)',  muted:'var(--accent-muted)',  border:'var(--accent-border)',   name:'AI Mentor',          desc:generateAutoInsightShort() },
-    { tab:'calendar',    iconN:'calendar',   color:'var(--red)',     muted:'var(--red-muted)',     border:'rgba(239,69,101,.22)',    name:'Calendar Sesiune',   desc:nextExam ? examDays+'z · '+escapeHtml(nextExam.name) : 'Programează examene' },
-    { tab:'stats',       iconN:'chart',      color:'var(--blue)',    muted:'var(--blue-muted)',    border:'rgba(56,189,248,.22)',    name:'Statistici',         desc:'Progres detaliat & grafice' },
-    { tab:'achievements',iconN:'trophy',     color:'var(--amber)',   muted:'var(--amber-muted)',   border:'rgba(245,166,35,.22)',    name:'Realizări & XP',     desc:'Nivel '+(state.level||1)+' · '+(state.xp||0)+' XP total' },
+    { tab:'quiz',        iconN:'brain',      color:'var(--accent)',  muted:'var(--accent-muted)',  border:'var(--accent-border)',  name:'Quiz Mode',        desc:'Grile generate din cursul tău' },
+    { tab:'flashcards',  iconN:'cards',      color:'var(--blue)',    muted:'var(--blue-muted)',    border:'rgba(56,189,248,.22)',   name:'Flashcards',       desc:'Spaced repetition · ' + (dueFC?'<span style="color:var(--amber);font-weight:700">'+dueFC+' scadente</span>':'0 scadente') },
+    { tab:'mindmap',     iconN:'map',        color:'var(--green)',   muted:'var(--green-muted)',   border:'rgba(16,217,160,.22)',   name:'Mind Map AI',      desc:'Hărți conceptuale vizuale' },
+    { tab:'examsim',     iconN:'graduation', color:'var(--purple)',  muted:'var(--purple-muted)',  border:'rgba(167,139,250,.22)',  name:'Exam Simulator',   desc:'Sesiune cronometrată cu feedback' },
+    { tab:'mentor',      iconN:'robot',      color:'var(--accent)',  muted:'var(--accent-muted)',  border:'var(--accent-border)',  name:'AI Mentor',        desc:generateAutoInsightShort() },
+    { tab:'calendar',    iconN:'calendar',   color:'var(--red)',     muted:'var(--red-muted)',     border:'rgba(239,69,101,.22)',   name:'Calendar Sesiune', desc:nextExam ? Math.round((new Date(nextExam.date)-new Date())/86400000)+'z · '+escapeHtml(nextExam.name) : 'Programează examene' },
+    { tab:'stats',       iconN:'chart',      color:'var(--blue)',    muted:'var(--blue-muted)',    border:'rgba(56,189,248,.22)',   name:'Statistici',       desc:'Progres detaliat & grafice' },
+    { tab:'achievements',iconN:'trophy',     color:'var(--amber)',   muted:'var(--amber-muted)',   border:'rgba(245,166,35,.22)',   name:'Realizări & XP',   desc:'Nivel '+(state.level||1)+' · '+(state.xp||0)+' XP total' },
   ];
 
   tools.forEach(t => {
@@ -6041,20 +6429,9 @@ function renderDashboard(element) {
     html += '<div><div class="home-tool-name">' + t.name + '</div><div class="home-tool-desc">' + t.desc + '</div></div>';
     html += '</div>';
   });
+  html += '</div>';
 
-  html += '</div>'; // end tools grid
-
-  // ── API CONFIG (dacă nu e setat) ──────────
-  if (!state.apiKey) {
-    html += '<div style="margin-top:24px;background:var(--bg-raised);border:1px solid var(--accent-border);border-radius:var(--radius-sm);padding:16px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">';
-    html += '<div class="home-kpi-icon" style="background:var(--accent-muted);color:var(--accent);flex-shrink:0;">' + icon('key','sm') + '</div>';
-    html += '<div style="flex:1;"><div style="font-weight:600;font-size:.88rem;margin-bottom:2px;">Conectează Claude AI</div>';
-    html += '<div style="font-size:.78rem;color:var(--text-muted);">Necesar pentru Quiz, Flashcards AI, Prezentări, Mind Maps, Mentor.</div></div>';
-    html += '<button onclick="navigateTo(\'settings\')" style="padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-xs);font-weight:600;font-size:.8rem;cursor:pointer;white-space:nowrap;flex-shrink:0;">Configurează</button>';
-    html += '</div>';
-  }
-
-  html += '</div>'; // end anim
+  html += '</div>';
   element.innerHTML = html;
 }
 
@@ -6133,6 +6510,14 @@ function saveApiKey() {
   }
 }
 
+function clearApiKey() {
+  if (!confirm('Sigur vrei să ștergi API key-ul? Funcțiile AI vor fi dezactivate.')) return;
+  state.apiKey = '';
+  saveState();
+  renderSettingsPage(document.getElementById('pageContent'));
+  showToast('API key șters', 'Funcțiile AI sunt dezactivate.', 'warning', 3000);
+}
+
 // =============================================
 // SUBJECT PAGE
 // =============================================
@@ -6192,7 +6577,12 @@ function renderSubjectPage(element, key, subject) {
     });
     html += '</div>';
   } else {
-    html += '<div style="text-align:center;padding:32px;color:var(--text-muted);font-size:.88rem;">Nicio prezentare încă. Generează una mai jos din fișierul tău de curs.</div>';
+    html += '<div class="empty-state">';
+    html += '<div class="empty-state-icon">' + icon('layers2','md') + '</div>';
+    html += '<div class="empty-state-title">Nicio prezentare încă</div>';
+    html += '<div class="empty-state-desc">Încarcă un fișier PDF, DOCX sau lipește text din cursul tău, iar AI-ul va genera o prezentare structurată cu slide-uri.</div>';
+    html += (state.apiKey ? '<button class="empty-state-btn" onclick="document.getElementById(\'uploadZone\')?.scrollIntoView({behavior:\'smooth\'})">' + icon('sparkle','xs') + ' Generează prima prezentare</button>' : '<button class="empty-state-btn" onclick="navigateTo(\'settings\')">' + icon('key','xs') + ' Configurează API Key</button>');
+    html += '</div>';
   }
 
   html += '</div></div>';
@@ -8151,7 +8541,12 @@ function renderAllFCStats() {
   }
 
   if (!totalCards) {
-    return '<div style="text-align:center;padding:40px;color:var(--text-muted);">Selectează o materie și generează flashcard-uri pentru a începe 🃏</div>';
+    return '<div class="empty-state">' +
+      '<div class="empty-state-icon">' + icon('cards','md') + '</div>' +
+      '<div class="empty-state-title">Niciun flashcard încă</div>' +
+      '<div class="empty-state-desc">Selectează o materie și generează flashcard-uri AI din prezentările tale. Sistemul de spaced repetition îți va programa recapitulările optim.</div>' +
+      (state.apiKey ? '' : '<button class="empty-state-btn" onclick="navigateTo(\'settings\')">' + icon('key','xs') + ' Configurează API Key</button>') +
+      '</div>';
   }
 
   let html = '<div class="flashcard-stats" style="margin-top:20px;">';
@@ -9233,6 +9628,8 @@ function renderMindMapPage(element) {
   }
   html += '</div></div>';
   element.innerHTML = html;
+  // Inițializează canvas după injectarea în DOM
+  setTimeout(mmInitCanvas, 0);
 }
 
 function selectMMSubject(key) {
@@ -9241,8 +9638,12 @@ function selectMMSubject(key) {
   event.target.classList.add('active');
   const zone = document.getElementById('mmDisplayZone');
   if (zone) {
-    if (state.mindMaps && state.mindMaps[key] && state.mindMaps[key].nodes) zone.innerHTML = renderMindMapSVG(state.mindMaps[key], key);
-    else zone.innerHTML = '<div style="text-align:center;padding:60px;color:var(--text-muted);">Niciun mind map pentru această materie. Generează unul!</div>';
+    if (state.mindMaps && state.mindMaps[key] && state.mindMaps[key].nodes) {
+      zone.innerHTML = renderMindMapSVG(state.mindMaps[key], key);
+      setTimeout(mmInitCanvas, 0);
+    } else {
+      zone.innerHTML = '<div style="text-align:center;padding:60px;color:var(--text-muted);">Niciun mind map pentru această materie. Generează unul!</div>';
+    }
   }
 }
 
@@ -9266,25 +9667,47 @@ async function generateMindMap() {
       headers: { 'Content-Type': 'application/json', 'x-api-key': state.apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514', max_tokens: 2000,
-        system: 'Generezi structura unui mind map pentru ' + subject.full + '. RĂSPUNDE STRICT cu JSON. {"center":"Titlu Central","nodes":[{"id":"n1","label":"Concept","children":[{"id":"n1a","label":"Sub-concept"}]}]} 5-7 noduri principale, 2-4 copii fiecare, label-uri scurte (max 5 cuvinte), în română.',
-        messages: [{ role: 'user', content: 'Mind map din:\n\n' + context.substring(0, 5000) }]
+        system: `Ești un generator de mind map-uri. Răspunzi DOAR cu un obiect JSON valid, fără text adițional, fără markdown, fără explicații.
+Structura exactă:
+{"center":"Titlu scurt","nodes":[{"label":"Concept 1","children":[{"label":"Sub-concept A"},{"label":"Sub-concept B"}]},{"label":"Concept 2","children":[{"label":"Sub-concept C"}]}]}
+Reguli: 5-7 noduri principale, 2-4 copii fiecare, label-uri max 4 cuvinte, în română. DOAR JSON, nimic altceva.`,
+        messages: [{ role: 'user', content: 'Generează mind map pentru ' + subject.name + ' (' + subject.full + ') din acest material:\n\n' + context.substring(0, 4000) }]
       })
     });
     const data = await response.json();
+    if (data.error) { statusEl.textContent = '[!] API: ' + data.error.message; btn.disabled = false; btn.innerHTML = icon('map','sm') + ' Generează Mind Map'; return; }
+
     if (data.content && data.content[0]) {
-      let raw = data.content[0].text.trim().replace(/^```json?\s*/,'').replace(/\s*```$/,'').trim();
-      let mm = null; try { mm = JSON.parse(raw); } catch(e) {}
-      if (mm && mm.center && mm.nodes) {
+      let raw = data.content[0].text.trim();
+      // Extrage JSON robust — caută primul { și ultimul }
+      const firstBrace = raw.indexOf('{');
+      const lastBrace = raw.lastIndexOf('}');
+      if (firstBrace !== -1 && lastBrace !== -1) raw = raw.substring(firstBrace, lastBrace + 1);
+      raw = raw.replace(/^```json?\s*/,'').replace(/\s*```$/,'').trim();
+
+      let mm = null;
+      try { mm = JSON.parse(raw); } catch(e) {
+        statusEl.textContent = '[!] Eroare parsare JSON: ' + e.message;
+        btn.disabled = false; btn.innerHTML = icon('map','sm') + ' Generează Mind Map';
+        return;
+      }
+
+      if (mm && mm.center && mm.nodes && mm.nodes.length > 0) {
         if (!state.mindMaps) state.mindMaps = {};
         state.mindMaps[key] = mm; saveState();
+        window._mmCollapsed = {};
         awardXP(60, 'Mind Map generat', key);
         document.getElementById('mmDisplayZone').innerHTML = renderMindMapSVG(mm, key);
+        setTimeout(mmInitCanvas, 0);
         statusEl.textContent = '';
-      } else { statusEl.textContent = '[!] Eroare la parsare.'; }
-    } else if (data.error) { statusEl.textContent = '[!] ' + data.error.message; }
+        showToast('Mind Map generat!', mm.nodes.length + ' concepte principale', 'success', 2500);
+      } else {
+        statusEl.textContent = '[!] JSON incomplet (lipsesc center sau nodes)';
+      }
+    }
   } catch(err) { statusEl.textContent = '[!] ' + err.message; }
 
-  btn.disabled = false; btn.innerHTML = '' + icon('map','sm') + ' Generează Mind Map';
+  btn.disabled = false; btn.innerHTML = icon('map','sm') + ' Generează Mind Map';
 }
 
 function clearMindMap() {
@@ -9297,39 +9720,288 @@ function clearMindMap() {
 function renderMindMapSVG(mm, subjectKey) {
   const subject = getSubjects()[subjectKey];
   const theme = subject ? getSubjectTheme(subject) : SUBJECT_THEMES[0];
-  const W = 900, H = 580, CX = W/2, CY = H/2;
-  const nodes = mm.nodes || [], N = nodes.length;
-  let nodeElements = '', lineElements = '';
+  window._mmData = mm;
+  window._mmTheme = theme;
+  if (!window._mmCollapsed) window._mmCollapsed = {};
 
-  nodes.forEach((node, i) => {
-    const angle = (i/N) * 2 * Math.PI - Math.PI/2;
-    const nx = CX + 185 * Math.cos(angle), ny = CY + 185 * Math.sin(angle);
-    lineElements += `<line x1="${CX}" y1="${CY}" x2="${nx}" y2="${ny}" stroke="${theme.accent}" stroke-width="2" stroke-opacity="0.45"/>`;
-
-    (node.children||[]).forEach((child, j) => {
-      const ca = angle + ((j - (node.children.length-1)/2) * 0.5);
-      const cx2 = nx + 92 * Math.cos(ca), cy2 = ny + 92 * Math.sin(ca);
-      lineElements += `<line x1="${nx}" y1="${ny}" x2="${cx2}" y2="${cy2}" stroke="${theme.accent}" stroke-width="1.5" stroke-opacity="0.3"/>`;
-      nodeElements += `<g><rect x="${cx2-46}" y="${cy2-15}" width="92" height="30" rx="8" fill="${theme.muted}" stroke="${theme.border}" stroke-width="1"/><text x="${cx2}" y="${cy2+5}" text-anchor="middle" font-size="10" fill="${theme.accent}" font-family="DM Sans,sans-serif" font-weight="500">${escapeHtml((child.label||'').substring(0,20))}</text></g>`;
-    });
-
-    const words = (node.label||'').split(' ');
-    nodeElements += `<g><circle cx="${nx}" cy="${ny}" r="38" fill="${theme.muted}" stroke="${theme.accent}" stroke-width="2"/><text x="${nx}" y="${ny-4}" text-anchor="middle" font-size="11" fill="${theme.accent}" font-family="DM Sans,sans-serif" font-weight="700">${escapeHtml(words.slice(0,2).join(' '))}</text>${words.length>2?`<text x="${nx}" y="${ny+10}" text-anchor="middle" font-size="9" fill="${theme.accent}" font-family="DM Sans,sans-serif">${escapeHtml(words.slice(2).join(' '))}</text>`:''}</g>`;
-  });
-
-  const cWords = (mm.center||'').split(' ');
-  const centerEl = `<circle cx="${CX}" cy="${CY}" r="52" fill="${theme.accent}" opacity="0.9"/><text x="${CX}" y="${CY-6}" text-anchor="middle" font-size="13" fill="white" font-family="Newsreader,serif" font-weight="800">${escapeHtml(cWords.slice(0,3).join(' '))}</text>${cWords.length>3?`<text x="${CX}" y="${CY+11}" text-anchor="middle" font-size="11" fill="white" font-family="Newsreader,serif">${escapeHtml(cWords.slice(3).join(' '))}</text>`:''}`;
-
-  return `<div class="mindmap-container" style="margin-top:20px;"><div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;"><span style="font-size:.82rem;font-weight:700;color:var(--text-secondary);">🗺️ ${escapeHtml(mm.center||'')}</span><button class="quiz-nav-btn" style="font-size:.75rem;" onclick="downloadMindMapSVG()">⬇️ SVG</button></div><div id="mmSvgContainer"><svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-height:480px;display:block;"><rect width="${W}" height="${H}" fill="transparent"/>${lineElements}${nodeElements}${centerEl}</svg></div></div>`;
+  return `<div class="mindmap-container" style="margin-top:20px;">
+    <div style="padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+      <span style="font-size:.82rem;font-weight:700;color:var(--text-secondary);display:flex;align-items:center;gap:6px;">${icon('map','xs')} ${escapeHtml(mm.center || '')}</span>
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+        <span style="font-size:.68rem;color:var(--text-muted);font-family:var(--font-mono);">scroll=zoom · drag=pan · click=collapse</span>
+        <button class="quiz-nav-btn" style="font-size:.72rem;padding:5px 10px;" onclick="mmZoomReset()">⊙ Reset</button>
+        <button class="quiz-nav-btn" style="font-size:.72rem;padding:5px 10px;" onclick="mmExpandAll()">⊕ Expand tot</button>
+        <button class="quiz-nav-btn" style="font-size:.72rem;padding:5px 10px;" onclick="downloadMindMapSVG()">${icon('download','xs')} SVG</button>
+      </div>
+    </div>
+    <canvas id="mmCanvas" style="width:100%;display:block;cursor:grab;" height="560"></canvas>
+  </div>`;
 }
+
+// ─── Mind Map Canvas Engine ───────────────────────────────────
+let mmState = { zoom:0.85, panX:0, panY:0, dragging:false, dragMoved:false, dragStartX:0, dragStartY:0, lastTouchX:0, lastTouchY:0, nodes:[], edges:[], animFrame:null };
+
+function mmBuildLayout(mm, theme) {
+  const nodes = [], edges = [];
+  const collapsed = window._mmCollapsed || {};
+  const mainNodes = mm.nodes || [];
+  const N = mainNodes.length;
+  const CX = 560, CY = 280;
+  const MAIN_R = Math.min(205, 90 + N * 16);
+
+  nodes.push({ id:'center', x:CX, y:CY, r:58, label:(mm.center||'').split(' ').slice(0,3).join(' '), sub:(mm.center||'').split(' ').slice(3).join(' '), type:'center' });
+
+  mainNodes.forEach((node, i) => {
+    const angle = (i / N) * 2 * Math.PI - Math.PI / 2;
+    const nx = CX + MAIN_R * Math.cos(angle);
+    const ny = CY + MAIN_R * Math.sin(angle);
+    const nid = 'n' + i;
+    const isCollapsed = collapsed[nid] === true;
+    const children = node.children || [];
+    const childIds = children.map((_,j) => nid+'c'+j);
+
+    nodes.push({ id:nid, x:nx, y:ny, r:44, label:(node.label||'').split(' ').slice(0,2).join(' '), sub:(node.label||'').split(' ').slice(2,4).join(' '), type:'main', children:childIds, collapsed:isCollapsed, childCount:childIds.length });
+    edges.push({ x1:CX, y1:CY, x2:nx, y2:ny, width:2, opacity:0.55 });
+
+    if (!isCollapsed) {
+      const nC = children.length;
+      const totalSpread = nC <= 1 ? 0 : Math.min(nC * 0.36, 1.5);
+      const dist = 108 + nC * 6;
+      children.forEach((child, j) => {
+        const cid = nid+'c'+j;
+        const offset = nC <= 1 ? 0 : (j/(nC-1) - 0.5) * totalSpread;
+        const ca = angle + offset;
+        const cx2 = nx + dist * Math.cos(ca);
+        const cy2 = ny + dist * Math.sin(ca);
+        nodes.push({ id:cid, x:cx2, y:cy2, r:15, label:(child.label||'').substring(0,22), type:'child', parentId:nid });
+        edges.push({ x1:nx, y1:ny, x2:cx2, y2:cy2, width:1.5, opacity:0.3 });
+      });
+    }
+  });
+  return { nodes, edges };
+}
+
+function mmDraw() {
+  const canvas = document.getElementById('mmCanvas');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth || canvas.parentElement && canvas.parentElement.offsetWidth || 700;
+  const H = 560;
+  if (canvas.width !== Math.round(W*dpr) || canvas.height !== Math.round(H*dpr)) {
+    canvas.width = Math.round(W*dpr);
+    canvas.height = Math.round(H*dpr);
+    canvas.style.height = H + 'px';
+  }
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+  const mm = window._mmData, theme = window._mmTheme;
+  if (!mm || !theme) return;
+  const { nodes, edges } = mmBuildLayout(mm, theme);
+  mmState.nodes = nodes; mmState.edges = edges;
+  const { zoom, panX, panY } = mmState;
+  ctx.save();
+  ctx.translate(W/2 + panX, H/2 + panY);
+  ctx.scale(zoom, zoom);
+  ctx.translate(-560, -280);
+  edges.forEach(e => {
+    ctx.beginPath(); ctx.moveTo(e.x1, e.y1); ctx.lineTo(e.x2, e.y2);
+    ctx.strokeStyle = theme.accent; ctx.globalAlpha = e.opacity; ctx.lineWidth = e.width; ctx.stroke(); ctx.globalAlpha = 1;
+  });
+  nodes.forEach(node => {
+    ctx.save();
+    ctx.textBaseline = 'middle';
+    if (node.type === 'center') {
+      const grd = ctx.createRadialGradient(node.x, node.y, node.r*0.3, node.x, node.y, node.r*1.7);
+      grd.addColorStop(0, theme.accent+'30'); grd.addColorStop(1, 'transparent');
+      ctx.beginPath(); ctx.arc(node.x, node.y, node.r*1.7, 0, Math.PI*2); ctx.fillStyle=grd; ctx.fill();
+      ctx.beginPath(); ctx.arc(node.x, node.y, node.r, 0, Math.PI*2);
+      ctx.fillStyle=theme.accent; ctx.globalAlpha=0.93; ctx.fill(); ctx.globalAlpha=1;
+      ctx.fillStyle='#fff'; ctx.textAlign='center';
+      ctx.font='bold 13px sans-serif'; ctx.fillText(node.label, node.x, node.y+(node.sub?-7:0));
+      if (node.sub){ctx.font='11px sans-serif'; ctx.globalAlpha=0.85; ctx.fillText(node.sub, node.x, node.y+9); ctx.globalAlpha=1;}
+    } else if (node.type === 'main') {
+      ctx.beginPath(); ctx.arc(node.x, node.y, node.r, 0, Math.PI*2);
+      ctx.fillStyle=theme.muted; ctx.fill();
+      ctx.strokeStyle=theme.accent; ctx.lineWidth=node.collapsed?3:2; ctx.stroke();
+      if (node.childCount > 0) {
+        const bx=node.x+node.r*0.72, by=node.y-node.r*0.72;
+        ctx.beginPath(); ctx.arc(bx, by, 10, 0, Math.PI*2);
+        ctx.fillStyle=node.collapsed?theme.accent:'#0e1118'; ctx.fill();
+        ctx.strokeStyle=theme.accent; ctx.lineWidth=1.5; ctx.stroke();
+        ctx.fillStyle=node.collapsed?'#fff':theme.accent;
+        ctx.font='bold 13px sans-serif'; ctx.textAlign='center';
+        ctx.fillText(node.collapsed?'+':'−', bx, by);
+      }
+      ctx.fillStyle=theme.accent; ctx.textAlign='center';
+      ctx.font='bold 12px sans-serif'; ctx.fillText(node.label, node.x, node.y+(node.sub?-7:0));
+      if (node.sub){ctx.font='10px sans-serif'; ctx.globalAlpha=0.8; ctx.fillText(node.sub, node.x, node.y+8); ctx.globalAlpha=1;}
+    } else if (node.type === 'child') {
+      ctx.font='600 10px sans-serif';
+      const tw=ctx.measureText(node.label).width;
+      const pw=tw+22, ph=28, rx=8, bx=node.x-pw/2, by=node.y-ph/2;
+      ctx.beginPath();
+      ctx.moveTo(bx+rx,by); ctx.lineTo(bx+pw-rx,by); ctx.quadraticCurveTo(bx+pw,by,bx+pw,by+rx);
+      ctx.lineTo(bx+pw,by+ph-rx); ctx.quadraticCurveTo(bx+pw,by+ph,bx+pw-rx,by+ph);
+      ctx.lineTo(bx+rx,by+ph); ctx.quadraticCurveTo(bx,by+ph,bx,by+ph-rx);
+      ctx.lineTo(bx,by+rx); ctx.quadraticCurveTo(bx,by,bx+rx,by); ctx.closePath();
+      ctx.fillStyle=theme.muted; ctx.fill(); ctx.strokeStyle=theme.border; ctx.lineWidth=1.2; ctx.stroke();
+      ctx.fillStyle=theme.accent; ctx.textAlign='center'; ctx.fillText(node.label, node.x, node.y);
+    }
+    ctx.restore();
+  });
+  ctx.restore();
+}
+
+function mmHitTest(cx, cy) {
+  const canvas = document.getElementById('mmCanvas');
+  if (!canvas) return null;
+  const W = canvas.offsetWidth || 700, H = 560;
+  const { zoom, panX, panY } = mmState;
+  const lx = (cx - W/2 - panX) / zoom + 560;
+  const ly = (cy - H/2 - panY) / zoom + 280;
+  for (const node of mmState.nodes) {
+    if (node.type !== 'main') continue;
+    const dx = lx-node.x, dy = ly-node.y;
+    if (Math.sqrt(dx*dx+dy*dy) <= node.r+12) return node;
+  }
+  return null;
+}
+
+function mmInitCanvas() {
+  const canvas = document.getElementById('mmCanvas');
+  if (!canvas) return;
+  if (canvas._mmInited) { mmScheduleDraw(); return; }
+  canvas._mmInited = true;
+  mmState.zoom = 0.82; mmState.panX = 0; mmState.panY = 0;
+  mmState.mouseOver = false; mmState.dragging = false;
+  mmState.targetZoom = 0.82; // pentru smooth zoom
+
+  canvas.addEventListener('mouseenter', () => { mmState.mouseOver = true; });
+  canvas.addEventListener('mouseleave', () => { mmState.mouseOver = false; mmState.dragging = false; });
+
+  // ── Wheel handler ──
+  // Pe MacBook: pinch gesture = wheel cu e.ctrlKey === true
+  // Scroll normal fără ctrlKey = scroll pagină (nu interceptăm)
+  canvas.addEventListener('wheel', e => {
+    const isPinch = e.ctrlKey; // MacBook trackpad pinch trimite ctrlKey=true
+
+    if (isPinch) {
+      // PINCH ZOOM — smooth, spre poziția cursorului
+      e.preventDefault();
+      e.stopPropagation();
+
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+      const W = canvas.offsetWidth || 700, H = 560;
+
+      // deltaY la pinch e mic și continuu — factor proporțional, nu step
+      // MacBook trackpad dă valori mici (-3 la +3 de obicei)
+      const sensitivity = 0.008;
+      const scaleFactor = Math.exp(-e.deltaY * sensitivity);
+      const newZ = Math.max(0.15, Math.min(6, mmState.zoom * scaleFactor));
+
+      // Zoom spre poziția cursorului
+      const lx = (mx - W / 2 - mmState.panX) / mmState.zoom;
+      const ly = (my - H / 2 - mmState.panY) / mmState.zoom;
+      mmState.panX = mx - W / 2 - lx * newZ;
+      mmState.panY = my - H / 2 - ly * newZ;
+      mmState.zoom = newZ;
+      mmScheduleDraw();
+
+    } else if (mmState.mouseOver) {
+      // SCROLL cu mouse normal deasupra canvas-ului = pan canvas (nu zoom)
+      // Lasă pagina să scrolleze dacă mouse-ul nu e pe canvas
+      e.preventDefault();
+      mmState.panX -= e.deltaX;
+      mmState.panY -= e.deltaY;
+      mmScheduleDraw();
+    }
+    // Dacă nu e pinch și mouse-ul nu e pe canvas → scroll normal al paginii
+  }, { passive: false });
+
+  // Mouse drag: NUMAI pe canvas (nu window)
+  canvas.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    mmState.dragging = true;
+    mmState.dragStartX = e.clientX; mmState.dragStartY = e.clientY;
+    mmState.dragMoved = false;
+    mmState.lastMouseX = e.clientX; mmState.lastMouseY = e.clientY;
+    canvas.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+  canvas.addEventListener('mousemove', e => {
+    if (!mmState.dragging) return;
+    mmState.panX += e.clientX - mmState.lastMouseX;
+    mmState.panY += e.clientY - mmState.lastMouseY;
+    mmState.lastMouseX = e.clientX; mmState.lastMouseY = e.clientY;
+    if (Math.abs(e.clientX-mmState.dragStartX)>4||Math.abs(e.clientY-mmState.dragStartY)>4) mmState.dragMoved=true;
+    mmScheduleDraw();
+  });
+  canvas.addEventListener('mouseup', e => {
+    if (!mmState.dragging) return;
+    mmState.dragging = false; canvas.style.cursor = 'grab';
+    if (!mmState.dragMoved) {
+      const rect = canvas.getBoundingClientRect();
+      const node = mmHitTest(e.clientX-rect.left, e.clientY-rect.top);
+      if (node) mmToggleCollapse(node.id);
+    }
+  });
+  document.addEventListener('mouseup', () => { if (mmState.dragging) { mmState.dragging=false; const c=document.getElementById('mmCanvas'); if(c) c.style.cursor='grab'; } });
+
+  // Touch: pinch only, scroll paginii funcționează normal
+  let ltd = 0;
+  canvas.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) { ltd = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); e.preventDefault(); }
+  }, { passive: false });
+  canvas.addEventListener('touchmove', e => {
+    if (e.touches.length === 2 && ltd > 0) {
+      const d = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+      mmState.zoom = Math.max(0.2, Math.min(5, mmState.zoom*(d/ltd))); ltd=d; mmScheduleDraw(); e.preventDefault();
+    }
+  }, { passive: false });
+
+  const ro = new ResizeObserver(() => mmScheduleDraw());
+  ro.observe(canvas);
+  // Double rAF asigură că browser-ul a calculat layout-ul înainte de desenare
+  requestAnimationFrame(() => requestAnimationFrame(mmDraw));
+}
+
+function mmScheduleDraw() {
+  if (mmState.animFrame) cancelAnimationFrame(mmState.animFrame);
+  mmState.animFrame = requestAnimationFrame(mmDraw);
+}
+function mmToggleCollapse(nid) {
+  if (!window._mmCollapsed) window._mmCollapsed = {};
+  window._mmCollapsed[nid] = !window._mmCollapsed[nid];
+  mmScheduleDraw();
+}
+function mmZoomReset() { mmState.zoom = 0.82; mmState.panX = 0; mmState.panY = 0; mmScheduleDraw(); }
+function mmExpandAll() { window._mmCollapsed = {}; mmScheduleDraw(); }
+
 
 function downloadMindMapSVG() {
-  const svgEl = document.querySelector('#mmSvgContainer svg');
-  if (!svgEl) return;
-  const blob = new Blob([svgEl.outerHTML], { type: 'image/svg+xml' });
+  const mm = window._mmData, theme = window._mmTheme;
+  if (!mm||!theme) return;
+  const saved = window._mmCollapsed; window._mmCollapsed = {};
+  const { nodes, edges } = mmBuildLayout(mm, theme);
+  window._mmCollapsed = saved;
+  const W=1120, H=700, ox=0, oy=70;
+  let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="#080a0f"/>`;
+  edges.forEach(e => { svg+=`<line x1="${e.x1+ox}" y1="${e.y1+oy}" x2="${e.x2+ox}" y2="${e.y2+oy}" stroke="${theme.accent}" stroke-width="${e.width}" stroke-opacity="${e.opacity}"/>`; });
+  nodes.forEach(n => {
+    if (n.type==='center') { svg+=`<circle cx="${n.x+ox}" cy="${n.y+oy}" r="${n.r}" fill="${theme.accent}" opacity="0.93"/><text x="${n.x+ox}" y="${n.y+oy+(n.sub?-5:5)}" text-anchor="middle" font-size="13" fill="white" font-family="DM Sans,sans-serif" font-weight="bold">${escapeHtml(n.label)}</text>`; if (n.sub) svg+=`<text x="${n.x+ox}" y="${n.y+oy+11}" text-anchor="middle" font-size="10" fill="white" font-family="DM Sans,sans-serif" opacity="0.85">${escapeHtml(n.sub)}</text>`; }
+    else if (n.type==='main') { svg+=`<circle cx="${n.x+ox}" cy="${n.y+oy}" r="${n.r}" fill="${theme.muted}" stroke="${theme.accent}" stroke-width="2"/><text x="${n.x+ox}" y="${n.y+oy+(n.sub?-4:4)}" text-anchor="middle" font-size="11" fill="${theme.accent}" font-family="DM Sans,sans-serif" font-weight="bold">${escapeHtml(n.label)}</text>`; if (n.sub) svg+=`<text x="${n.x+ox}" y="${n.y+oy+9}" text-anchor="middle" font-size="9" fill="${theme.accent}" font-family="DM Sans,sans-serif" opacity="0.8">${escapeHtml(n.sub)}</text>`; }
+    else if (n.type==='child') { const pw=n.label.length*7+20,ph=30; svg+=`<rect x="${n.x+ox-pw/2}" y="${n.y+oy-ph/2}" width="${pw}" height="${ph}" rx="9" fill="${theme.muted}" stroke="${theme.border}" stroke-width="1.2"/><text x="${n.x+ox}" y="${n.y+oy+4}" text-anchor="middle" font-size="10.5" fill="${theme.accent}" font-family="DM Sans,sans-serif" font-weight="600">${escapeHtml(n.label)}</text>`; }
+  });
+  svg += '</svg>';
+  const blob = new Blob([svg], {type:'image/svg+xml'});
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'mindmap.svg'; a.click(); URL.revokeObjectURL(url);
+  const a = document.createElement('a'); a.href=url; a.download='mindmap.svg'; a.click(); URL.revokeObjectURL(url);
 }
+
+
 
 // =============================================
 // V7 — EXAM SIMULATOR
@@ -9520,27 +10192,44 @@ function submitExamSim() {
 // V7 — SETTINGS (Import / Export / Collab)
 // =============================================
 function renderSettingsPage(element) {
-  let html = '<div class="anim"><div class="dash-hero" style="padding:28px 20px 20px"><h2>📦 Import / Export / Collab</h2><p>Backup complet, transfer date, mod colaborare</p></div>';
+  let html = '<div class="anim"><div class="dash-hero" style="padding:28px 20px 20px"><h2>' + icon('settings','sm') + ' Setări</h2><p>API key, backup date, import/export</p></div>';
 
-  html += '<div class="quiz-gen-section"><h3>⬇️ Export Date</h3>';
+  // ── API KEY — prima și cea mai importantă secțiune ──
+  const apiKeySet = !!(state.apiKey && state.apiKey.length > 10);
+  html += '<div class="quiz-gen-section" style="border-color:' + (apiKeySet ? 'var(--accent-border)' : 'rgba(245,166,35,.4)') + ';background:' + (apiKeySet ? 'var(--accent-muted)' : 'var(--amber-muted)') + ';">';
+  html += '<h3 style="color:' + (apiKeySet ? 'var(--accent)' : 'var(--amber)') + '">' + icon('key','sm') + ' ' + (apiKeySet ? 'Claude API Key — Activ ✓' : 'Claude API Key — Neconfigurat') + '</h3>';
+  html += '<p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:14px;">Necesar pentru AI Tutor, Quiz, Flashcards AI, Mind Map și Prezentări. Obții gratuit de la <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--accent);text-decoration:underline;">console.anthropic.com</a>.</p>';
+  html += '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">';
+  html += '<input type="password" id="apiKeyInput" class="todo-inp" placeholder="sk-ant-api03-..." style="flex:1;min-width:220px;font-family:var(--font-mono);font-size:.82rem;letter-spacing:.04em;" value="' + (state.apiKey ? state.apiKey : '') + '">';
+  html += '<button class="summary-gen-btn" onclick="saveApiKey()" style="flex:none;">' + icon('check','xs') + ' Salvează</button>';
+  if (apiKeySet) {
+    html += '<button class="quiz-nav-btn" onclick="clearApiKey()" style="border-color:var(--red);color:var(--red);flex:none;">' + icon('trash','xs') + ' Șterge</button>';
+  }
+  html += '</div>';
+  html += '<div id="apiStatus" class="api-status ' + (apiKeySet ? 'ok' : '') + '" style="margin-top:10px;font-size:.8rem;">' + (apiKeySet ? '[OK] API key activ — funcțiile AI sunt disponibile.' : '[!] Fără API key funcțiile AI nu sunt disponibile.') + '</div>';
+  html += '</div>';
+
+  // ── EXPORT / IMPORT ──
+  html += '<div class="quiz-gen-section"><h3>' + icon('download','sm') + ' Export Date</h3>';
   html += '<p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:14px;">Descarcă toate datele tale ca fișier JSON pentru backup sau transfer.</p>';
   html += '<div style="display:flex;gap:10px;flex-wrap:wrap;">';
-  html += '<button class="summary-gen-btn" onclick="exportData()"><span>⬇️</span> Export JSON complet</button>';
-  html += '<button class="quiz-nav-btn" onclick="exportCollabCode()">🔗 Generează Cod Collab</button></div></div>';
+  html += '<button class="summary-gen-btn" onclick="exportData()">' + icon('download','xs') + ' Export JSON complet</button>';
+  html += '<button class="quiz-nav-btn" onclick="exportProgressPDF()">' + icon('file','xs') + ' Export PDF Raport</button>';
+  html += '<button class="quiz-nav-btn" onclick="exportCollabCode()">' + icon('link','xs') + ' Generează Cod Collab</button></div></div>';
 
-  html += '<div class="quiz-gen-section"><h3>⬆️ Import Date</h3>';
+  html += '<div class="quiz-gen-section"><h3>' + icon('upload','sm') + ' Import Date</h3>';
   html += '<p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:14px;">Restaurează dintr-un backup JSON.</p>';
   html += '<div class="import-export-zone"><input type="file" accept=".json" onchange="importData(event)"><div style="font-size:2rem;margin-bottom:8px;">📁</div><div style="font-weight:600;">Trage fișierul JSON sau click</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:4px;">Fișier exportat din ASE Study Hub</div></div></div>';
 
-  html += '<div class="quiz-gen-section"><h3>🤝 Collab Mode</h3>';
+  html += '<div class="quiz-gen-section"><h3>' + icon('layers','sm') + ' Collab Mode</h3>';
   html += '<p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:14px;">Partajează prezentările cu un coleg folosind un cod.</p>';
-  html += '<div style="display:flex;gap:10px;"><input class="todo-inp" id="collabCodeInput" placeholder="Introdu cod collab..." style="flex:1;"><button class="quiz-nav-btn primary" onclick="importCollabCode()">📥 Import</button></div>';
+  html += '<div style="display:flex;gap:10px;"><input class="todo-inp" id="collabCodeInput" placeholder="Introdu cod collab..." style="flex:1;"><button class="quiz-nav-btn primary" onclick="importCollabCode()">' + icon('download','xs') + ' Import</button></div>';
   html += '<div id="collabCodeDisplay"></div></div>';
 
   html += '<div class="quiz-gen-section" style="border:1px solid var(--red);background:var(--red-muted);">';
-  html += '<h3 style="color:var(--red)">[!] Zone Periculoasă</h3>';
+  html += '<h3 style="color:var(--red)">' + icon('alert','sm') + ' Zonă Periculoasă</h3>';
   html += '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">';
-  html += '<button class="quiz-nav-btn" style="border-color:var(--red);color:var(--red);" onclick="resetPIN()">🔑 Schimbă PIN</button>';
+  html += '<button class="quiz-nav-btn" style="border-color:var(--red);color:var(--red);" onclick="resetPIN()">' + icon('lock','xs') + ' Schimbă PIN</button>';
   html += '<button class="quiz-nav-btn" style="border-color:var(--red);color:var(--red);" onclick="clearAllData()">' + icon('trash','xs') + ' Șterge toate datele</button></div></div>';
 
   html += '</div>';
@@ -9631,9 +10320,9 @@ function renderStatsPage(element) {
   const totalPres = Object.values(state.presentations || {}).flat().length;
   const totalExamSessions = Object.values(state.examSessions || {}).flat().length;
 
-  // Timp total estimat (din studyTime)
+  // Timp total estimat (din studyTime) — formatat corect
   const totalMinutes = Object.values(state.studyTime || {}).reduce((a, b) => a + b, 0);
-  const totalHours = (totalMinutes / 60).toFixed(1);
+  const totalHours = formatStudyTime(totalMinutes);
 
   // XP per zi (ultimele 30 zile)
   const xpPerDay = {};
@@ -9661,7 +10350,7 @@ function renderStatsPage(element) {
   const heroStats = [
     { val: totalXP, label: 'XP Total', sub: 'Nivel ' + (state.level || 1), color: 'var(--accent)' },
     { val: (state.streak || 0), label: 'Streak Actual', sub: 'zile consecutive 🔥', color: 'var(--amber)' },
-    { val: totalHours + 'h', label: 'Timp Studiu', sub: 'estimat total', color: 'var(--blue)' },
+    { val: totalHours, label: 'Timp Studiu', sub: 'estimat total', color: 'var(--blue)' },
     { val: totalQuizzes, label: 'Quiz-uri', sub: avgQuizScore + '% medie', color: 'var(--green)' },
     { val: totalFC, label: 'Flashcards', sub: totalFCReviews + ' reviews', color: 'var(--teal, #2ec4b6)' },
     { val: totalPres, label: 'Prezentări', sub: 'generate AI', color: 'var(--red)' },
@@ -9748,7 +10437,7 @@ function renderStatsPage(element) {
       if (!subj) return;
       const theme = getSubjectTheme(subj);
       const pct = Math.round((minutes / maxTime) * 100);
-      const hrs = minutes >= 60 ? (minutes / 60).toFixed(1) + 'h' : minutes + 'm';
+      const hrs = formatStudyTime(minutes);
       html += '<div class="subject-time-row">';
       html += '<span class="str-icon" style="display:inline-flex;align-items:center;">' + subjectIcon(subj,'xs') + '</span>';
       html += '<span class="str-name" title="' + subj.name + '">' + subj.name + '</span>';
@@ -10797,7 +11486,7 @@ async function exportProgressPDF() {
     const avgQ = qResults.length ? Math.round(qResults.reduce((a,r) => a + (r.score/r.total)*100, 0)/qResults.length) : '—';
     const fcCount = (fcDecks[key] || []).length;
     const studyMin = (state.studyTime||{})[key] || 0;
-    const studyH = studyMin ? (Math.round(studyMin/60*10)/10) + 'h' : '—';
+    const studyH = studyMin ? formatStudyTime(studyMin) : '—';
 
     const barColor = pct >= 80 ? '#10d9a0' : pct >= 50 ? '#f5a623' : '#ef4565';
     subjectRows += `
